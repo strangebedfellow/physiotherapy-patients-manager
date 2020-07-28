@@ -1,0 +1,25 @@
+body {
+    background-color: rgb(243, 241, 241);
+}
+
+.app-login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+
+    form {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        min-height: 30vh;
+    }
+}
+
+tbody {
+    tr {
+        &:hover {
+            background-color: rgb(193, 237, 255);
+        }
+    }
+}
