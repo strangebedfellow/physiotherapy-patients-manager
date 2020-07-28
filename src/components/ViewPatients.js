@@ -64,7 +64,7 @@ export default class ManageDb extends Component {
                                 <TableRow>
                                     <TableCell style={{ fontWeight: 'bold' }}>Imię</TableCell>
                                     <TableCell align="left" style={{ fontWeight: 'bold' }}>Nazwisko</TableCell>
-                                    <TableCell align="left" style={{ fontWeight: 'bold' }}>ID</TableCell>
+   
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -80,7 +80,7 @@ export default class ManageDb extends Component {
                                             {row.first_name}
                                         </TableCell>
                                         <TableCell align="left">{row.last_name}</TableCell>
-                                        <TableCell align="left">{row.id}</TableCell>
+                                        
                                     </TableRow>
                                 ))}
                             </TableBody>
