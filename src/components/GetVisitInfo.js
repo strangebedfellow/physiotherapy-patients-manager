@@ -5,6 +5,7 @@ import Paper from '@material-ui/core/Paper';
 import PhoneInTalkOutlinedIcon from '@material-ui/icons/PhoneInTalkOutlined';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import SimpleModal from './modal'
+import Dialog from './dialog'
 
 import FillDb from './FillDb';
 import GetVisits from './GetVisits';
@@ -46,16 +47,10 @@ export default class GetVisitInfo extends Component {
                 });
                 this.setState({
                     showvisits: visits,
-                    visitinfo: false
+
                 })
             })
         }
-    }
-
-    handleClick = (e) => {
-        this.setState({
-            visitinfo: e
-        })
     }
 
     render() {
@@ -63,8 +58,9 @@ export default class GetVisitInfo extends Component {
             <div className='add-visit'><h2>Wizyty <Button variant="contained" color="secondary" onClick={() => FillDb(this.props.id)}>Dodaj nową wizytę</Button></h2></div>
             {this.state.showvisits.length > 0
                 ? this.state.showvisits.map((visit, index) =>
-                    <p key={index} onClick={() => this.handleClick(visit)}>
-                        <SimpleModal date={visit.date} case={visit.case} interview={visit.interview} />
+                    <p key={index} >
+                        {/* <SimpleModal date={visit.date} case={visit.case} interview={visit.interview} /> */}
+                        <Dialog date={visit.date} case={visit.case} interview={visit.interview} />
                     </p>
                 )
                 : <p>Brak wizyt!</p>}

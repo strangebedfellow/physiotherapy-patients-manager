@@ -17,9 +17,9 @@ export default class GetPatientInfo extends Component {
         const ref = firebase.database().ref("patients");
         ref.once("value")
             .then((snapshot) => {
-                const name = snapshot.child(this.props.id).val();
+                const patient = snapshot.child(this.props.id).val();
                 this.setState({
-                    patient: name
+                    patient: patient
                 })
             });
     }
@@ -29,20 +29,16 @@ export default class GetPatientInfo extends Component {
             const ref = firebase.database().ref("patients");
             ref.once("value")
                 .then((snapshot) => {
-                    const name = snapshot.child(this.props.id).val();
+                    const patient = snapshot.child(this.props.id).val();
                     this.setState({
-                        patient: name
+                        patient: patient
                     })
                 });
         }
     }
 
-    handleClick = (e) => {
-       // console.log(e.date);  
-    }
-
     render() {
-       // console.log(this.state.showvisits);
+        // console.log(this.state.showvisits);
         const { email, name, surname, phone_number, age, occupation } = this.state.patient;
         return <div style={{ color: 'black' }}>
             <h2>Dane pacjenta</h2>

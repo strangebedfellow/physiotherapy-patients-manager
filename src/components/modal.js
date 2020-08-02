@@ -138,7 +138,6 @@ export default function TransitionsModal(props) {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-          <h1 onClick={handleClose}>X</h1>
              <h2 id="simple-modal-title">Data wizyty: {props.date} </h2>
              <h1 id="simple-modal-description">
                  Wywiad z pacjentem

@@ -14,6 +14,8 @@ import * as firebase from 'firebase';
 
 import Button from '@material-ui/core/Button';
 
+import AddPatient from './AddPatient';
+
 const theme = {
     spacing: 8,
 }
@@ -62,11 +64,14 @@ export default class ManageDb extends Component {
         if (this.state.patients) {
             return <>
                 <Container maxWidth="md">
-                <Box bgcolor="white" color="primary.contrastText" my={2} p={2}>
+                    <Box bgcolor="white" color="primary.contrastText" my={2} p={2}>
                         <form noValidate autoComplete="off">
                             <TextField id="standard-basic" label="Znajdź pacjenta" onChange={this.handleInput} />
+                    <Button variant="contained" color="secondary" onClick={() => AddPatient()}>Dodaj pacjenta</Button>
+
                         </form>
                     </Box>
+
                     <TableContainer component={Paper} m={2}>
                         <Table size="small" aria-label="a dense table">
                             <TableHead>
@@ -100,8 +105,6 @@ export default class ManageDb extends Component {
                     </>}
                 </Container>
             </>
-
-
         }
         return null
     }
