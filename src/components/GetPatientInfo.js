@@ -1,50 +1,58 @@
 import React, { Component } from "react";
 import * as firebase from 'firebase';
-import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper';
 import PhoneInTalkOutlinedIcon from '@material-ui/icons/PhoneInTalkOutlined';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
+import GetVisitInfo from './GetVisitInfo'
 
 export default class GetPatientInfo extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            patient: false
+            patient: false,
+            showvisits: false
         }
     }
 
     componentDidMount() {
-        const rootRef = firebase.database().ref("patients").child(this.props.id);
-        rootRef.on('value', snap => {
-            this.setState({
-                patient: snap.val()
-            })
-        })
+        const ref = firebase.database().ref("patients");
+        ref.once("value")
+            .then((snapshot) => {
+                const name = snapshot.child(this.props.id).val();
+                this.setState({
+                    patient: name
+                })
+            });
     }
 
     componentDidUpdate(prevProps, prevState) {
         if (prevProps.id !== this.props.id) {
-            const rootRef = firebase.database().ref("patients").child(this.props.id);
-            rootRef.on('value', snap => {
-                this.setState({
-                    patient: snap.val()
-                })
-            })
+            const ref = firebase.database().ref("patients");
+            ref.once("value")
+                .then((snapshot) => {
+                    const name = snapshot.child(this.props.id).val();
+                    this.setState({
+                        patient: name
+                    })
+                });
         }
     }
 
-    render() {
+    handleClick = (e) => {
+       // console.log(e.date);  
+    }
 
-        const { first_name, last_name, email, phone_number, visits } = this.state.patient;
+    render() {
+       // console.log(this.state.showvisits);
+        const { email, name, surname, phone_number, age, occupation } = this.state.patient;
         return <div style={{ color: 'black' }}>
             <h2>Dane pacjenta</h2>
-            <p><strong>Imię:</strong> {first_name}</p>
-            <p><strong>Nazwisko:</strong> {last_name}</p>
-            <p><strong><MailOutlineIcon /></strong> {email}</p>
-            <p><strong><PhoneInTalkOutlinedIcon /></strong> {phone_number}</p>
+            <p><strong>Imię i nazwisko:</strong> {name + " " + surname}</p>
+            <p><strong>Wiek:</strong> {age}</p>
+            <p><strong>E-mail: <MailOutlineIcon /></strong> {email}</p>
+            <p><strong>Telefon <PhoneInTalkOutlinedIcon /></strong> {phone_number}</p>
+            <p><strong>Zawód/Praca/Aktywność: </strong>{occupation}</p>
             <hr></hr>
-            <div className='add-visit'><h2>Wizyty <Button variant="contained" color="secondary">Dodaj nową wizytę</Button></h2></div>
-            {visits? visits.map((visit, index) => <p key={index}><Button variant="contained" color="primary">{visit.date}</Button></p>) : <p>Brak wizyt!</p>}
+            <GetVisitInfo id={this.props.id} />
         </div>
     }
 }

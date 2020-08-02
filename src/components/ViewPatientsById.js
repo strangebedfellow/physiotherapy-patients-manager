@@ -23,49 +23,46 @@ export default class ManageDb extends Component {
         super();
         this.state = {
             patients: false,
-            query: false,
-            chosen: 'none'
+            chosen: false,
+            query: false
+
         }
     }
 
     componentDidMount() {
         const rootRef = firebase.database().ref().child('patients');
         rootRef.on('value', snap => {
+            const patients = [];
+            snap.forEach((childSnap) => {
+                patients.push({
+                    id: childSnap.key,
+                    ...childSnap.val()
+                });
+            });
             this.setState({
-                patients: snap.val()
+                patients: patients
             })
         })
     }
 
     componentDidUpdate(prevProps, prevState) {
         if (prevState.query !== this.state.query) {
-            this.setState({ chosen: 'none' })
+            this.setState({ chosen: false })
         }
     }
 
-    handleInput = (e) => {
-        this.setState({ query: e.target.value });
-    }
     handleClick = (e) => {
         this.setState({ chosen: e });
     }
-
-    // fillDb = () => {
-    //     console.log('fill');
-    //     const rootRef = firebase.database().ref('patients');
-    //     rootRef.push({
-    //         email : "miroslaw@pajor.info",
-    //         name: 'Mirosław',
-    //         surname: 'Pajor'
-    //     })
-    // }
+    handleInput = (e) => {
+        this.setState({ query: e.target.value });
+    }
 
     render() {
-        const { patients, query, chosen } = this.state;
-        if (patients) {
+        if (this.state.patients) {
             return <>
                 <Container maxWidth="md">
-                    <Box bgcolor="white" color="primary.contrastText" my={2} p={2}>
+                <Box bgcolor="white" color="primary.contrastText" my={2} p={2}>
                         <form noValidate autoComplete="off">
                             <TextField id="standard-basic" label="Znajdź pacjenta" onChange={this.handleInput} />
                         </form>
@@ -79,32 +76,33 @@ export default class ManageDb extends Component {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {patients.filter((data) => {
-                                    if (!query)
+                                {this.state.patients.filter((data) => {
+                                    if (!this.state.query)
                                         return data
-                                    else if (data.first_name.toLowerCase().includes(query.toLowerCase()) || data.last_name.toLowerCase().includes(query.toLowerCase())) {
+                                    else if (data.name.toLowerCase().includes(this.state.query.toLowerCase()) || data.surname.toLowerCase().includes(this.state.query.toLowerCase())) {
                                         return data
                                     }
                                 }).map((patient) => (
                                     <TableRow key={patient.id} onClick={() => this.handleClick(patient.id)} style={{ cursor: 'pointer' }}>
                                         <TableCell component="th" scope="row">
-                                            {patient.first_name}
+                                            {patient.name}
                                         </TableCell>
-                                        <TableCell align="left">{patient.last_name}</TableCell>
+                                        <TableCell align="left">{patient.surname}</TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>
                         </Table>
                     </TableContainer>
-                    {chosen!= 'none' && <>
+                    {this.state.chosen && <>
                         <Box bgcolor="white" color="primary.contrastText" my={2} p={2}>
-                            <GetPatientInfo id={chosen} />
+                            <GetPatientInfo id={this.state.chosen} />
                         </Box>
                     </>}
                 </Container>
-                {/* <div className='add-visit'><h2 onClick={this.fillDb}>Wizyty <Button variant="contained" color="secondary" >Dodaj nową wizytę</Button></h2></div> */}
             </>
+
+
         }
-        else return null
+        return null
     }
 }
