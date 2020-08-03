@@ -14,7 +14,10 @@ import * as firebase from 'firebase';
 
 import Button from '@material-ui/core/Button';
 
-import AddPatient from './AddPatient';
+//import AddPatient from './AddPatient';
+import FormDialog from './AddPatient';
+
+
 
 const theme = {
     spacing: 8,
@@ -67,7 +70,8 @@ export default class ManageDb extends Component {
                     <Box bgcolor="white" color="primary.contrastText" my={2} p={2}>
                         <form noValidate autoComplete="off">
                             <TextField id="standard-basic" label="Znajdź pacjenta" onChange={this.handleInput} />
-                    <Button variant="contained" color="secondary" onClick={() => AddPatient()}>Dodaj pacjenta</Button>
+                    {/* <Button variant="contained" color="secondary" onClick={() => AddPatient()}>Dodaj pacjenta</Button> */}
+                    <FormDialog />
 
                         </form>
                     </Box>

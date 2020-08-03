@@ -27,7 +27,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function FullScreenDialog(props) {
+export default function ViewVisit(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
@@ -47,7 +47,6 @@ export default function FullScreenDialog(props) {
       <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
         <AppBar className={classes.appBar}>
           <Toolbar>
-          
             <Typography variant="h6" className={classes.title}>
             Data wizyty: {props.date} - Kwestionariusz konsultacyjny
             </Typography>
@@ -75,7 +74,7 @@ export default function FullScreenDialog(props) {
             </ListItem>
             <Divider />
             <ListItem button>
-              <ListItemText primary="Od kiedy objawy początkowe i jakie" secondary={props.interview.iq2} />
+              <ListItemText primary="Od kiedy objawy początkowe i jakie?" secondary={props.interview.iq2} />
             </ListItem>
             <Divider />
             <ListItem button>
@@ -85,6 +84,46 @@ export default function FullScreenDialog(props) {
             <ListItem button>
               <ListItemText primary="Ból stały / zmienny / co nasila ból" secondary={props.interview.iq4} />
             </ListItem>
+            <Divider />
+            <ListItem button>
+              <ListItemText primary="Co łagodzi ból?" secondary={props.interview.iq5} />
+            </ListItem>
+            <Divider />
+            <ListItem button>
+              <ListItemText primary="Możliwa przyczyna" secondary={props.interview.iq6} />
+            </ListItem>
+            <Divider />
+            <ListItem button>
+              <ListItemText primary="Poprzednie epizody" secondary={props.interview.iq7} />
+            </ListItem>
+            <Divider />
+            <ListItem button>
+              <ListItemText primary="Czy były jakieś próby rehabilitacji - TAK / NIE. Jakie efekty?" secondary={props.interview.iq8} />
+            </ListItem>
+            <Divider />
+            <ListItem button>
+              <ListItemText primary="Red flags" secondary={props.interview.iq9} />
+            </ListItem>
+            <Divider />
+            <ListItem button>
+              <ListItemText primary="Badania obrazowe" secondary={props.interview.iq10} />
+            </ListItem>
+            <Divider />
+            <ListItem button>
+              <ListItemText primary="Inne dolegliwości" secondary={props.interview.iq11} />
+            </ListItem>
+            <Divider />
+            <ListItem button>
+              <ListItemText primary="Przebyte operacje" secondary={props.interview.iq12} />
+            </ListItem>
+            <Divider />
+            <ListItem button>
+              <ListItemText primary="Przebyte choroby / wypadki" secondary={props.interview.iq13} />
+            </ListItem>
+            <Divider />
+            <ListItem button>
+              <ListItemText primary="Czy występują problemy ze zmianą pozycji, zachwinania równowagi - TAK / NIE" secondary={props.interview.iq14} />
+            </ListItem>
           </List>}
         <AppBar className={classes.appBar}>
           <Toolbar>
@@ -93,7 +132,6 @@ export default function FullScreenDialog(props) {
             </Typography>
           </Toolbar>
         </AppBar>
-
       </Dialog>
     </div>
   );

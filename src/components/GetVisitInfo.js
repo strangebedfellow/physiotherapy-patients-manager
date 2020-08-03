@@ -5,7 +5,7 @@ import Paper from '@material-ui/core/Paper';
 import PhoneInTalkOutlinedIcon from '@material-ui/icons/PhoneInTalkOutlined';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import SimpleModal from './modal'
-import Dialog from './dialog'
+import ViewVisit from './ViewVisit'
 
 import FillDb from './FillDb';
 import GetVisits from './GetVisits';
@@ -60,7 +60,7 @@ export default class GetVisitInfo extends Component {
                 ? this.state.showvisits.map((visit, index) =>
                     <p key={index} >
                         {/* <SimpleModal date={visit.date} case={visit.case} interview={visit.interview} /> */}
-                        <Dialog date={visit.date} case={visit.case} interview={visit.interview} />
+                        <ViewVisit date={visit.date} case={visit.case} interview={visit.interview} />
                     </p>
                 )
                 : <p>Brak wizyt!</p>}
