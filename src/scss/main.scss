@@ -19,18 +19,20 @@ body {
 tbody {
     tr {
         &:hover {
-            background-color: rgb(193, 237, 255);
+            background-color: rgb(63, 81, 181);
+            & td, th {
+                color: white;
+            }
         }
     }
 }
-
 
 .MuiButton-label {
     font-weight: bold;
 }
 
 .visit-button {
-    background-color: rgb(88, 88, 255);
+    //background-color: rgb(63, 81, 181);
     border: 0;
     padding: 1.5rem;
     color: white;
@@ -46,5 +48,17 @@ tbody {
 .interview-answer {
     background-color: rgb(231, 231, 231);
     padding: 1rem;
-    
 }
+
+.MuiTypography-body2 {
+    font-size: 4rem;
+}
+
+.MuiButton-outlinedPrimary {
+    background-color: red;
+}
+
+// .MuiTableCell-head {
+//     background-color: rgb(63, 81, 181);
+//     color: white;
+// }

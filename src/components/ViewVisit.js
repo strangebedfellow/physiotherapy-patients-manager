@@ -1,5 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -22,6 +24,18 @@ const useStyles = makeStyles((theme) => ({
     flex: 1,
   },
 }));
+
+const theme = createMuiTheme({
+  typography: {
+    body1: {
+      fontWeight: 'bold'
+    },
+    body2: {
+      fontSize: '1.5rem'
+    }
+  }
+});
+
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -48,7 +62,7 @@ export default function ViewVisit(props) {
         <AppBar className={classes.appBar}>
           <Toolbar>
             <Typography variant="h6" className={classes.title}>
-            Data wizyty: {props.date} - Kwestionariusz konsultacyjny
+              Data wizyty: {props.date} - Kwestionariusz konsultacyjny
             </Typography>
             <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
               <CloseIcon />
@@ -57,7 +71,7 @@ export default function ViewVisit(props) {
         </AppBar>
         <List>
           <ListItem button>
-            <ListItemText primary="Część ciała poddana zabiegowi / rezultat" secondary="Część ciała / rezultat"/>
+            <ListItemText primary="Część ciała poddana zabiegowi / rezultat" secondary="Część ciała / rezultat" />
           </ListItem>
         </List>
         <AppBar className={classes.appBar}>
@@ -69,9 +83,11 @@ export default function ViewVisit(props) {
         </AppBar>
         {props.interview &&
           <List>
-            <ListItem button>
-              <ListItemText primary="Opis aktualnych dolegliwości / główny problem funkcjonalny pacjenta" secondary={props.interview.iq1} />
-            </ListItem>
+            <ThemeProvider theme={theme}>
+              <ListItem button>
+                <ListItemText primary="Opis aktualnych dolegliwości / główny problem funkcjonalny pacjenta" secondary={props.interview.iq1} />
+              </ListItem>
+            </ThemeProvider>
             <Divider />
             <ListItem button>
               <ListItemText primary="Od kiedy objawy początkowe i jakie?" secondary={props.interview.iq2} />

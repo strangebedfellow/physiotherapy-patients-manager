@@ -11,17 +11,20 @@ import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import GetPatientInfo from './GetPatientInfo';
 import * as firebase from 'firebase';
+import { withStyles } from '@material-ui/core/styles';
 
-import Button from '@material-ui/core/Button';
-
-//import AddPatient from './AddPatient';
-import FormDialog from './AddPatient';
-
-
+import AddPatient from './AddPatient';
 
 const theme = {
     spacing: 8,
 }
+
+const StyledTableCell = withStyles((theme) => ({
+    head: {
+        backgroundColor: 'rgb(63, 81, 181)',
+        color: theme.palette.common.white,
+    }
+}))(TableCell);
 
 export default class ManageDb extends Component {
     constructor() {
@@ -68,20 +71,17 @@ export default class ManageDb extends Component {
             return <>
                 <Container maxWidth="md">
                     <Box bgcolor="white" color="primary.contrastText" my={2} p={2}>
+                        <AddPatient />
                         <form noValidate autoComplete="off">
-                            <TextField id="standard-basic" label="Znajdź pacjenta" onChange={this.handleInput} />
-                    {/* <Button variant="contained" color="secondary" onClick={() => AddPatient()}>Dodaj pacjenta</Button> */}
-                    <FormDialog />
-
+                            <TextField id="standard-basic" label="Znajdź pacjenta" margin="normal" onChange={this.handleInput} />
                         </form>
                     </Box>
-
                     <TableContainer component={Paper} m={2}>
                         <Table size="small" aria-label="a dense table">
                             <TableHead>
                                 <TableRow>
-                                    <TableCell style={{ fontWeight: 'bold' }}>Imię</TableCell>
-                                    <TableCell align="left" style={{ fontWeight: 'bold' }}>Nazwisko</TableCell>
+                                    <StyledTableCell><span>Imię</span></StyledTableCell>
+                                    <StyledTableCell align="left">Nazwisko</StyledTableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>

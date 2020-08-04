@@ -1,14 +1,8 @@
 import React, { Component } from "react";
 import * as firebase from 'firebase';
 import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper';
-import PhoneInTalkOutlinedIcon from '@material-ui/icons/PhoneInTalkOutlined';
-import MailOutlineIcon from '@material-ui/icons/MailOutline';
-import SimpleModal from './modal'
-import ViewVisit from './ViewVisit'
-
+import ViewVisit from './ViewVisit';
 import FillDb from './FillDb';
-import GetVisits from './GetVisits';
 
 export default class GetVisitInfo extends Component {
     constructor(props) {
@@ -47,7 +41,6 @@ export default class GetVisitInfo extends Component {
                 });
                 this.setState({
                     showvisits: visits,
-
                 })
             })
         }
@@ -59,7 +52,6 @@ export default class GetVisitInfo extends Component {
             {this.state.showvisits.length > 0
                 ? this.state.showvisits.map((visit, index) =>
                     <p key={index} >
-                        {/* <SimpleModal date={visit.date} case={visit.case} interview={visit.interview} /> */}
                         <ViewVisit date={visit.date} case={visit.case} interview={visit.interview} />
                     </p>
                 )
