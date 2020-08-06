@@ -38,7 +38,6 @@ export default class GetPatientInfo extends Component {
     }
 
     render() {
-        // console.log(this.state.showvisits);
         const { email, name, surname, phone_number, age, occupation } = this.state.patient;
         return <div style={{ color: 'black' }}>
             <h2>Dane pacjenta</h2>

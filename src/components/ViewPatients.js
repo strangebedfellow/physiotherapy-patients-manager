@@ -12,12 +12,6 @@ import Box from '@material-ui/core/Box';
 import GetPatientInfo from './GetPatientInfo';
 import * as firebase from 'firebase';
 
-import Button from '@material-ui/core/Button';
-
-const theme = {
-    spacing: 8,
-}
-
 export default class ManageDb extends Component {
     constructor() {
         super();
@@ -46,19 +40,10 @@ export default class ManageDb extends Component {
     handleInput = (e) => {
         this.setState({ query: e.target.value });
     }
+
     handleClick = (e) => {
         this.setState({ chosen: e });
     }
-
-    // fillDb = () => {
-    //     console.log('fill');
-    //     const rootRef = firebase.database().ref('patients');
-    //     rootRef.push({
-    //         email : "miroslaw@pajor.info",
-    //         name: 'Mirosław',
-    //         surname: 'Pajor'
-    //     })
-    // }
 
     render() {
         const { patients, query, chosen } = this.state;
@@ -96,13 +81,12 @@ export default class ManageDb extends Component {
                             </TableBody>
                         </Table>
                     </TableContainer>
-                    {chosen!= 'none' && <>
+                    {chosen != 'none' && <>
                         <Box bgcolor="white" color="primary.contrastText" my={2} p={2}>
                             <GetPatientInfo id={chosen} />
                         </Box>
                     </>}
                 </Container>
-                {/* <div className='add-visit'><h2 onClick={this.fillDb}>Wizyty <Button variant="contained" color="secondary" >Dodaj nową wizytę</Button></h2></div> */}
             </>
         }
         else return null

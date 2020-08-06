@@ -138,7 +138,7 @@ export default function ViewVisit(props) {
             </ListItem>
             <Divider />
             <ListItem button>
-              <ListItemText primary="Czy występują problemy ze zmianą pozycji, zachwinania równowagi - TAK / NIE" secondary={props.interview.iq14} />
+              <ListItemText primary="Czy występują problemy ze zmianą pozycji, zachwiania równowagi - TAK / NIE" secondary={props.interview.iq14} />
             </ListItem>
           </List>}
         <AppBar className={classes.appBar}>
