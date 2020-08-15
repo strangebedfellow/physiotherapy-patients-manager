@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import * as firebase from 'firebase';
 import PhoneInTalkOutlinedIcon from '@material-ui/icons/PhoneInTalkOutlined';
-import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import GetVisitInfo from './GetVisitInfo'
 
 export default class GetPatientInfo extends Component {
@@ -43,7 +42,6 @@ export default class GetPatientInfo extends Component {
             <h2>Dane pacjenta</h2>
             <p><strong>Imię i nazwisko:</strong> {name + " " + surname}</p>
             <p><strong>Wiek:</strong> {age}</p>
-            <p><strong>E-mail: <MailOutlineIcon /></strong> {email}</p>
             <p><strong>Telefon <PhoneInTalkOutlinedIcon /></strong> {phone_number}</p>
             <p><strong>Zawód/Praca/Aktywność: </strong>{occupation}</p>
             <hr></hr>

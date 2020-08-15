@@ -34,7 +34,6 @@ export default class ManageDb extends Component {
             patients: false,
             chosen: false,
             query: false
-
         }
     }
 
@@ -68,7 +67,8 @@ export default class ManageDb extends Component {
     }
 
     render() {
-        if (this.state.patients) {
+        const {patients, chosen, query} = this.state;
+        if (patients) {
             return <>
                 <Container maxWidth="md">
                     <Box bgcolor="white" color="primary.contrastText" my={2} p={2}>
@@ -86,10 +86,10 @@ export default class ManageDb extends Component {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {this.state.patients.filter((data) => {
-                                    if (!this.state.query)
+                                {patients.filter((data) => {
+                                    if (!query)
                                         return data
-                                    else if (data.name.toLowerCase().includes(this.state.query.toLowerCase()) || data.surname.toLowerCase().includes(this.state.query.toLowerCase())) {
+                                    else if (data.name.toLowerCase().includes(query.toLowerCase()) || data.surname.toLowerCase().includes(query.toLowerCase())) {
                                         return data
                                     }
                                 }).map((patient) => (
@@ -103,9 +103,9 @@ export default class ManageDb extends Component {
                             </TableBody>
                         </Table>
                     </TableContainer>
-                    {this.state.chosen && <>
+                    {chosen && <>
                         <Box bgcolor="white" color="primary.contrastText" my={2} p={2}>
-                            <GetPatientInfo id={this.state.chosen} />
+                            <GetPatientInfo id={chosen} />
                         </Box>
                     </>}
                 </Container>

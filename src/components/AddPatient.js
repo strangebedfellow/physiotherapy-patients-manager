@@ -5,7 +5,6 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { spacing } from '@material-ui/system';
 import * as firebase from 'firebase';
 //import { withStyles } from '@material-ui/core/styles';
 
@@ -32,7 +31,6 @@ export default function FormDialog() {
         surname: '',
         age: '',
         phoneNumber: '',
-        email: '',
         occupation: ''
     }
 
@@ -50,7 +48,6 @@ export default function FormDialog() {
             "name": userInput.name,
             "surname": userInput.surname,
             "occupation": userInput.occupation,
-            "email": userInput.email,
             "phone_number": userInput.phoneNumber
         })
         setOpen(false);
@@ -71,7 +68,6 @@ export default function FormDialog() {
                         <TextField name="surname" onChange={handleChange} id="outlined-basic" label="Nazwisko" variant="outlined" type="text" margin="normal" fullWidth />
                         <TextField name="age" onChange={handleChange} id="outlined-basic" label="Wiek" variant="outlined" type="number" margin="normal" fullWidth />
                         <TextField name="phoneNumber" onChange={handleChange} id="outlined-basic" label="Telefon" variant="outlined" type="text" margin="normal" fullWidth />
-                        <TextField name="email" onChange={handleChange} id="outlined-basic" label="e-mail" variant="outlined" type="email" margin="normal" fullWidth />
                         <TextField name="occupation" onChange={handleChange} id="outlined-basic" label="Zawód/Praca/Aktywność" variant="outlined" type="text" margin="normal" fullWidth />
                     </form>
                 </DialogContent>
