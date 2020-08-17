@@ -1,5 +1,5 @@
 import React from 'react';
-import ViewPatients from './components/ViewPatientsById'; 
+import ViewPatients from './components/ViewPatients'; 
 
 function App() {
   return (

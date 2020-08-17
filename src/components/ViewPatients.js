@@ -11,77 +11,99 @@ import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import GetPatientInfo from './GetPatientInfo';
 import * as firebase from 'firebase';
+import { withStyles } from '@material-ui/core/styles';
+
+import AddPatient from './AddPatient';
+
+const theme = {
+    spacing: 8,
+}
+
+const StyledTableCell = withStyles((theme) => ({
+    head: {
+        backgroundColor: 'rgb(63, 81, 181)',
+        color: 'white',
+        fontWeight: 'bold'
+    }
+}))(TableCell);
 
 export default class ManageDb extends Component {
     constructor() {
         super();
         this.state = {
             patients: false,
-            query: false,
-            chosen: 'none'
+            chosen: false,
+            query: false
         }
     }
 
     componentDidMount() {
         const rootRef = firebase.database().ref().child('patients');
         rootRef.on('value', snap => {
+            const patients = [];
+            snap.forEach((childSnap) => {
+                patients.push({
+                    id: childSnap.key,
+                    ...childSnap.val()
+                });
+            });
             this.setState({
-                patients: snap.val()
+                patients: patients
             })
         })
     }
 
     componentDidUpdate(prevProps, prevState) {
         if (prevState.query !== this.state.query) {
-            this.setState({ chosen: 'none' })
+            this.setState({ chosen: false })
         }
-    }
-
-    handleInput = (e) => {
-        this.setState({ query: e.target.value });
     }
 
     handleClick = (e) => {
         this.setState({ chosen: e });
     }
+    handleInput = (e) => {
+        this.setState({ query: e.target.value });
+    }
 
     render() {
-        const { patients, query, chosen } = this.state;
+        const {patients, chosen, query} = this.state;
         if (patients) {
             return <>
                 <Container maxWidth="md">
                     <Box bgcolor="white" color="primary.contrastText" my={2} p={2}>
+                        <AddPatient />
                         <form noValidate autoComplete="off">
-                            <TextField id="standard-basic" label="Znajdź pacjenta" onChange={this.handleInput} />
+                            <TextField id="standard-basic" label="Znajdź pacjenta" margin="normal" onChange={this.handleInput} />
                         </form>
                     </Box>
                     <TableContainer component={Paper} m={2}>
                         <Table size="small" aria-label="a dense table">
                             <TableHead>
                                 <TableRow>
-                                    <TableCell style={{ fontWeight: 'bold' }}>Imię</TableCell>
-                                    <TableCell align="left" style={{ fontWeight: 'bold' }}>Nazwisko</TableCell>
+                                    <StyledTableCell><span>Imię</span></StyledTableCell>
+                                    <StyledTableCell align="left">Nazwisko</StyledTableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
                                 {patients.filter((data) => {
                                     if (!query)
                                         return data
-                                    else if (data.first_name.toLowerCase().includes(query.toLowerCase()) || data.last_name.toLowerCase().includes(query.toLowerCase())) {
+                                    else if (data.name.toLowerCase().includes(query.toLowerCase()) || data.surname.toLowerCase().includes(query.toLowerCase())) {
                                         return data
                                     }
                                 }).map((patient) => (
                                     <TableRow key={patient.id} onClick={() => this.handleClick(patient.id)} style={{ cursor: 'pointer' }}>
                                         <TableCell component="th" scope="row">
-                                            {patient.first_name}
+                                            {patient.name}
                                         </TableCell>
-                                        <TableCell align="left">{patient.last_name}</TableCell>
+                                        <TableCell align="left">{patient.surname}</TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>
                         </Table>
                     </TableContainer>
-                    {chosen != 'none' && <>
+                    {chosen && <>
                         <Box bgcolor="white" color="primary.contrastText" my={2} p={2}>
                             <GetPatientInfo id={chosen} />
                         </Box>
@@ -89,6 +111,6 @@ export default class ManageDb extends Component {
                 </Container>
             </>
         }
-        else return null
+        return null
     }
 }
