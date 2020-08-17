@@ -1,6 +1,3 @@
-# Physioteraphy Patients Manager v.0.1
-(Early stage)
-
 ## General info
 App for physiotherapists to manage their patient's visists.
 
