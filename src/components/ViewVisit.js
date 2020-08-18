@@ -14,6 +14,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
+import Alert from '@material-ui/lab/Alert';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -55,9 +56,9 @@ export default function ViewVisit(props) {
 
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+      <Alert icon={false} variant="outlined" severity="success"><Button variant="outlined" color="primary" onClick={handleClickOpen}>
         {props.date}
-      </Button>
+      </Button><p><strong>{props.case}</strong></p></Alert>
       <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
         <AppBar className={classes.appBar}>
           <Toolbar>
@@ -71,7 +72,7 @@ export default function ViewVisit(props) {
         </AppBar>
         <List>
           <ListItem button>
-            <ListItemText primary="Część ciała poddana zabiegowi / rezultat" secondary="Część ciała / rezultat" />
+            <ListItemText primary="Część ciała poddana zabiegowi / rezultat" secondary={props.case} />
           </ListItem>
         </List>
         <AppBar className={classes.appBar}>

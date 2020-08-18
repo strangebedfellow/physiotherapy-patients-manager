@@ -67,7 +67,7 @@ export default class ManageDb extends Component {
     }
 
     render() {
-        const {patients, chosen, query} = this.state;
+        const { patients, chosen, query } = this.state;
         if (patients) {
             return <>
                 <Container maxWidth="md">
@@ -103,11 +103,7 @@ export default class ManageDb extends Component {
                             </TableBody>
                         </Table>
                     </TableContainer>
-                    {chosen && <>
-                        <Box bgcolor="white" color="primary.contrastText" my={2} p={2}>
-                            <GetPatientInfo id={chosen} />
-                        </Box>
-                    </>}
+                    {chosen && <GetPatientInfo id={chosen} />}
                 </Container>
             </>
         }

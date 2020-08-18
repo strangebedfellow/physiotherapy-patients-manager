@@ -4,6 +4,7 @@ import Button from '@material-ui/core/Button';
 import ViewVisit from './ViewVisit';
 import FillDb from './FillDb';
 import Alert from '@material-ui/lab/Alert';
+import Box from '@material-ui/core/Box';
 
 export default class GetVisitInfo extends Component {
     constructor(props) {
@@ -49,16 +50,17 @@ export default class GetVisitInfo extends Component {
 
     render() {
         return <div style={{ color: 'black' }}>
-
-            <Alert icon={false} severity="info"><span style={{fontSize: '1.5rem'}}>Wizyty</span></Alert>
-            {this.state.showvisits.length > 0
-                ? this.state.showvisits.map((visit, index) =>
-                    <p key={index} >
-                        <ViewVisit date={visit.date} case={visit.case} interview={visit.interview} />
-                    </p>
-                )
-                : <p><Alert severity="warning">Brak wizyt!</Alert></p>}
-            <Button size="large" variant="contained" color="secondary" onClick={() => FillDb(this.props.id)}>Dodaj nową wizytę</Button>
+            <Box bgcolor="white" color="primary.contrastText" my={2} p={2} >
+                <Alert icon={false} severity="info"><span style={{ fontSize: '1.5rem' }}>Wizyty</span></Alert>
+                {this.state.showvisits.length > 0
+                    ? this.state.showvisits.map((visit, index) =>
+                        <p key={index} >
+                            <ViewVisit date={visit.date} case={visit.case} />
+                        </p>
+                    )
+                    : <p><Alert severity="warning">Brak wizyt!</Alert></p>}
+                <Button size="large" variant="contained" color="secondary" onClick={() => FillDb(this.props.id)}>Dodaj nową wizytę</Button>
+            </Box>
         </div>
     }
 }

@@ -4,6 +4,7 @@ import PhoneInTalkOutlinedIcon from '@material-ui/icons/PhoneInTalkOutlined';
 import GetVisitInfo from './GetVisitInfo'
 import ViewInterview from './ViewInterview';
 import Alert from '@material-ui/lab/Alert';
+import Box from '@material-ui/core/Box';
 
 export default class GetPatientInfo extends Component {
     constructor(props) {
@@ -41,14 +42,24 @@ export default class GetPatientInfo extends Component {
     render() {
         const { email, name, surname, phone_number, age, occupation, interview } = this.state.patient;
         return <div style={{ color: 'black' }}>
+            <Box bgcolor="white" color="primary.contrastText" my={2} p={2} >          
             {/* <h2>Dane pacjenta</h2> */}
-            <Alert icon={false} severity="info"><span style={{fontSize: '1.5rem'}}>Dane pacjenta</span></Alert>
-            <p><strong>Imię i nazwisko:</strong> {name + " " + surname}</p>
+            <Alert icon={false} severity="info"><span style={{ fontSize: '1.5rem' }}>Dane pacjenta</span></Alert>
+            <p></p>
+            <Alert icon={false} variant="outlined" severity="success"><strong>Imię i nazwisko: </strong>{name + " " + surname}</Alert>
+            <p></p>
+            <Alert icon={false} variant="outlined" severity="success"><strong>Wiek: </strong>{age}</Alert>
+            <p></p>
+            <Alert icon={false} variant="outlined" severity="success"><strong><PhoneInTalkOutlinedIcon /></strong> {phone_number}</Alert>
+            <p></p>
+            <Alert icon={false} variant="outlined" severity="success"><strong>Zawód/Praca/Aktywność: </strong>{occupation}</Alert>
+            <p></p>
+            {/* <p><strong>Imię i nazwisko:</strong> {name + " " + surname}</p>
             <p><strong>Wiek:</strong> {age}</p>
             <p><strong><PhoneInTalkOutlinedIcon /></strong> {phone_number}</p>
-            <p><strong>Zawód/Praca/Aktywność: </strong>{occupation}</p>
+            <p><strong>Zawód/Praca/Aktywność: </strong>{occupation}</p> */}
             {interview ? <ViewInterview interview={interview} /> : <Alert severity="warning">Brak wywiadu!</Alert>}
-            <hr></hr>
+            </Box>
             <GetVisitInfo id={this.props.id} />
         </div>
     }

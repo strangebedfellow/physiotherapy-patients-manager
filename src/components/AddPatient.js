@@ -6,7 +6,6 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import * as firebase from 'firebase';
-//import { withStyles } from '@material-ui/core/styles';
 
 export default function FormDialog() {
     const [open, setOpen] = React.useState(false);
@@ -18,13 +17,6 @@ export default function FormDialog() {
     const handleClose = () => {
         setOpen(false);
     };
-
-    // const MyButton = withStyles({
-    //     button: {
-    //         color: "black",
-    //         backgroundColor: "transparent"
-    //     }
-    // })(Button);
 
     const initialState = {
         name: '',
@@ -42,6 +34,10 @@ export default function FormDialog() {
     }
 
     const handleSubmit = () => {
+        if (userInput.name == "") {
+            console.log('BRAK imienia!!!')
+        }
+        else {
         const rootRef = firebase.database().ref('patients');
         rootRef.push({
             "age": userInput.age,
@@ -51,6 +47,7 @@ export default function FormDialog() {
             "phone_number": userInput.phoneNumber
         })
         setOpen(false);
+    }
     }
 
     return (
