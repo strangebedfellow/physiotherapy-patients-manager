@@ -16,6 +16,7 @@ export default function FormDialog() {
 
     const handleClose = () => {
         setOpen(false);
+        setUserInput(initialState);
     };
 
     const initialState = {
@@ -34,10 +35,6 @@ export default function FormDialog() {
     }
 
     const handleSubmit = () => {
-        if (userInput.name == "") {
-            console.log('BRAK imienia!!!')
-        }
-        else {
         const rootRef = firebase.database().ref('patients');
         rootRef.push({
             "age": userInput.age,
@@ -48,8 +45,6 @@ export default function FormDialog() {
         })
         setOpen(false);
     }
-    }
-
     return (
         //################### Dodać <section class="add-patient" />#################################
         <div>
@@ -59,12 +54,11 @@ export default function FormDialog() {
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                 <DialogTitle id="form-dialog-title">Uzupełnij dane pacjenta</DialogTitle>
                 <DialogContent>
-                    {/* dodać walidację (puste pola) */}
                     <form noValidate autoComplete="off">
                         <TextField name="name" onChange={handleChange} id="outlined-basic" label="Imię" variant="outlined" type="text" margin="normal" fullWidth />
                         <TextField name="surname" onChange={handleChange} id="outlined-basic" label="Nazwisko" variant="outlined" type="text" margin="normal" fullWidth />
                         <TextField name="age" onChange={handleChange} id="outlined-basic" label="Wiek" variant="outlined" type="number" margin="normal" fullWidth />
-                        <TextField name="phoneNumber" onChange={handleChange} id="outlined-basic" label="Telefon" variant="outlined" type="text" margin="normal" fullWidth />
+                        <TextField name="phoneNumber" onChange={handleChange} error={isNaN(userInput.phoneNumber)} id="outlined-basic" label="Telefon" variant="outlined" type="text" margin="normal" fullWidth />
                         <TextField name="occupation" onChange={handleChange} id="outlined-basic" label="Zawód/Praca/Aktywność" variant="outlined" type="text" margin="normal" fullWidth />
                     </form>
                 </DialogContent>
@@ -72,9 +66,9 @@ export default function FormDialog() {
                     <Button onClick={handleClose} color="primary">
                         Anuluj
                      </Button>
-                    <Button onClick={handleSubmit} color="primary">
-                        Dodaj
-                    </Button>
+                    {!userInput.name || !userInput.surname || !userInput.age || !userInput.occupation || !userInput.phoneNumber || isNaN(userInput.phoneNumber) ?
+                        <Button color="primary" disabled>Dodaj</Button> :
+                        <Button onClick={handleSubmit} color="primary">Dodaj</Button>}
                 </DialogActions>
             </Dialog>
         </div>
