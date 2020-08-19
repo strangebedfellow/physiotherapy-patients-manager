@@ -12,7 +12,6 @@ import Box from '@material-ui/core/Box';
 import GetPatientInfo from './GetPatientInfo';
 import * as firebase from 'firebase';
 import { withStyles } from '@material-ui/core/styles';
-
 import AddPatient from './AddPatient';
 
 const theme = {

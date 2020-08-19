@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import * as firebase from 'firebase';
 import Button from '@material-ui/core/Button';
 import ViewVisit from './ViewVisit';
-import FillDb from './FillDb';
+import AddVisit from './AddVisit';
 import Alert from '@material-ui/lab/Alert';
 import Box from '@material-ui/core/Box';
 
@@ -59,7 +59,7 @@ export default class GetVisitInfo extends Component {
                         </p>
                     )
                     : <p><Alert severity="warning">Brak wizyt!</Alert></p>}
-                <Button size="large" variant="contained" color="secondary" onClick={() => FillDb(this.props.id)}>Dodaj nową wizytę</Button>
+                <AddVisit id={this.props.id} />
             </Box>
         </div>
     }

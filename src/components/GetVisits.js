@@ -1,4 +1,3 @@
-import React, { Component } from "react";
 import * as firebase from 'firebase';
 
 const GetVisits = (id) => {
@@ -13,7 +12,6 @@ const GetVisits = (id) => {
         });
         return visits
     })
-
 }
 
 export default GetVisits
