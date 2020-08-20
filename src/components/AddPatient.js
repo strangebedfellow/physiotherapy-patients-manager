@@ -5,6 +5,9 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
 import * as firebase from 'firebase';
 
 export default function AddPatient() {
@@ -46,13 +49,16 @@ export default function AddPatient() {
         setOpen(false);
     }
     return (
-        //################### Dodać <section class="add-patient" />#################################
         <div>
             <Button variant="outlined" color="primary" onClick={handleClickOpen}>
                 Dodaj nowego pacjenta
                 </Button>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-                <DialogTitle id="form-dialog-title">Uzupełnij dane pacjenta</DialogTitle>
+            <AppBar position="static">
+                    <Toolbar variant="dense">
+                        <Typography variant="h6" color="inherit">Uzupełnij dane pacjenta</Typography>
+                    </Toolbar>
+                </AppBar>
                 <DialogContent>
                     <form noValidate autoComplete="off">
                         <TextField name="name" onChange={handleChange} id="outlined-basic" label="Imię" variant="outlined" type="text" margin="normal" fullWidth />
