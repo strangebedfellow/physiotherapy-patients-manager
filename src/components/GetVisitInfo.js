@@ -55,7 +55,7 @@ export default class GetVisitInfo extends Component {
                 {this.state.showvisits.length > 0
                     ? this.state.showvisits.map((visit, index) =>
                         <p key={index} >
-                            <ViewVisit date={visit.date} case={visit.case} />
+                            <ViewVisit date={visit.date} case={visit.case} manual={visit.manual} />
                         </p>
                     )
                     : <p><Alert severity="warning">Brak wizyt!</Alert></p>}

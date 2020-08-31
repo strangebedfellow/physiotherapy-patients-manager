@@ -82,6 +82,9 @@ export default function ViewVisit(props) {
             </Typography>
           </Toolbar>
         </AppBar>
+        <List>
+            {props.manual && Object.keys(props.manual).map(e => <ListItem button><ListItemText primary={e} /></ListItem>)}
+        </List>
       </Dialog>
     </div>
   );

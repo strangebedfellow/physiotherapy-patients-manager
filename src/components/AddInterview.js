@@ -92,7 +92,7 @@ export default function AddInterview() {
                         <TextField name="iq10" onChange={handleChange} id="outlined-basic" label="Badania obrazowe" variant="outlined" type="text" margin="normal" fullWidth />
                         <TextField name="iq11" onChange={handleChange} id="outlined-basic" label="Inne dolegliwości" variant="outlined" type="text" margin="normal" fullWidth />
                         <TextField name="iq12" onChange={handleChange} id="outlined-basic" label="Przebyte operacje" variant="outlined" type="text" margin="normal" fullWidth />
-                        <TextField name="iq13" onChange={handleChange} id="outlined-basic" label="Przebyte choroby / wypadki`" variant="outlined" type="text" margin="normal" fullWidth />
+                        <TextField name="iq13" onChange={handleChange} id="outlined-basic" label="Przebyte choroby / wypadki" variant="outlined" type="text" margin="normal" fullWidth />
                         <TextField name="iq14" onChange={handleChange} id="outlined-basic" label="Czy występują problemy ze zmianą pozycji, zachwiania równowagi - TAK / NIE`" variant="outlined" type="text" margin="normal" fullWidth />
                     </form>
                 </DialogContent>

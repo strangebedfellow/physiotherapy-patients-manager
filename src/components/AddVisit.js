@@ -12,18 +12,19 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import Switch from '@material-ui/core/Switch';
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
+import GetCurrentDate from './GetCurrentDate';
 import * as firebase from 'firebase';
 
 export default function AddVisit(props) {
     const [open, setOpen] = useState(false);
-    const [consultation, setCase] = useState('');
+    const [consultation, setCase] = useState('');   
 
-    const monthNames = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"];
-    let dateObj = new Date();
-    let month = monthNames[dateObj.getMonth()];
-    let day = String(dateObj.getDate()).padStart(2, '0');
-    let year = dateObj.getFullYear();
-    let currentDate = year + '.' + month + '.' + day;
+    const initialManualState = {
+        checkedA: false,
+        checkedB: false
+    }
+    const [manual, setManual] = useState(initialManualState);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -32,17 +33,23 @@ export default function AddVisit(props) {
     const handleClose = () => {
         setOpen(false);
         setCase('');
+        setManual(initialManualState);
     };
 
     const handleChange = e => {
         setCase(e.target.value);
     }
 
+    const handleSwitchChange = (event) => {
+        setManual({ ...manual, [event.target.name]: event.target.checked });
+    };
+
     const handleSubmit = () => {
         const rootRef = firebase.database().ref('patients').child(props.id).child('visits');
         rootRef.push({
             "case": consultation,
-            "date": currentDate
+            "date": GetCurrentDate(),
+            "manual": manual
         })
         setOpen(false);
     }
@@ -52,7 +59,7 @@ export default function AddVisit(props) {
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                 <AppBar position="static">
                     <Toolbar variant="dense">
-                        <Typography variant="h6" color="inherit">Data wizyty: {currentDate} - Kwestionariusz konsultacyjny</Typography>
+                        <Typography variant="h6" color="inherit">Data wizyty: {GetCurrentDate()} - Kwestionariusz konsultacyjny</Typography>
                     </Toolbar>
                 </AppBar>
                 <DialogContent>
@@ -73,17 +80,22 @@ export default function AddVisit(props) {
                         </Toolbar>
                     </AppBar>
                     <List component="nav" aria-label="mailbox folders">
-                        <ListItem >
+                        <ListItem style={{ backgroundColor: manual.checkedA ? 'rgba(63, 81, 181, 0.2)' : 'white' }}>
                             <Switch
+                                checked={manual.checkedA}
+                                onChange={handleSwitchChange}
                                 color="primary"
-                                name="checkedB"
+                                name="checkedA"
                                 inputProps={{ 'aria-label': 'primary checkbox' }}
                             />
                             <ListItemText primary="Crista iliaca" />
                         </ListItem>
+                        {manual.checkedA && <ListItem><ArrowDownwardIcon fontSize='large'/></ListItem>}
                         <Divider />
-                        <ListItem>
+                        <ListItem style={{ backgroundColor: manual.checkedB ? 'rgba(63, 81, 181, 0.2)' : 'white' }}>
                             <Switch
+                                checked={manual.checkedB}
+                                onChange={handleSwitchChange}
                                 color="primary"
                                 name="checkedB"
                                 inputProps={{ 'aria-label': 'primary checkbox' }}
