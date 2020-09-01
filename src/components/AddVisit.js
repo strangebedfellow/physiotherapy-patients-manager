@@ -13,6 +13,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import Switch from '@material-ui/core/Switch';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import GetCurrentDate from './GetCurrentDate';
 import * as firebase from 'firebase';
 
@@ -56,7 +57,7 @@ export default function AddVisit(props) {
     return (
         <div>
             <Button size="large" variant="contained" color="secondary" onClick={handleClickOpen}>Dodaj nową wizytę</Button>
-            <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+            <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" maxWidth='lg' fullWidth='true'>
                 <AppBar position="static">
                     <Toolbar variant="dense">
                         <Typography variant="h6" color="inherit">Data wizyty: {GetCurrentDate()} - Kwestionariusz konsultacyjny</Typography>
@@ -90,7 +91,7 @@ export default function AddVisit(props) {
                             />
                             <ListItemText primary="Crista iliaca" />
                         </ListItem>
-                        {manual.checkedA && <ListItem><ArrowDownwardIcon fontSize='large'/></ListItem>}
+                        {manual.checkedA && <ListItem><ArrowDownwardIcon fontSize='large'/><ArrowUpwardIcon fontSize='large'/></ListItem>}
                         <Divider />
                         <ListItem style={{ backgroundColor: manual.checkedB ? 'rgba(63, 81, 181, 0.2)' : 'white' }}>
                             <Switch
