@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useReducer } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -12,20 +12,161 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import Switch from '@material-ui/core/Switch';
-import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
-import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
+import Alert from '@material-ui/lab/Alert';
 import GetCurrentDate from './GetCurrentDate';
+import bodyParts from './bodyParts';
+import { cristaIliacaRotations, mainRotations, sacrumRotations } from './rotationIcons';
 import * as firebase from 'firebase';
 
 export default function AddVisit(props) {
     const [open, setOpen] = useState(false);
-    const [consultation, setCase] = useState('');   
+    const [consultation, setCase] = useState('');
 
-    const initialManualState = {
-        checkedA: false,
-        checkedB: false
+    const initialState = {
+        cristaIliaca: {
+            chosen: false,
+            direction: {
+                i8: false,
+                i9: false,
+                i10: false,
+                i11: false
+            }
+        },
+        sips: {
+            chosen: false,
+            direction: {
+                i8: false,
+                i9: false,
+                i10: false,
+                i11: false
+            }
+        },
+        sacrum: {
+            chosen: false,
+            direction: {
+                i12: false,
+                i13: false
+            }
+        },
+        ilium: {
+            chosen: false,
+            direction: {
+                i2: false,
+                i3: false,
+                i4: false,
+                i5: false,
+                i6: false,
+                i7: false
+            }
+        },
+        l6: {
+            chosen: false,
+            direction: {
+                i2: false,
+                i3: false,
+                i4: false,
+                i5: false,
+                i6: false,
+                i7: false
+            }
+        },
+        l5: {
+            chosen: false,
+            direction: {
+                i2: false,
+                i3: false,
+                i4: false,
+                i5: false,
+                i6: false,
+                i7: false
+            }
+        },
+        l4: {
+            chosen: false,
+            direction: {
+                i2: false,
+                i3: false,
+                i4: false,
+                i5: false,
+                i6: false,
+                i7: false
+            }
+        },
+        l3: {
+            chosen: false,
+            direction: {
+                i2: false,
+                i3: false,
+                i4: false,
+                i5: false,
+                i6: false,
+                i7: false
+            }
+        },
+        l2: {
+            chosen: false,
+            direction: {
+                i2: false,
+                i3: false,
+                i4: false,
+                i5: false,
+                i6: false,
+                i7: false
+            }
+        },
+        l1: {
+            chosen: false,
+            direction: {
+                i2: false,
+                i3: false,
+                i4: false,
+                i5: false,
+                i6: false,
+                i7: false
+            }
+        },
+        c1: {
+            chosen: false,
+            direction: {
+                i2: false,
+                i3: false,
+                i4: false,
+                i5: false,
+                i6: false,
+                i7: false
+            }
+        }
+    };
+
+    function reducer(state, action) {
+        switch (action.type) {
+            case 'choose':
+                return {
+                    ...state,
+                    [action.payload]: {
+                        ...state[action.payload],
+                        chosen: !state[action.payload].chosen
+                    }
+                };
+            case 'direction':
+                return {
+                    ...state,
+                    [action.payload.name]: {
+                        ...state[action.payload.name],
+                        direction: {
+                            ...state[action.payload.name].direction,
+                            [action.payload.rotation]: !state[action.payload.name].direction[action.payload.rotation]
+                        }
+                    }
+                };
+            case 'reset':
+                return initialState;
+            default:
+                throw new Error();
+        }
     }
-    const [manual, setManual] = useState(initialManualState);
+
+    const [manualTest, setManualTest] = useReducer(reducer, initialState);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -34,26 +175,34 @@ export default function AddVisit(props) {
     const handleClose = () => {
         setOpen(false);
         setCase('');
-        setManual(initialManualState);
+        setManualTest({ type: 'reset' });
     };
 
     const handleChange = e => {
         setCase(e.target.value);
     }
 
-    const handleSwitchChange = (event) => {
-        setManual({ ...manual, [event.target.name]: event.target.checked });
-    };
-
     const handleSubmit = () => {
         const rootRef = firebase.database().ref('patients').child(props.id).child('visits');
         rootRef.push({
             "case": consultation,
             "date": GetCurrentDate(),
-            "manual": manual
+            "manual": Object.fromEntries(filterManualTest())
         })
         setOpen(false);
     }
+
+    function filterManualTest() {
+        const entries = Object.entries(manualTest);
+        const filtered = [];
+        entries.forEach(item => {
+            if (item[1].chosen) {
+                filtered.push(item)
+            }
+        })
+        return filtered
+    }
+
     return (
         <div>
             <Button size="large" variant="contained" color="secondary" onClick={handleClickOpen}>Dodaj nową wizytę</Button>
@@ -81,110 +230,59 @@ export default function AddVisit(props) {
                         </Toolbar>
                     </AppBar>
                     <List component="nav" aria-label="mailbox folders">
-                        <ListItem style={{ backgroundColor: manual.checkedA ? 'rgba(63, 81, 181, 0.2)' : 'white' }}>
-                            <Switch
-                                checked={manual.checkedA}
-                                onChange={handleSwitchChange}
-                                color="primary"
-                                name="checkedA"
-                                inputProps={{ 'aria-label': 'primary checkbox' }}
-                            />
-                            <ListItemText primary="Crista iliaca" />
-                        </ListItem>
-                        {manual.checkedA && <ListItem><ArrowDownwardIcon fontSize='large'/><ArrowUpwardIcon fontSize='large'/></ListItem>}
-                        <Divider />
-                        <ListItem style={{ backgroundColor: manual.checkedB ? 'rgba(63, 81, 181, 0.2)' : 'white' }}>
-                            <Switch
-                                checked={manual.checkedB}
-                                onChange={handleSwitchChange}
-                                color="primary"
-                                name="checkedB"
-                                inputProps={{ 'aria-label': 'primary checkbox' }}
-                            />
-                            <ListItemText primary="SIPS" />
-                        </ListItem>
-                        <Divider />
-                        <ListItem>
-                            <Switch
-                                color="primary"
-                                name="checkedB"
-                                inputProps={{ 'aria-label': 'primary checkbox' }}
-                            />
-                            <ListItemText primary="Sacrum" />
-                        </ListItem>
-                        <Divider />
-                        <ListItem>
-                            <Switch
-                                color="primary"
-                                name="checkedB"
-                                inputProps={{ 'aria-label': 'primary checkbox' }}
-                            />
-                            <ListItemText primary="Wadliwe ustawienie Ilium i rotacja C1 w tym samym kierunku + staw TF" />
-                        </ListItem>
-                        <Divider />
-                        <ListItem>
-                            <Switch
-                                color="primary"
-                                name="checkedB"
-                                inputProps={{ 'aria-label': 'primary checkbox' }}
-                            />
-                            <ListItemText primary="Ilium, Th6, C6, C2, C1 + staw TF" />
-                        </ListItem>
-                        <Divider />
-                        <ListItem>
-                            <Switch
-                                color="primary"
-                                name="checkedB"
-                                inputProps={{ 'aria-label': 'primary checkbox' }}
-                            />
-                            <ListItemText primary="L5, Th5, C5 (często C2 i C1)" />
-                        </ListItem>
-                        <Divider />
-                        <ListItem>
-                            <Switch
-                                color="primary"
-                                name="checkedB"
-                                inputProps={{ 'aria-label': 'primary checkbox' }}
-                            />
-                            <ListItemText primary="L4, Th4, C4" />
-                        </ListItem>
-                        <Divider />
-                        <ListItem>
-                            <Switch
-                                color="primary"
-                                name="checkedB"
-                                inputProps={{ 'aria-label': 'primary checkbox' }}
-                            />
-                            <ListItemText primary="L3, Th3, C3" />
-                        </ListItem>
-                        <Divider />
-                        <ListItem>
-                            <Switch
-                                color="primary"
-                                name="checkedB"
-                                inputProps={{ 'aria-label': 'primary checkbox' }}
-                            />
-                            <ListItemText primary="L2, Th2, C2 (kompleksem C0 - C2)" />
-                        </ListItem>
-                        <Divider />
-                        <ListItem>
-                            <Switch
-                                color="primary"
-                                name="checkedB"
-                                inputProps={{ 'aria-label': 'primary checkbox' }}
-                            />
-                            <ListItemText primary="L1, Th1, C1 (kompleksem C0 - C2)" />
-                        </ListItem>
-                        <Divider />
-                        <ListItem>
-                            <Switch
-                                color="primary"
-                                name="checkedB"
-                                inputProps={{ 'aria-label': 'primary checkbox' }}
-                            />
-                            <ListItemText primary="Stopa, miednica, C1" />
-                        </ListItem>
-                        <Divider />
+                        {bodyParts.map((part) =>
+                            <>
+                                <ListItem style={{ backgroundColor: manualTest[part.name].chosen ? '#e8f4fd' : 'white' }}>
+                                    <Switch
+                                        onChange={(event) => {
+                                            setManualTest({ type: 'choose', payload: event.currentTarget.getAttribute('name') });
+                                        }}
+                                        color="primary"
+                                        name={part.name}
+                                        inputProps={{ 'aria-label': 'primary checkbox' }}
+                                    />
+                                    <ListItemText primary={part.fullName} />
+                                </ListItem>
+                                {manualTest[part.name].chosen &&
+                                    <Alert style={{ height: '50px' }} icon={false} severity="info">
+                                        {(part.name == 'ilium'
+                                            || part.name == 'l6'
+                                            || part.name == 'l5'
+                                            || part.name == 'l4'
+                                            || part.name == 'l3'
+                                            || part.name == 'l2'
+                                            || part.name == 'l1'
+                                            || part.name == 'c1') &&
+                                            mainRotations.map(e => <img
+                                                src={e.src}
+                                                name={e.name}
+                                                className='icon-style'
+                                                onClick={(event) => {
+                                                    setManualTest({ type: 'direction', payload: { name: part.name, rotation: event.currentTarget.getAttribute('name') } });
+                                                }}
+                                                style={{ background: manualTest[part.name].direction[e.name] ? 'rgba(255,0,0,0.5)' : 'transparent', border: manualTest[part.name].direction[e.name] && '1px solid transparent' }} />)}
+                                        {(part.name == 'cristaIliaca' || part.name == 'sips') &&
+                                            cristaIliacaRotations.map(e => <img
+                                                src={e.src}
+                                                name={e.name}
+                                                className='icon-style'
+                                                onClick={(event) => {
+                                                    setManualTest({ type: 'direction', payload: { name: part.name, rotation: event.currentTarget.getAttribute('name') } });
+                                                }}
+                                                style={{ background: manualTest[part.name].direction[e.name] ? 'rgba(255,0,0,0.5)' : 'transparent', border: manualTest[part.name].direction[e.name] && '1px solid transparent' }} />)
+                                        }
+                                        {part.name == 'sacrum' &&
+                                            sacrumRotations.map(e => <img
+                                                src={e.src}
+                                                name={e.name}
+                                                className='icon-style'
+                                                onClick={(event) => {
+                                                    setManualTest({ type: 'direction', payload: { name: part.name, rotation: event.currentTarget.getAttribute('name') } });
+                                                }}
+                                                style={{ background: manualTest[part.name].direction[e.name] ? 'rgba(255,0,0,0.5)' : 'transparent', border: manualTest[part.name].direction[e.name] && '1px solid transparent' }} />)}
+                                    </Alert>}
+                                <Divider />
+                            </>)}
                     </List>
                     <form noValidate autoComplete="off">
                         <TextField

@@ -66,7 +66,6 @@ export default function AddInterview() {
         setOpen(false);
     }
 
-    console.log(userInput.iq14)
     return (
         <div>
             <Button size="large" variant="contained" color="secondary" onClick={handleClickOpen}>
