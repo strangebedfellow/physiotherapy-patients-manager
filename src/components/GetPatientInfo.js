@@ -4,6 +4,8 @@ import PhoneInTalkOutlinedIcon from '@material-ui/icons/PhoneInTalkOutlined';
 import GetVisitInfo from './GetVisitInfo'
 import ViewInterview from './ViewInterview';
 import AddInterview from './AddInterview';
+import PatientDocuments from './PatientDocuments';
+import AddPatientDocument from './AddPatientDocument';
 import Alert from '@material-ui/lab/Alert';
 import Box from '@material-ui/core/Box';
 
@@ -54,7 +56,13 @@ export default class GetPatientInfo extends Component {
                 <p></p>
                 <Alert icon={false} variant="outlined" severity="success"><strong>Zawód/Praca/Aktywność: </strong>{occupation}</Alert>
                 <p></p>
-                {interview ? <ViewInterview interview={interview} /> : <div><Alert severity="warning">Brak wywiadu!</Alert><p></p><AddInterview /></div> }
+                {interview ? <ViewInterview interview={interview} /> : <div><Alert severity="warning">Brak wywiadu!</Alert><p></p><AddInterview /></div>}
+                <p></p>
+                <Alert icon={false} variant="outlined" severity="info">
+                    <PatientDocuments />
+                    <p></p>
+                    <AddPatientDocument />
+                </Alert>
             </Box>
             <GetVisitInfo id={this.props.id} />
         </div>
