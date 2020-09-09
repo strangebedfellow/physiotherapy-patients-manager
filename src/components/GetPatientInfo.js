@@ -46,7 +46,7 @@ export default class GetPatientInfo extends Component {
         const { name, surname, phone_number, age, occupation, interview } = this.state.patient;
         return <div style={{ color: 'black' }}>
             <Box bgcolor="white" color="primary.contrastText" my={2} p={2} >
-                <Alert icon={false} severity="info"><span style={{ fontSize: '1.5rem' }}>Dane pacjenta</span></Alert>
+                <Alert icon={false} variant="filled" severity="info"><span style={{ fontSize: '1.5rem' }}>Dane pacjenta</span></Alert>
                 <p></p>
                 <Alert icon={false} variant="outlined" severity="success"><strong>Imię i nazwisko: </strong>{name + " " + surname}</Alert>
                 <p></p>

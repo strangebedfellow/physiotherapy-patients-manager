@@ -51,7 +51,7 @@ export default class GetVisitInfo extends Component {
     render() {
         return <div style={{ color: 'black' }}>
             <Box bgcolor="white" color="primary.contrastText" my={2} p={2} >
-                <Alert icon={false} severity="info"><span style={{ fontSize: '1.5rem' }}>Wizyty</span></Alert>
+                <Alert icon={false} severity="info" variant="filled"><span style={{ fontSize: '1.5rem' }}>Wizyty</span></Alert>
                 {this.state.showvisits.length > 0
                     ? this.state.showvisits.map((visit, index) =>
                         <p key={index} >
