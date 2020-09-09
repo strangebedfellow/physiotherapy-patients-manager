@@ -15,6 +15,8 @@ import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 import Alert from '@material-ui/lab/Alert';
+import { borders } from '@material-ui/system';
+import { shadows } from '@material-ui/system';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {

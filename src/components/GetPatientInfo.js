@@ -8,6 +8,9 @@ import PatientDocuments from './PatientDocuments';
 import AddPatientDocument from './AddPatientDocument';
 import Alert from '@material-ui/lab/Alert';
 import Box from '@material-ui/core/Box';
+import { borders } from '@material-ui/system';
+import { shadows } from '@material-ui/system';
+
 
 export default class GetPatientInfo extends Component {
     constructor(props) {
@@ -45,7 +48,7 @@ export default class GetPatientInfo extends Component {
     render() {
         const { name, surname, phone_number, age, occupation, interview } = this.state.patient;
         return <div style={{ color: 'black' }}>
-            <Box bgcolor="white" color="primary.contrastText" my={2} p={2} >
+            <Box bgcolor="white" color="primary.contrastText" my={2} p={2} border={1} borderColor="rgb(33, 150, 243)" borderRadius={10} boxShadow={3}>
                 <Alert icon={false} variant="filled" severity="info"><span style={{ fontSize: '1.5rem' }}>Dane pacjenta</span></Alert>
                 <p></p>
                 <Alert icon={false} variant="outlined" severity="success"><strong>Imię i nazwisko: </strong>{name + " " + surname}</Alert>

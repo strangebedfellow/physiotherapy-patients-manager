@@ -20,7 +20,7 @@ const theme = {
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
-        backgroundColor: 'rgb(63, 81, 181)',
+        backgroundColor: 'rgb(33, 150, 243)',
         color: 'white',
         fontWeight: 'bold'
     }
@@ -76,12 +76,12 @@ export default class ManageDb extends Component {
                             <TextField id="standard-basic" label="Znajdź pacjenta" margin="normal" onChange={this.handleInput} />
                         </form>
                     </Box>
-                    <TableContainer component={Paper} m={2}>
-                        <Table size="small" aria-label="a dense table">
+                    <TableContainer component={Paper} >
+                        <Table >
                             <TableHead>
                                 <TableRow>
-                                    <StyledTableCell><span>Imię</span></StyledTableCell>
-                                    <StyledTableCell align="left">Nazwisko</StyledTableCell>
+                                    <StyledTableCell><span>Pacjenci</span></StyledTableCell>
+                                    {/* <StyledTableCell align="left">Nazwisko</StyledTableCell> */}
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -94,9 +94,9 @@ export default class ManageDb extends Component {
                                 }).map((patient) => (
                                     <TableRow key={patient.id} onClick={() => this.handleClick(patient.id)} style={{ cursor: 'pointer' }}>
                                         <TableCell component="th" scope="row">
-                                            {patient.name}
+                                            {patient.name} {patient.surname}
                                         </TableCell>
-                                        <TableCell align="left">{patient.surname}</TableCell>
+                                        {/* <TableCell align="left">{patient.surname}</TableCell> */}
                                     </TableRow>
                                 ))}
                             </TableBody>
