@@ -58,7 +58,8 @@ export default function ViewVisit(props) {
 
   return (
     <div>
-      <Alert icon={false} variant="outlined" severity="success"><Button variant="outlined" color="primary" onClick={handleClickOpen}>
+      <Alert icon={false} variant="outlined" severity="success">
+        <Button variant="contained" color="primary" style={{backgroundColor: 'rgb(33, 150, 243)'}}onClick={handleClickOpen}>
         {props.date}
       </Button><p><strong>{props.case}</strong></p></Alert>
       <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>

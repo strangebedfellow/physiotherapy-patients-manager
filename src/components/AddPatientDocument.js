@@ -61,6 +61,7 @@ export default function AddPatientDocument(props) {
       <Button
         variant="contained"
         color="secondary"
+        size="large"
         startIcon={<AddBoxIcon />}
         onClick={handleClickOpen}
       >

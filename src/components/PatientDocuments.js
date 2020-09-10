@@ -61,6 +61,7 @@ export default function PatientDocuments(props) {
       <Button
         variant="contained"
         color="primary"
+        size="large"
         startIcon={<ImageIcon />}
         onClick={handleClickOpen}
       >

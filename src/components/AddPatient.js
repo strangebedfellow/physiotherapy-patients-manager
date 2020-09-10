@@ -54,6 +54,7 @@ export default function AddPatient() {
             <Button
                 variant="contained"
                 color="secondary"
+                size="large"
                 startIcon={<PersonAddIcon />}
                 onClick={handleClickOpen}
             >

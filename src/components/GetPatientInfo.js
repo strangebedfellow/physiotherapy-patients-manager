@@ -8,6 +8,7 @@ import PatientDocuments from './PatientDocuments';
 import AddPatientDocument from './AddPatientDocument';
 import Alert from '@material-ui/lab/Alert';
 import Box from '@material-ui/core/Box';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
 import { borders } from '@material-ui/system';
 import { shadows } from '@material-ui/system';
 
@@ -16,14 +17,13 @@ export default class GetPatientInfo extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            patient: false,
-            showvisits: false
+            patient: false
         }
     }
 
-    componentDidMount() {
+    getPatientData = () => {
         const ref = firebase.database().ref("patients");
-        ref.once("value")
+        ref.once("value") //!!!! OPCJA: zmienić na ref.on !!!!!!!!!!!!
             .then((snapshot) => {
                 const patient = snapshot.child(this.props.id).val();
                 this.setState({
@@ -32,24 +32,22 @@ export default class GetPatientInfo extends Component {
             });
     }
 
+    componentDidMount() {
+        this.getPatientData();
+    }
+
     componentDidUpdate(prevProps, prevState) {
         if (prevProps.id !== this.props.id) {
-            const ref = firebase.database().ref("patients");
-            ref.once("value")
-                .then((snapshot) => {
-                    const patient = snapshot.child(this.props.id).val();
-                    this.setState({
-                        patient: patient
-                    })
-                });
+            this.getPatientData();
         }
     }
 
     render() {
         const { name, surname, phone_number, age, occupation, interview } = this.state.patient;
+        console.log(interview)
         return <div style={{ color: 'black' }}>
-            <Box bgcolor="white" color="primary.contrastText" my={2} p={2} border={1} borderColor="rgb(33, 150, 243)" borderRadius={10} boxShadow={3}>
-                <Alert icon={false} variant="filled" severity="info"><span style={{ fontSize: '1.5rem' }}>Dane pacjenta</span></Alert>
+            <Box bgcolor="white" color="primary.contrastText" my={2} p={2} border={1} borderRadius={10} boxShadow={2}>
+                <Alert icon={false} variant="filled" severity="info"><span style={{ textTransform: 'uppercase', fontWeight: 'bold', fontSize: '1.2rem' }}>Dane pacjenta</span></Alert>
                 <p></p>
                 <Alert icon={false} variant="outlined" severity="success"><strong>Imię i nazwisko: </strong>{name + " " + surname}</Alert>
                 <p></p>
@@ -59,13 +57,14 @@ export default class GetPatientInfo extends Component {
                 <p></p>
                 <Alert icon={false} variant="outlined" severity="success"><strong>Zawód/Praca/Aktywność: </strong>{occupation}</Alert>
                 <p></p>
-                {interview ? <ViewInterview interview={interview} /> : <div><Alert severity="warning">Brak wywiadu!</Alert><p></p><AddInterview /></div>}
-                <p></p>
-                <Alert icon={false} variant="outlined" severity="info">
-                    <PatientDocuments />
-                    <p></p>
-                    <AddPatientDocument />
-                </Alert>
+                {interview ? <ViewInterview interview={interview} /> : <div><Alert severity="warning">Brak wywiadu!</Alert><p></p><AddInterview id={this.props.id} action={this.getPatientData} /></div>}
+                <p></p> 
+                    <ButtonGroup p={2}>
+                        <Box mr={2}>
+                            <PatientDocuments />
+                        </Box>
+                        <AddPatientDocument />
+                    </ButtonGroup>
             </Box>
             <GetVisitInfo id={this.props.id} />
         </div>

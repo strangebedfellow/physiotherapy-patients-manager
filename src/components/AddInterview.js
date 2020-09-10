@@ -10,7 +10,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import * as firebase from 'firebase';
 
-export default function AddInterview() {
+export default function AddInterview(props) {
     const [open, setOpen] = useState(false);
 
     const handleClickOpen = () => {
@@ -46,23 +46,23 @@ export default function AddInterview() {
     }
 
     const handleSubmit = () => {
-        // const rootRef = firebase.database().ref('patients');
-        // rootRef.push({
-        //     "iq1": userInput.iq1,
-        //     "iq2": userInput.iq2,
-        //     "iq3": userInput.iq3,
-        //     "iq4": userInput.iq4,
-        //     "iq5": userInput.iq5,
-        //     "iq6": userInput.iq6,
-        //     "iq7": userInput.iq7,
-        //     "iq8": userInput.iq8,
-        //     "iq9": userInput.iq9,
-        //     "iq10": userInput.iq10,
-        //     "iq11": userInput.iq11,
-        //     "iq12": userInput.iq12,
-        //     "iq13": userInput.iq13,
-        //     "iq14": userInput.iq14
-        // })
+        const rootRef = firebase.database().ref('patients').child(props.id).child('interview');
+        rootRef.set({
+            "iq1": userInput.iq1,
+            "iq2": userInput.iq2,
+            "iq3": userInput.iq3,
+            "iq4": userInput.iq4,
+            "iq5": userInput.iq5,
+            "iq6": userInput.iq6,
+            "iq7": userInput.iq7,
+            "iq8": userInput.iq8,
+            "iq9": userInput.iq9,
+            "iq10": userInput.iq10,
+            "iq11": userInput.iq11,
+            "iq12": userInput.iq12,
+            "iq13": userInput.iq13,
+            "iq14": userInput.iq14
+        })
         setOpen(false);
     }
 
@@ -97,7 +97,10 @@ export default function AddInterview() {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose} color="primary">Anuluj</Button>
-                    <Button onClick={handleSubmit} color="primary">Dodaj</Button>
+                    <Button onClick={() => {
+                        handleSubmit();
+                        props.action();
+                    }} color="primary">Dodaj</Button>
                 </DialogActions>
             </Dialog>
         </div>

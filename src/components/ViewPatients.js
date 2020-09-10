@@ -70,7 +70,7 @@ export default class ManageDb extends Component {
         if (patients) {
             return <>
                 <Container maxWidth="md">
-                    <Box bgcolor="white" color="primary.contrastText" my={2} p={2}>
+                    <Box bgcolor="white" color="primary.contrastText" my={2} p={2} boxShadow={1}>
                         <AddPatient />
                         <form noValidate autoComplete="off">
                             <TextField id="standard-basic" label="Znajdź pacjenta" margin="normal" onChange={this.handleInput} />
@@ -80,7 +80,7 @@ export default class ManageDb extends Component {
                         <Table >
                             <TableHead>
                                 <TableRow>
-                                    <StyledTableCell><span>Pacjenci</span></StyledTableCell>
+                                    <StyledTableCell><span style={{ textTransform: 'uppercase', fontSize: '1.2rem' }}>Pacjenci</span></StyledTableCell>
                                     {/* <StyledTableCell align="left">Nazwisko</StyledTableCell> */}
                                 </TableRow>
                             </TableHead>

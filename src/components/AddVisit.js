@@ -230,9 +230,9 @@ export default function AddVisit(props) {
                         </Toolbar>
                     </AppBar>
                     <List component="nav" aria-label="mailbox folders">
-                        {bodyParts.map((part) =>
+                        {bodyParts.map((part, index) =>
                             <>
-                                <ListItem style={{ backgroundColor: manualTest[part.name].chosen ? '#e8f4fd' : 'white' }}>
+                                <ListItem key={index} style={{ backgroundColor: manualTest[part.name].chosen ? '#e8f4fd' : 'white' }}>
                                     <Switch
                                         onChange={(event) => {
                                             setManualTest({ type: 'choose', payload: event.currentTarget.getAttribute('name') });
@@ -253,8 +253,9 @@ export default function AddVisit(props) {
                                             || part.name == 'l2'
                                             || part.name == 'l1'
                                             || part.name == 'c1') &&
-                                            mainRotations.map(e => <img
+                                            mainRotations.map((e, index) => <img
                                                 src={e.src}
+                                                key={index}
                                                 name={e.name}
                                                 className='icon-style'
                                                 onClick={(event) => {
@@ -262,8 +263,9 @@ export default function AddVisit(props) {
                                                 }}
                                                 style={{ background: manualTest[part.name].direction[e.name] ? 'rgba(255,0,0,0.5)' : 'transparent', border: manualTest[part.name].direction[e.name] && '1px solid transparent' }} />)}
                                         {(part.name == 'cristaIliaca' || part.name == 'sips') &&
-                                            cristaIliacaRotations.map(e => <img
+                                            cristaIliacaRotations.map((e, index) => <img
                                                 src={e.src}
+                                                key={index}
                                                 name={e.name}
                                                 className='icon-style'
                                                 onClick={(event) => {
@@ -272,8 +274,9 @@ export default function AddVisit(props) {
                                                 style={{ background: manualTest[part.name].direction[e.name] ? 'rgba(255,0,0,0.5)' : 'transparent', border: manualTest[part.name].direction[e.name] && '1px solid transparent' }} />)
                                         }
                                         {part.name == 'sacrum' &&
-                                            sacrumRotations.map(e => <img
+                                            sacrumRotations.map((e, index) => <img
                                                 src={e.src}
+                                                key={index}
                                                 name={e.name}
                                                 className='icon-style'
                                                 onClick={(event) => {

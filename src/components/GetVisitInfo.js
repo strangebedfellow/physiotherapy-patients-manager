@@ -50,8 +50,8 @@ export default class GetVisitInfo extends Component {
 
     render() {
         return <div style={{ color: 'black' }}>
-            <Box bgcolor="white" color="primary.contrastText" my={2} p={2} border={1} borderColor="rgb(33, 150, 243)" borderRadius={10} boxShadow={3}>
-                <Alert icon={false} severity="info" variant="filled"><span style={{ fontSize: '1.5rem' }}>Wizyty</span></Alert>
+            <Box bgcolor="white" color="primary.contrastText" my={2} p={2} border={1} borderRadius={10} boxShadow={2}>
+                <Alert icon={false} severity="info" variant="filled"><span style={{ textTransform: 'uppercase', fontWeight: 'bold', fontSize: '1.2rem' }}>Wizyty</span></Alert>
                 {this.state.showvisits.length > 0
                     ? this.state.showvisits.map((visit, index) =>
                         <p key={index} >
