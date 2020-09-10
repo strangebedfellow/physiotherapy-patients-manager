@@ -3,6 +3,7 @@ import * as firebase from 'firebase';
 import Button from '@material-ui/core/Button';
 import ViewVisit from './ViewVisit';
 import AddVisit from './AddVisit';
+import {sectionTitleStyle} from './customMuiStyles';
 import Alert from '@material-ui/lab/Alert';
 import Box from '@material-ui/core/Box';
 
@@ -51,7 +52,7 @@ export default class GetVisitInfo extends Component {
     render() {
         return <div style={{ color: 'black' }}>
             <Box bgcolor="white" color="primary.contrastText" my={2} p={2} border={1} borderRadius={10} boxShadow={2}>
-                <Alert icon={false} severity="info" variant="filled"><span style={{ textTransform: 'uppercase', fontWeight: 'bold', fontSize: '1.2rem' }}>Wizyty</span></Alert>
+                <Alert icon={false} severity="info" variant="filled"><span style={sectionTitleStyle}>Wizyty</span></Alert>
                 {this.state.showvisits.length > 0
                     ? this.state.showvisits.map((visit, index) =>
                         <p key={index} >

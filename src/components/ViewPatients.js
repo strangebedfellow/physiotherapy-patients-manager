@@ -12,6 +12,7 @@ import Box from '@material-ui/core/Box';
 import GetPatientInfo from './GetPatientInfo';
 import * as firebase from 'firebase';
 import { withStyles } from '@material-ui/core/styles';
+import { sectionTitleStyle } from './customMuiStyles';
 import AddPatient from './AddPatient';
 
 const theme = {
@@ -22,7 +23,7 @@ const StyledTableCell = withStyles((theme) => ({
     head: {
         backgroundColor: 'rgb(33, 150, 243)',
         color: 'white',
-        fontWeight: 'bold'
+        //fontWeight: 'bold'
     }
 }))(TableCell);
 
@@ -80,7 +81,7 @@ export default class ManageDb extends Component {
                         <Table >
                             <TableHead>
                                 <TableRow>
-                                    <StyledTableCell><span style={{ textTransform: 'uppercase', fontSize: '1.2rem' }}>Pacjenci</span></StyledTableCell>
+                                    <StyledTableCell><span style={sectionTitleStyle}>Pacjenci</span></StyledTableCell>
                                     {/* <StyledTableCell align="left">Nazwisko</StyledTableCell> */}
                                 </TableRow>
                             </TableHead>
