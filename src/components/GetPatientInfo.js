@@ -6,7 +6,7 @@ import ViewInterview from './ViewInterview';
 import AddInterview from './AddInterview';
 import PatientDocuments from './PatientDocuments';
 import AddPatientDocument from './AddPatientDocument';
-import Alert from '@material-ui/lab/Alert';
+import { Alert, AlertTitle } from '@material-ui/lab';
 import Box from '@material-ui/core/Box';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import {sectionTitleStyle} from './customMuiStyles';
@@ -57,7 +57,7 @@ export default class GetPatientInfo extends Component {
                 <p></p>
                 <Alert icon={false} variant="outlined" severity="success"><strong>Zawód/Praca/Aktywność: </strong>{occupation}</Alert>
                 <p></p>
-                {interview ? <ViewInterview interview={interview} /> : <div><Alert severity="warning">Brak wywiadu!</Alert><p></p><AddInterview id={this.props.id} action={this.getPatientData} /></div>}
+                {interview ? <ViewInterview interview={interview} /> : <Alert severity="warning"><strong>Brak wywiadu!</strong><p></p><AddInterview id={this.props.id} action={this.getPatientData} /></Alert>}
                 <p></p>
                 <ButtonGroup p={2}>
                     <Box mr={2}>

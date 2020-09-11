@@ -5,6 +5,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import AddBoxIcon from '@material-ui/icons/AddBox';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -68,9 +69,13 @@ export default function AddInterview(props) {
 
     return (
         <div>
-            <Button size="large" variant="contained" color="secondary" onClick={handleClickOpen}>
-                Dodaj wywiad z pacjentem
-                </Button>
+            <Button
+                variant="contained"
+                color="secondary"
+                size="large"
+                startIcon={<AddBoxIcon />}
+                onClick={handleClickOpen}
+            >Dodaj wywiad z pacjentem</Button>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" maxWidth='lg'>
                 <AppBar position="static">
                     <Toolbar variant="dense">
