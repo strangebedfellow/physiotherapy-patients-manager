@@ -6,10 +6,12 @@ import ViewInterview from './ViewInterview';
 import AddInterview from './AddInterview';
 import PatientDocuments from './PatientDocuments';
 import AddPatientDocument from './AddPatientDocument';
+import UpdatePatientData from './UpdatePatientData';
 import { Alert, AlertTitle } from '@material-ui/lab';
 import Box from '@material-ui/core/Box';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
-import {sectionTitleStyle} from './customMuiStyles';
+import { sectionTitleStyle } from './customMuiStyles';
+import { flexbox } from '@material-ui/system';
 import { borders } from '@material-ui/system';
 import { shadows } from '@material-ui/system';
 
@@ -23,14 +25,20 @@ export default class GetPatientInfo extends Component {
     }
 
     getPatientData = () => {
-        const ref = firebase.database().ref("patients");
-        ref.once("value") //!!!! OPCJA: zmienić na ref.on !!!!!!!!!!!!
-            .then((snapshot) => {
-                const patient = snapshot.child(this.props.id).val();
-                this.setState({
-                    patient: patient
-                })
-            });
+        // const ref = firebase.database().ref("patients");
+        // ref.once("value") //!!!! OPCJA: zmienić na ref.on !!!!!!!!!!!!
+        //     .then((snapshot) => {
+        //         const patient = snapshot.child(this.props.id).val();
+        //         this.setState({
+        //             patient: patient
+        //         })
+        //     });
+
+        const refon = firebase.database().ref('patients/' + this.props.id);
+        refon.on('value', snap => {
+            this.setState({ patient: snap.val() })
+        }
+        )
     }
 
     componentDidMount() {
@@ -47,7 +55,12 @@ export default class GetPatientInfo extends Component {
         const { name, surname, phone_number, age, occupation, interview } = this.state.patient;
         return <div style={{ color: 'black' }}>
             <Box bgcolor="white" color="primary.contrastText" my={2} p={2} border={1} borderRadius={10} boxShadow={2}>
-                <Alert icon={false} variant="filled" severity="info"><span style={sectionTitleStyle}>Dane pacjenta</span></Alert>
+                <Alert icon={false} variant="filled" severity="info">
+                    <Box display="flex" justifyContent="space-between">
+                        <span style={sectionTitleStyle}>Dane pacjenta</span>
+                        <UpdatePatientData patient={this.state.patient} id={this.props.id} />
+                    </Box>
+                </Alert>
                 <p></p>
                 <Alert icon={false} variant="outlined" severity="success"><strong>Imię i nazwisko: </strong>{name + " " + surname}</Alert>
                 <p></p>

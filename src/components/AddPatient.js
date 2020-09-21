@@ -60,7 +60,7 @@ export default function AddPatient() {
             >
                 Dodaj nowego pacjenta
             </Button>
-            <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+            <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" disableEscapeKeyDown='true' disableBackdropClick='true'>
                 <AppBar position="static">
                     <Toolbar variant="dense">
                         <Typography variant="h6" color="inherit">Uzupełnij dane pacjenta</Typography>

@@ -3,7 +3,7 @@ import * as firebase from 'firebase';
 import Button from '@material-ui/core/Button';
 import ViewVisit from './ViewVisit';
 import AddVisit from './AddVisit';
-import {sectionTitleStyle} from './customMuiStyles';
+import { sectionTitleStyle } from './customMuiStyles';
 import Alert from '@material-ui/lab/Alert';
 import Box from '@material-ui/core/Box';
 
@@ -50,10 +50,12 @@ export default class GetVisitInfo extends Component {
     }
 
     render() {
+
+        // { this.state.showvisits && console.log(this.state.showvisits.sort((a, b) => (a.date > b.date) ? 1 : ((b.date > a.date) ? -1 : 0))) }
         return <div style={{ color: 'black' }}>
             <Box bgcolor="white" color="primary.contrastText" my={2} p={2} border={1} borderRadius={10} boxShadow={2}>
                 <Alert icon={false} severity="info" variant="filled"><span style={sectionTitleStyle}>Wizyty</span></Alert>
-                {this.state.showvisits.length > 0
+                {this.state.showvisits.length > 0 // !!!!!! add sorting by date ###descending###!!!!!
                     ? this.state.showvisits.map((visit, index) =>
                         <p key={index} >
                             <ViewVisit date={visit.date} case={visit.case} manual={visit.manual} />

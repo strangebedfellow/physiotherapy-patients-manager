@@ -193,7 +193,7 @@ export default function AddVisit(props) {
         setOpen(false);
     }
 
-    function filterManualTest() {
+    function filterManualTest() { // filter state with chosen elements to push into firebase 
         const entries = Object.entries(manualTest);
         const filtered = [];
         entries.forEach(item => {
@@ -213,7 +213,7 @@ export default function AddVisit(props) {
                 startIcon={<AddBoxIcon />}
                 onClick={handleClickOpen}
             >Dodaj nową wizytę</Button>
-            <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" maxWidth='lg' fullWidth='true'>
+            <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" maxWidth='lg' fullWidth='true' disableEscapeKeyDown='true' disableBackdropClick='true'>
                 <AppBar position="static">
                     <Toolbar variant="dense">
                         <Typography variant="h6" color="inherit">Data wizyty: {GetCurrentDate()} - Kwestionariusz konsultacyjny</Typography>

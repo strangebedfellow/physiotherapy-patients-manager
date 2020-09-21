@@ -82,7 +82,6 @@ export default class ManageDb extends Component {
                             <TableHead>
                                 <TableRow>
                                     <StyledTableCell><span style={sectionTitleStyle}>Pacjenci</span></StyledTableCell>
-                                    {/* <StyledTableCell align="left">Nazwisko</StyledTableCell> */}
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -97,7 +96,7 @@ export default class ManageDb extends Component {
                                         <TableCell component="th" scope="row">
                                             {patient.name} {patient.surname}
                                         </TableCell>
-                                        {/* <TableCell align="left">{patient.surname}</TableCell> */}
+
                                     </TableRow>
                                 ))}
                             </TableBody>

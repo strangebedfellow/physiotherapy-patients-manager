@@ -55,13 +55,13 @@ export default function ViewVisit(props) {
   const handleClose = () => {
     setOpen(false);
   };
-
+  props.manual && console.log('manual: ', Object.entries(props.manual)[0][1] )
   return (
     <div>
       <Alert icon={false} variant="outlined" severity="success">
-        <Button variant="contained" color="primary" style={{backgroundColor: 'rgb(33, 150, 243)'}}onClick={handleClickOpen}>
-        {props.date}
-      </Button><p><strong>{props.case}</strong></p></Alert>
+        <Button variant="contained" color="primary" style={{ backgroundColor: 'rgb(33, 150, 243)' }} onClick={handleClickOpen}>
+          {props.date}
+        </Button><p><strong>{props.case}</strong></p></Alert>
       <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
         <AppBar className={classes.appBar}>
           <Toolbar>
@@ -86,7 +86,7 @@ export default function ViewVisit(props) {
           </Toolbar>
         </AppBar>
         <List>
-            {props.manual && Object.keys(props.manual).map(e => <ListItem button><ListItemText primary={e} /></ListItem>)}
+          {props.manual && Object.keys(props.manual).map(e => <ListItem button><ListItemText primary={e} /></ListItem>)}
         </List>
       </Dialog>
     </div>
