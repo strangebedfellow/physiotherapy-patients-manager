@@ -102,10 +102,7 @@ export default function AddInterview(props) {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose} color="primary">Anuluj</Button>
-                    <Button onClick={() => {
-                        handleSubmit();
-                        props.action();
-                    }} color="primary">Dodaj</Button>
+                    <Button onClick={handleSubmit} color="primary">Dodaj</Button>
                 </DialogActions>
             </Dialog>
         </div>
