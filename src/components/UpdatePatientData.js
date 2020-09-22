@@ -52,7 +52,6 @@ export default function UpdatePatientData(props) {
                 variant="contained"
                 color="secondary"
                 size="small"
-                // startIcon={<EditIcon />}
                 onClick={handleClickOpen}
             >
                 <EditIcon />
