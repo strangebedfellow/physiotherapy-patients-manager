@@ -76,7 +76,7 @@ export default function AddInterview(props) {
                 startIcon={<AddBoxIcon />}
                 onClick={handleClickOpen}
             >Dodaj wywiad z pacjentem</Button>
-            <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" maxWidth='lg'>
+            <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" disableEscapeKeyDown='true' disableBackdropClick='true' maxWidth='lg'>
                 <AppBar position="static">
                     <Toolbar variant="dense">
                         <Typography variant="h6" color="inherit">Uzupełnij wywiad</Typography>
