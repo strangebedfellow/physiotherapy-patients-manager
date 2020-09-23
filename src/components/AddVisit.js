@@ -15,8 +15,8 @@ import Switch from '@material-ui/core/Switch';
 import Alert from '@material-ui/lab/Alert';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import GetCurrentDate from './GetCurrentDate';
-import bodyParts from './bodyParts';
-import { cristaIliacaRotations, mainRotations, sacrumRotations } from './rotationIcons';
+import bodyParts from './renderData/bodyParts';
+import { cristaIliacaRotations, mainRotations, sacrumRotations } from './renderData/rotationIcons';
 import * as firebase from 'firebase';
 
 export default function AddVisit(props) {
@@ -25,7 +25,7 @@ export default function AddVisit(props) {
 
     const initialState = {
         cristaIliaca: {
-            chosen: false,
+            chosen: true,
             direction: {
                 i8: false,
                 i9: false,
@@ -34,7 +34,7 @@ export default function AddVisit(props) {
             }
         },
         sips: {
-            chosen: false,
+            chosen: true,
             direction: {
                 i8: false,
                 i9: false,
@@ -43,7 +43,7 @@ export default function AddVisit(props) {
             }
         },
         sacrum: {
-            chosen: false,
+            chosen: true,
             direction: {
                 i12: false,
                 i13: false
@@ -244,6 +244,7 @@ export default function AddVisit(props) {
                                         onChange={(event) => {
                                             setManualTest({ type: 'choose', payload: event.currentTarget.getAttribute('name') });
                                         }}
+                                        checked={manualTest[part.name].chosen}
                                         color="primary"
                                         name={part.name}
                                         inputProps={{ 'aria-label': 'primary checkbox' }}

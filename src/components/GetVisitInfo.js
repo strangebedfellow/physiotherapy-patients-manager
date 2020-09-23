@@ -57,13 +57,13 @@ export default class GetVisitInfo extends Component {
                 <Alert icon={false} severity="info" variant="filled"><span style={sectionTitleStyle}>Wizyty</span></Alert>
                 {this.state.showvisits.length > 0 // !!!!!! add sorting by date ###descending###!!!!!
                     ? this.state.showvisits.map((visit, index) =>
-                        <p key={index} >
+                        <Box my={2} >
                             <ViewVisit date={visit.date} case={visit.case} manual={visit.manual} />
-                        </p>
+                        </Box>
                     )
-                    : <p><Alert severity="warning">Brak wizyt!</Alert></p>}
+                    : <Box my={2} ><Alert severity="warning">Brak wizyt!</Alert></Box>}
                 <AddVisit id={this.props.id} />
             </Box>
-        </div>
+        </div >
     }
 }

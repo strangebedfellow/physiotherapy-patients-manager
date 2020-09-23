@@ -9,6 +9,7 @@ import AddBoxIcon from '@material-ui/icons/AddBox';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import interviewQuestions from './renderData/interviewQuestions';
 import * as firebase from 'firebase';
 
 export default function AddInterview(props) {
@@ -60,9 +61,7 @@ export default function AddInterview(props) {
             "iq9": userInput.iq9,
             "iq10": userInput.iq10,
             "iq11": userInput.iq11,
-            "iq12": userInput.iq12,
-            "iq13": userInput.iq13,
-            "iq14": userInput.iq14
+            "iq12": userInput.iq12
         })
         setOpen(false);
     }
@@ -84,20 +83,9 @@ export default function AddInterview(props) {
                 </AppBar>
                 <DialogContent>
                     <form noValidate autoComplete="off">
-                        <TextField name="iq1" onChange={handleChange} id="outlined-basic" label="Opis aktualnych dolegliwości / główny problem funkcjonalny pacjenta" variant="outlined" type="text" margin="normal" fullWidth />
-                        <TextField name="iq2" onChange={handleChange} id="outlined-basic" label="Od kiedy objawy początkowe i jakie?" variant="outlined" type="text" margin="normal" fullWidth />
-                        <TextField name="iq3" onChange={handleChange} id="outlined-basic" label="Charakter bólu (tępy, ostry, piekący, kłujący)" variant="outlined" type="text" margin="normal" fullWidth />
-                        <TextField name="iq4" onChange={handleChange} id="outlined-basic" label="Ból stały / zmienny / co nasila ból" variant="outlined" type="text" margin="normal" fullWidth />
-                        <TextField name="iq5" onChange={handleChange} id="outlined-basic" label="Co łagodzi ból?" variant="outlined" type="text" margin="normal" fullWidth />
-                        <TextField name="iq6" onChange={handleChange} id="outlined-basic" label="Możliwa przyczyna" variant="outlined" type="text" margin="normal" fullWidth />
-                        <TextField name="iq7" onChange={handleChange} id="outlined-basic" label="Poprzednie epizody" variant="outlined" type="text" margin="normal" fullWidth />
-                        <TextField name="iq8" onChange={handleChange} id="outlined-basic" label="Czy były jakieś próby rehabilitacji - TAK / NIE. Jakie efekty?" variant="outlined" type="text" margin="normal" fullWidth />
-                        <TextField name="iq9" onChange={handleChange} id="outlined-basic" label="Red flags" variant="outlined" type="text" margin="normal" fullWidth />
-                        <TextField name="iq10" onChange={handleChange} id="outlined-basic" label="Badania obrazowe" variant="outlined" type="text" margin="normal" fullWidth />
-                        <TextField name="iq11" onChange={handleChange} id="outlined-basic" label="Inne dolegliwości" variant="outlined" type="text" margin="normal" fullWidth />
-                        <TextField name="iq12" onChange={handleChange} id="outlined-basic" label="Przebyte operacje" variant="outlined" type="text" margin="normal" fullWidth />
-                        <TextField name="iq13" onChange={handleChange} id="outlined-basic" label="Przebyte choroby / wypadki" variant="outlined" type="text" margin="normal" fullWidth />
-                        <TextField name="iq14" onChange={handleChange} id="outlined-basic" label="Czy występują problemy ze zmianą pozycji, zachwiania równowagi - TAK / NIE`" variant="outlined" type="text" margin="normal" fullWidth />
+                        {interviewQuestions.map((question) => <>
+                            <TextField name={question.name} onChange={handleChange} id="outlined-basic" label={question.question} variant="outlined" type="text" margin="normal" fullWidth />
+                        </>)}
                     </form>
                 </DialogContent>
                 <DialogActions>
