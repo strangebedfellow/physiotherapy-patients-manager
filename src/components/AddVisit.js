@@ -25,7 +25,7 @@ export default function AddVisit(props) {
 
     const initialState = {
         cristaIliaca: {
-            chosen: false,
+            chosen: true,
             direction: {
                 i8: false,
                 i9: false,
@@ -34,7 +34,7 @@ export default function AddVisit(props) {
             }
         },
         sips: {
-            chosen: false,
+            chosen: true,
             direction: {
                 i8: false,
                 i9: false,
@@ -43,7 +43,7 @@ export default function AddVisit(props) {
             }
         },
         sacrum: {
-            chosen: false,
+            chosen: true,
             direction: {
                 i12: false,
                 i13: false
@@ -241,6 +241,7 @@ export default function AddVisit(props) {
                             <>
                                 <ListItem key={index} style={{ backgroundColor: manualTest[part.name].chosen ? '#e8f4fd' : 'white' }}>
                                     <Switch
+                                        checked={manualTest[part.name].chosen}
                                         onChange={(event) => {
                                             setManualTest({ type: 'choose', payload: event.currentTarget.getAttribute('name') });
                                         }}
