@@ -36,9 +36,7 @@ export default function AddInterview(props) {
         iq9: '',
         iq10: '',
         iq11: '',
-        iq12: '',
-        iq13: '',
-        iq14: '',
+        iq12: ''
     }
 
     const [userInput, setUserInput] = useReducer((state, newState) => ({ ...state, ...newState }), initialState);

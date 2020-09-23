@@ -8,6 +8,8 @@ import EditIcon from '@material-ui/icons/Edit';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import Tooltip from '@material-ui/core/Tooltip';
+import Zoom from '@material-ui/core/Zoom';
 import * as firebase from 'firebase';
 
 export default function UpdatePatientData(props) {
@@ -48,14 +50,16 @@ export default function UpdatePatientData(props) {
 
     return (
         <div>
-            <Button
-                variant="contained"
-                color="secondary"
-                size="small"
-                onClick={handleClickOpen}
-            >
-                <EditIcon />
-            </Button>
+            <Tooltip TransitionComponent={Zoom} title="Edytuj dane pacjenta">
+                <Button
+                    variant="contained"
+                    color="secondary"
+                    size="small"
+                    onClick={handleClickOpen}
+                >
+                    <EditIcon />
+                </Button>
+            </Tooltip>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" disableEscapeKeyDown='true' disableBackdropClick='true'>
                 <AppBar position="static">
                     <Toolbar variant="dense">

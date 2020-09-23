@@ -43,7 +43,7 @@ export default function GetPatientInfo(props) {
             <p></p>
             <Alert icon={false} variant="outlined" severity="success"><strong>Zawód/Praca/Aktywność: </strong>{occupation}</Alert>
             <p></p>
-            {interview ? <ViewInterview interview={interview} /> : <Alert severity="warning"><strong>Brak wywiadu!</strong><p></p><AddInterview id={props.id} /></Alert>}
+            {interview ? <ViewInterview interview={interview} id={props.id} /> : <Alert severity="warning"><strong>Brak wywiadu!</strong><p></p><AddInterview id={props.id} /></Alert>}
             <p></p>
             <ButtonGroup p={2}>
                 <Box mr={2}>

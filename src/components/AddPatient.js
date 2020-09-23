@@ -63,7 +63,7 @@ export default function AddPatient() {
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" disableEscapeKeyDown='true' disableBackdropClick='true'>
                 <AppBar position="static">
                     <Toolbar variant="dense">
-                        <Typography variant="h6" color="inherit">Uzupełnij dane pacjenta</Typography>
+                        <Typography variant="h4" color="inherit">Uzupełnij dane pacjenta</Typography>
                     </Toolbar>
                 </AppBar>
                 <DialogContent>
