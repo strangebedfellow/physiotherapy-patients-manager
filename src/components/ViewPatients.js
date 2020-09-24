@@ -13,7 +13,11 @@ import GetPatientInfo from './GetPatientInfo';
 import * as firebase from 'firebase';
 import { withStyles } from '@material-ui/core/styles';
 import { sectionTitleStyle } from './customMuiStyles';
+import Card from '@material-ui/core/Card';
+import CardMedia from '@material-ui/core/CardMedia';
 import AddPatient from './AddPatient';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import imgsrc from '../img/logo.png'
 
 const theme = {
     spacing: 8,
@@ -33,7 +37,8 @@ export default class ManageDb extends Component {
         this.state = {
             patients: false,
             chosen: false,
-            query: false
+            query: false,
+            test: false
         }
     }
 
@@ -59,49 +64,34 @@ export default class ManageDb extends Component {
         }
     }
 
-    handleClick = (e) => {
-        this.setState({ chosen: e });
-    }
     handleInput = (e) => {
         this.setState({ query: e.target.value });
     }
 
+    handleChange = (event, value) => {
+        value ? this.setState({ chosen: value.id }) : this.setState({ chosen: false });
+    }
+
     render() {
-        const { patients, chosen, query } = this.state;
+        const { patients, chosen } = this.state;
         if (patients) {
             return <>
-                <Container maxWidth="md">
-                    <Box bgcolor="white" color="primary.contrastText" my={2} p={2} boxShadow={1}>
+                <Box bgcolor="rgb(33, 150, 243)" color="primary.contrastText" mb={2} p={2} boxShadow={3} width={1} display="flex" justifyContent="center" >
+                    <img style={{ borderRadius: '10px' }} src={imgsrc}></img>
+                    <Box bgcolor="white" display="flex" flexDirection='column' justifyContent="space-around" alignItems='center' mx={2} p={2} borderRadius={10} boxShadow={2}>
                         <AddPatient />
-                        <form noValidate autoComplete="off">
-                            <TextField id="standard-basic" label="Znajdź pacjenta" margin="normal" onChange={this.handleInput} />
-                        </form>
+                        <Autocomplete
+                            id="combo-box-demo"
+                            options={patients}
+                            noOptionsText={'Nie znaleziono'}
+                            onChange={this.handleChange}
+                            getOptionLabel={(option) => option.name + ' ' + option.surname}
+                            style={{ width: 285 }}
+                            renderInput={(params) => <TextField {...params} label="Znajdź pacjenta" variant="outlined" />}
+                        />
                     </Box>
-                    <TableContainer component={Paper} >
-                        <Table >
-                            <TableHead>
-                                <TableRow>
-                                    <StyledTableCell><span style={sectionTitleStyle}>Pacjenci</span></StyledTableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {patients.filter((data) => {
-                                    if (!query)
-                                        return data
-                                    else if (data.name.toLowerCase().includes(query.toLowerCase()) || data.surname.toLowerCase().includes(query.toLowerCase())) {
-                                        return data
-                                    }
-                                }).map((patient) => (
-                                    <TableRow key={patient.id} onClick={() => this.handleClick(patient.id)} style={{ cursor: 'pointer' }}>
-                                        <TableCell component="th" scope="row">
-                                            {patient.name} {patient.surname}
-                                        </TableCell>
-
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
+                </Box>
+                <Container maxWidth="md">
                     {chosen && <GetPatientInfo id={chosen} />}
                 </Container>
             </>

@@ -46,8 +46,9 @@ export default function UpdatePatientData(props) {
         userInput.occupation && rootRef.update({ "occupation": userInput.occupation });
         userInput.phoneNumber && rootRef.update({ "phone_number": userInput.phoneNumber });
         setOpen(false);
+        setUserInput(initialState);
     }
-
+console.log(userInput.name)
     return (
         <div>
             <Tooltip TransitionComponent={Zoom} title="Edytuj dane pacjenta">

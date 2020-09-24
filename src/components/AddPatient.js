@@ -9,6 +9,7 @@ import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
 import * as firebase from 'firebase';
 
 export default function AddPatient() {
@@ -50,7 +51,7 @@ export default function AddPatient() {
         setOpen(false);
     }
     return (
-        <div>
+        <Box my={2}>
             <Button
                 variant="contained"
                 color="secondary"
@@ -63,7 +64,7 @@ export default function AddPatient() {
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" disableEscapeKeyDown='true' disableBackdropClick='true'>
                 <AppBar position="static">
                     <Toolbar variant="dense">
-                        <Typography variant="h4" color="inherit">Uzupełnij dane pacjenta</Typography>
+                        <Typography variant="h5" color="inherit">Uzupełnij dane pacjenta</Typography>
                     </Toolbar>
                 </AppBar>
                 <DialogContent>
@@ -84,6 +85,6 @@ export default function AddPatient() {
                         <Button onClick={handleSubmit} color="primary">Dodaj</Button>}
                 </DialogActions>
             </Dialog>
-        </div>
+        </Box>
     );
 }
