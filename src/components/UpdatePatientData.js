@@ -48,7 +48,7 @@ export default function UpdatePatientData(props) {
         setOpen(false);
         setUserInput(initialState);
     }
-console.log(userInput.name)
+
     return (
         <div>
             <Tooltip TransitionComponent={Zoom} title="Edytuj dane pacjenta">

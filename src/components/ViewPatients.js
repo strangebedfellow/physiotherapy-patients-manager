@@ -31,11 +31,14 @@ export default function ViewPatients() {
         value ? setChosen(value.id) : setChosen(false);
     }
 
+    const breakpoint = useMediaQuery('(max-width: 700px)')
+
     if (patients) {
         return (<>
-            <Box bgcolor="rgb(33, 150, 243)" color="primary.contrastText" mb={2} p={2} boxShadow={3} width={1} display="flex" justifyContent="center" >
-                <img style={{ borderRadius: '10px' }} src={imgsrc}></img>
-                <Box bgcolor="white" display="flex" flexDirection='column' justifyContent="space-around" alignItems='center' mx={2} p={2} borderRadius={10} boxShadow={2}>
+        {/* get rid of inline styles! width/height normalize*/}
+            <Box bgcolor="rgb(33, 150, 243)" color="primary.contrastText" mb={2} p={2} boxShadow={3} width={1} display="flex" justifyContent="center" alignItems='center' flexDirection={breakpoint ? 'column' : 'row'}  >
+                <img style={{ borderRadius: '10px', maxWidth: 300 }} src={imgsrc}></img>
+                <Box bgcolor="white" display="flex" flexDirection='column' justifyContent="space-around" alignItems='center' m={2} p={2} borderRadius={10} boxShadow={2} width={300} height={115} >
                     <AddPatient />
                     <Autocomplete
                         id="combo-box-demo"

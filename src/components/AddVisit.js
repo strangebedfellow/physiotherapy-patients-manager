@@ -16,7 +16,11 @@ import Alert from '@material-ui/lab/Alert';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import Tooltip from '@material-ui/core/Tooltip';
 import Zoom from '@material-ui/core/Zoom';
+import Box from '@material-ui/core/Box';
 import GetCurrentDate from './GetCurrentDate';
+import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+import DateFnsUtils from '@date-io/date-fns';
+import { pl } from "date-fns/locale";
 import bodyParts from './renderData/bodyParts';
 import { cristaIliacaRotations, mainRotations, sacrumRotations } from './renderData/rotationIcons';
 import * as firebase from 'firebase';
@@ -24,6 +28,7 @@ import * as firebase from 'firebase';
 export default function AddVisit(props) {
     const [open, setOpen] = useState(false);
     const [consultation, setCase] = useState('');
+    const [selectedDate, handleDateChange] = useState(new Date());
 
     const initialState = {
         cristaIliaca: {
@@ -189,7 +194,7 @@ export default function AddVisit(props) {
         const rootRef = firebase.database().ref('patients').child(props.id).child('visits');
         rootRef.push({
             "case": consultation,
-            "date": GetCurrentDate(),
+            "date": GetCurrentDate(selectedDate), // change date format for firebase
             "manual": Object.fromEntries(filterManualTest())
         })
         setOpen(false);
@@ -220,8 +225,17 @@ export default function AddVisit(props) {
             </Tooltip>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" maxWidth='lg' fullWidth='true' disableEscapeKeyDown='true' disableBackdropClick='true'>
                 <AppBar position="static">
-                    <Toolbar variant="dense">
-                        <Typography variant="h6" color="inherit">Data wizyty: {GetCurrentDate()} - Kwestionariusz konsultacyjny</Typography>
+                    <Toolbar variant="regular">
+                        <MuiPickersUtilsProvider utils={DateFnsUtils} locale={pl}>
+                            <DatePicker
+                                label="Data wizyty"
+                                value={selectedDate}
+                                format="d MMM yyyy"
+                                onChange={handleDateChange}
+                                animateYearScrolling
+                            />
+                        </MuiPickersUtilsProvider>
+                        <Typography variant="h6" color="inherit"> Kwestionariusz konsultacyjny</Typography>
                     </Toolbar>
                 </AppBar>
                 <DialogContent>
