@@ -14,6 +14,8 @@ import Divider from '@material-ui/core/Divider';
 import Switch from '@material-ui/core/Switch';
 import Alert from '@material-ui/lab/Alert';
 import AddBoxIcon from '@material-ui/icons/AddBox';
+import Tooltip from '@material-ui/core/Tooltip';
+import Zoom from '@material-ui/core/Zoom';
 import GetCurrentDate from './GetCurrentDate';
 import bodyParts from './renderData/bodyParts';
 import { cristaIliacaRotations, mainRotations, sacrumRotations } from './renderData/rotationIcons';
@@ -206,13 +208,16 @@ export default function AddVisit(props) {
 
     return (
         <div>
-            <Button
-                variant="contained"
-                color="secondary"
-                size="large"
-                startIcon={<AddBoxIcon />}
-                onClick={handleClickOpen}
-            >Dodaj nową wizytę</Button>
+            <Tooltip TransitionComponent={Zoom} title="Dodaj wizytę">
+                <Button
+                    variant="contained"
+                    color="secondary"
+                    size="small"
+                    onClick={handleClickOpen}
+                >
+                    <AddBoxIcon />
+                </Button>
+            </Tooltip>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" maxWidth='lg' fullWidth='true' disableEscapeKeyDown='true' disableBackdropClick='true'>
                 <AppBar position="static">
                     <Toolbar variant="dense">
