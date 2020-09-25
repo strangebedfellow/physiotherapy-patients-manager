@@ -10,7 +10,7 @@ export default function GetVisitInfo(props) {
     const [visits, showVisits] = useState(false);
 
     useEffect(() => {
-        const rootRef = firebase.database().ref("patients").child(props.id).child('visits');
+        const rootRef = firebase.database().ref('patients/' + props.id + '/visits');
         rootRef.on('value', snap => {
             const visits = [];
             snap.forEach((childSnap) => {
@@ -23,7 +23,6 @@ export default function GetVisitInfo(props) {
         })
     }, [props])
 
-    // { this.state.showvisits && console.log(this.state.showvisits.sort((a, b) => (a.date > b.date) ? 1 : ((b.date > a.date) ? -1 : 0))) }
     return <div style={{ color: 'black' }}>
         <Box bgcolor="white" color="primary.contrastText" my={2} p={2} border={1} borderRadius={10} boxShadow={2}>
             <Alert icon={false} severity="info" variant="filled">
@@ -32,8 +31,8 @@ export default function GetVisitInfo(props) {
                     <AddVisit id={props.id} />
                 </Box>
             </Alert>
-            {visits.length > 0 // !!!!!! add sorting by date ###descending###!!!!!
-                ? visits.map((visit, index) =>
+            {visits.length > 0
+                ? visits.sort((a, b) => (a.date < b.date) ? 1 : ((b.date < a.date) ? -1 : 0)).map((visit, index) =>
                     <Box my={2} >
                         <ViewVisit date={visit.date} case={visit.case} manual={visit.manual} />
                     </Box>
