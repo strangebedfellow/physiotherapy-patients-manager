@@ -54,7 +54,12 @@ export default class GetVisitInfo extends Component {
         // { this.state.showvisits && console.log(this.state.showvisits.sort((a, b) => (a.date > b.date) ? 1 : ((b.date > a.date) ? -1 : 0))) }
         return <div style={{ color: 'black' }}>
             <Box bgcolor="white" color="primary.contrastText" my={2} p={2} border={1} borderRadius={10} boxShadow={2}>
-                <Alert icon={false} severity="info" variant="filled"><span style={sectionTitleStyle}>Wizyty</span></Alert>
+                <Alert icon={false} severity="info" variant="filled">
+                    <Box display="flex" justifyContent="space-between">
+                        <span style={sectionTitleStyle}>Wizyty</span>
+                        <AddVisit id={this.props.id} />
+                    </Box>
+                </Alert>
                 {this.state.showvisits.length > 0 // !!!!!! add sorting by date ###descending###!!!!!
                     ? this.state.showvisits.map((visit, index) =>
                         <Box my={2} >
@@ -62,7 +67,6 @@ export default class GetVisitInfo extends Component {
                         </Box>
                     )
                     : <Box my={2} ><Alert severity="warning">Brak wizyt!</Alert></Box>}
-                <AddVisit id={this.props.id} />
             </Box>
         </div >
     }
