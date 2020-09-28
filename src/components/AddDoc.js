@@ -11,8 +11,8 @@ const discoveryUrl = 'https://www.googleapis.com/discovery/v1/apis/drive/v3/rest
 const CLIENT_ID = '1056677394968-63s22pqs8cjavdh0a2vgcs5v8k5tvpsg.apps.googleusercontent.com';
 
 class AddDoc extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.fileInput = React.createRef();
     this.state = {
       pics: false,
@@ -32,10 +32,11 @@ class AddDoc extends Component {
   }
 
   addNewPic = () => {
+    const fileName = this.props.id;
     //const selectedFile = document.getElementById('inputfilenew').files[0];
     const selectedFile = this.fileInput.current.files[0];
     // console.log(selectedFile);
-    insertFile(selectedFile);
+    insertFile(selectedFile, fileName);
   }
 
   issigned = () => {

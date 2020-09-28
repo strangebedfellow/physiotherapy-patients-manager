@@ -1,6 +1,6 @@
 import { gapi } from 'gapi-script';
 
-export default function insertFile(fileData, callback) {
+export default function insertFile(fileData, fileName, callback) {
   const boundary = '-------314159265358979323846';
   const delimiter = "\r\n--" + boundary + "\r\n";
   const close_delim = "\r\n--" + boundary + "--";
@@ -10,7 +10,7 @@ export default function insertFile(fileData, callback) {
   reader.onload = function (e) {
     var contentType = fileData.type || 'application/octet-stream';
     var metadata = {
-      'title': 'moj_plik_fizjo',
+      'title': fileName,
       'parents': [{"id":"17Ui0Dd04vmg1Mnmxa3lao-fJtubzEw4X"}],
       'mimeType': contentType
     };

@@ -47,9 +47,9 @@ export default function GetPatientInfo(props) {
             <p></p>
             <ButtonGroup p={2}>
                 <Box mr={2}>
-                    <PatientDocuments />
+                    <PatientDocuments id={props.id} />
                 </Box>
-                <AddPatientDocument />
+                <AddPatientDocument id={props.id}/>
             </ButtonGroup>
         </Box>
         <GetVisitInfo id={props.id} />

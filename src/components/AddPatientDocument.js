@@ -80,7 +80,7 @@ export default function AddPatientDocument(props) {
         </AppBar>
         <List>
           Dokumenty:
-          <AddDoc />
+          <AddDoc id={props.id} />
           <div id='newDoc'></div>
         </List>
       </Dialog>

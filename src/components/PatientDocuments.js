@@ -79,8 +79,7 @@ export default function PatientDocuments(props) {
           </Toolbar>
         </AppBar>
         <List>
-          Dokumenty:
-          <GetDocs />
+          <GetDocs id={props.id} />
         </List>
       </Dialog>
     </div>
