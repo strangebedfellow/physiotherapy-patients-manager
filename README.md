@@ -1,5 +1,6 @@
 ## General info
 App for physiotherapists to manage their patient's visists.
+It uses Firebase as databse and Google Drive API for uploading/viewing patient documents.
 
 ## Technologies
 Project created with:
