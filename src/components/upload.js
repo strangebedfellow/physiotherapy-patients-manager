@@ -39,9 +39,9 @@ export default function insertFile(fileData, fileName, callback) {
     if (!callback) {
       callback = function (file) {
         console.log(file);
-        var node = document.createElement("P");
-        node.innerHTML = "Dodano zdjęcie";
-        document.getElementById('newDoc').appendChild(node);
+        // var node = document.createElement("P");
+        // node.innerHTML = "Dodano zdjęcie";
+        // document.getElementById('newDoc').appendChild(node);
       };
     }
     request.execute(callback);

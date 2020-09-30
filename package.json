@@ -21,7 +21,8 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-google-login": "^5.1.21",
-    "react-scripts": "3.4.1"
+    "react-scripts": "3.4.1",
+    "simple-react-lightbox": "^3.3.4-1"
   },
   "scripts": {
     "start": "set PORT=3000 && react-scripts start",

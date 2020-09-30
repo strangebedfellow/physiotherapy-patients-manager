@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { gapi } from 'gapi-script';
 import * as firebase from 'firebase';
 import PhoneInTalkOutlinedIcon from '@material-ui/icons/PhoneInTalkOutlined';
 import GetVisitInfo from './GetVisitInfo'
@@ -15,6 +16,8 @@ import { flexbox } from '@material-ui/system';
 import { borders } from '@material-ui/system';
 import { shadows } from '@material-ui/system';
 
+const CLIENT_ID = '1056677394968-63s22pqs8cjavdh0a2vgcs5v8k5tvpsg.apps.googleusercontent.com';
+
 export default function GetPatientInfo(props) {
     const [patient, setPatient] = useState(false);
 
@@ -24,6 +27,15 @@ export default function GetPatientInfo(props) {
             setPatient(snap.val())
         });
     }, [props])
+
+    useEffect(() => {
+        gapi.load('auth2', () => {
+            gapi.auth2.init({
+                client_id: CLIENT_ID
+            });
+        }
+        )
+    }, [])
 
     const { name, surname, phone_number, age, occupation, interview } = patient;
     return (<div style={{ color: 'black' }}>
@@ -49,7 +61,7 @@ export default function GetPatientInfo(props) {
                 <Box mr={2}>
                     <PatientDocuments id={props.id} />
                 </Box>
-                <AddPatientDocument id={props.id}/>
+                <AddPatientDocument id={props.id} />
             </ButtonGroup>
         </Box>
         <GetVisitInfo id={props.id} />

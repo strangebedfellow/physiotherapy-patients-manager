@@ -7,7 +7,7 @@ import Dialog from '@material-ui/core/Dialog';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
 import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
+import Box from '@material-ui/core/Box';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -67,7 +67,7 @@ export default function PatientDocuments(props) {
       >
         Dokumenty pacjenta
       </Button>
-      <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
+      <Dialog open={open} onClose={handleClose} TransitionComponent={Transition} minWidth="50%">
         <AppBar className={classes.appBar}>
           <Toolbar>
             <Typography variant="h6" className={classes.title}>
@@ -79,7 +79,9 @@ export default function PatientDocuments(props) {
           </Toolbar>
         </AppBar>
         <List>
-          <GetDocs id={props.id} />
+          <Box>
+            <GetDocs id={props.id} />
+          </Box>
         </List>
       </Dialog>
     </div>

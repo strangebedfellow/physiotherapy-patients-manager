@@ -2,6 +2,8 @@ import { gapi } from 'gapi-script';
 import React, { Component } from 'react';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import Button from '@material-ui/core/Button';
+import ImageSearchIcon from '@material-ui/icons/ImageSearch';
+import Box from '@material-ui/core/Box';
 import SendIcon from '@material-ui/icons/Send';
 import insertFile from './upload';
 
@@ -15,10 +17,9 @@ class AddDoc extends Component {
     super(props);
     this.fileInput = React.createRef();
     this.state = {
-      pics: false,
-      isLogined: false,
-      accessToken: '',
-      chosen: false
+      chosen: false,
+      src: false,
+      uploading: false
     };
   }
 
@@ -33,10 +34,15 @@ class AddDoc extends Component {
 
   addNewPic = () => {
     const fileName = this.props.id;
-    //const selectedFile = document.getElementById('inputfilenew').files[0];
     const selectedFile = this.fileInput.current.files[0];
-    // console.log(selectedFile);
     insertFile(selectedFile, fileName);
+    this.setState({ uploading: true });
+
+  }
+
+  selectPic = () => {
+    const selectedFile = this.fileInput.current.files[0];
+    this.setState({ chosen: selectedFile.name, src: URL.createObjectURL(selectedFile), uploading: false });
   }
 
   issigned = () => {
@@ -44,49 +50,22 @@ class AddDoc extends Component {
   }
 
   render() {
-    console.log(this.state.pics)
-    const responseGoogle = (response) => {
-      console.log(response);
-    }
-
-    console.log(this.state.accessToken)
-
     return <>
-      <div>
-        {/* {this.state.isLogined ?
-          <GoogleLogout
-            clientId={CLIENT_ID}
-            buttonText='Logout'
-            onLogoutSuccess={this.logout}
-            onFailure={this.handleLogoutFailure}
-          >
-          </GoogleLogout> : <GoogleLogin
-            clientId={CLIENT_ID}
-            buttonText='Login'
-            scope={SCOPE}
-            onSuccess={this.login}
-            onFailure={this.handleLoginFailure}
-            cookiePolicy={'single_host_origin'}
-            responseType='code,token'
-          />
-        } */}
-        {/* {this.state.accessToken ? <h5>Your Access Token: <br /><br /> {this.state.accessToken}</h5> : null} */}
-        <button onClick={this.issigned}>issigned</button>
+      <Box p={2}>
+        {/* <button onClick={this.issigned}>issigned</button> */}
         <p></p>
-        {this.state.chosen && <h1>{this.state.chosen}</h1>}
+        {this.state.src && <img src={this.state.src} width='300px' />}
         <input style={{ visibility: 'hidden' }}
           accept="image/*"
           id="contained-button-file"
           multiple
           type="file"
           ref={this.fileInput}
-          onChange={() => {
-            this.setState({ chosen: this.fileInput.current.files[0].name });
-            console.log(this.fileInput.current.files[0].name)
-          }}
+          onChange={this.selectPic}
         />
+        <p></p>
         <label htmlFor="contained-button-file">
-          <Button variant="contained" color="primary" component="span">
+          <Button variant="contained" color="primary" component="span" startIcon={<ImageSearchIcon />}>
             Wybierz plik
         </Button>
         </label>
@@ -96,12 +75,13 @@ class AddDoc extends Component {
           <Button
             variant="contained"
             color="secondary"
+            disabled={this.state.uploading ? true : false}
             endIcon={<SendIcon />}
             onClick={this.addNewPic}
           >
             Wyślij
       </Button>}
-      </div>
+      </Box>
     </>
   }
 }

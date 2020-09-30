@@ -14,6 +14,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import AddBoxIcon from '@material-ui/icons/AddBox';
+import Box from '@material-ui/core/Box';
 import Slide from '@material-ui/core/Slide';
 import Alert from '@material-ui/lab/Alert';
 import AddDoc from './AddDoc';
@@ -23,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
   },
   title: {
-    marginLeft: theme.spacing(2),
+    //marginLeft: theme.spacing(2),
     flex: 1,
   },
 }));
@@ -67,11 +68,11 @@ export default function AddPatientDocument(props) {
       >
         Dodaj nowy dokument
       </Button>
-      <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
+      <Dialog open={open} onClose={handleClose} TransitionComponent={Transition}>
         <AppBar className={classes.appBar}>
           <Toolbar>
             <Typography variant="h6" className={classes.title}>
-            Dodaj nowy dokument
+              Dodaj nowy dokument
             </Typography>
             <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
               <CloseIcon />
@@ -79,9 +80,8 @@ export default function AddPatientDocument(props) {
           </Toolbar>
         </AppBar>
         <List>
-          Dokumenty:
+          <Box minWidth='50vw'></Box>
           <AddDoc id={props.id} />
-          <div id='newDoc'></div>
         </List>
       </Dialog>
     </div>

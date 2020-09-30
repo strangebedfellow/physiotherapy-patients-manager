@@ -1,5 +1,11 @@
 import { gapi } from 'gapi-script';
 import React, { Component } from 'react';
+import Box from '@material-ui/core/Box';
+import Divider from '@material-ui/core/Divider';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import SimpleReactLightbox from 'simple-react-lightbox'
+import { SRLWrapper } from 'simple-react-lightbox'
+import Alert from '@material-ui/lab/Alert';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 
 // const SCOPE = 'https://www.googleapis.com/auth/drive.file';
@@ -12,32 +18,29 @@ class GetDocs extends Component {
     super(props);
     this.state = {
       photosIds: false,
-      isLogined: false,
-      accessToken: ''
+      loading: false
     };
   }
 
   componentDidMount() {
-    gapi.load('auth2', () => {
-      gapi.auth2.init({
-        client_id: CLIENT_ID
-      });
-    }
-    )
+    this.viewPics();
   }
 
   viewPics = () => {
+    this.setState({ loading: 1 })
     gapi.client.request({
       'path': 'https://www.googleapis.com/drive/v2/files',
     }).then((resp) => {
-      const tempIds = [];
+      console.log(resp)
+      const foundIds = [];
+      const thumbnails = [];
       resp.result.items.forEach(element => {
         if (element.title.includes(this.props.id)) {
-          tempIds.push(element.id)
+          foundIds.push(element);
         }
       });
-      console.log(tempIds);
-      this.setState({ photosIds: tempIds })
+      console.log(foundIds);
+      this.setState({ photosIds: foundIds, loading: false })
     })
   }
 
@@ -47,12 +50,31 @@ class GetDocs extends Component {
 
   render() {
     return <>
-      <div>
-        <button onClick={this.issigned}>issigned</button>
-      </div>
-      {!this.state.photosIds && <button onClick={this.viewPics}>Pokaż dokumenty</button>}
-      {this.state.photosIds.length == 0 && <p>Brak dokumentów pacjenta!</p>}
-      {this.state.photosIds && this.state.photosIds.map((e, index) => <img key={index} style={{ width: '20vw' }} src={`https://drive.google.com/uc?export=view&id=${e}`}></img>)}
+      <Box minWidth={500}>
+        <SimpleReactLightbox>
+          {/* <div>
+            <button onClick={this.issigned}>issigned</button>
+          </div> */}
+          {this.state.photosIds.length == 0 && <Box m={5}><Alert severity="warning">Brak dokumentów!</Alert></Box>}
+          {this.state.loading == 1 && <Box m={5} p={10} display='flex' justifyContent='center' alignItems='center'><CircularProgress /></Box>}
+          <SRLWrapper>
+          {(this.state.photosIds && this.state.photosIds.length > 0) &&
+            this.state.photosIds.map((e, index) =>
+              <>
+
+                <Box my={2} display='flex' justifyContent='center' alignItems='center'>
+                  <a href={`https://drive.google.com/uc?export=view&id=${e.id}`} data-attribute="SRL">
+                    <img src={e.thumbnailLink} />
+                  </a>
+                </Box>
+                <Divider />
+
+              </>
+            )
+          }
+            </SRLWrapper>
+        </SimpleReactLightbox>
+    </Box>
     </>
   }
 }
