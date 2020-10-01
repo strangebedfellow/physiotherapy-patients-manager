@@ -36,14 +36,14 @@ export default function insertFile(fileData, fileName, callback) {
       },
       'body': multipartRequestBody
     });
-    if (!callback) {
-      callback = function (file) {
-        console.log(file);
-        // var node = document.createElement("P");
-        // node.innerHTML = "Dodano zdjęcie";
-        // document.getElementById('newDoc').appendChild(node);
-      };
-    }
-    request.execute(callback);
+    // if (!callback) {
+    //   callback = function (file) {
+    //     //console.log(file);
+    //     // var node = document.createElement("P");
+    //     // node.innerHTML = "Dodano zdjęcie";
+    //     // document.getElementById('newDoc').appendChild(node);
+    //   };
+    // }
+    request.execute((resp) => callback(resp));
   }
 }

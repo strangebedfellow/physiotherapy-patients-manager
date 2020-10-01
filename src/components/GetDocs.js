@@ -2,10 +2,10 @@ import { gapi } from 'gapi-script';
 import React, { Component } from 'react';
 import Box from '@material-ui/core/Box';
 import Divider from '@material-ui/core/Divider';
+import Alert from '@material-ui/lab/Alert';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import SimpleReactLightbox from 'simple-react-lightbox'
 import { SRLWrapper } from 'simple-react-lightbox'
-import Alert from '@material-ui/lab/Alert';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 
 // const SCOPE = 'https://www.googleapis.com/auth/drive.file';
@@ -18,7 +18,8 @@ class GetDocs extends Component {
     super(props);
     this.state = {
       photosIds: false,
-      loading: false
+      loading: false,
+      error: false
     };
   }
 
@@ -33,7 +34,6 @@ class GetDocs extends Component {
     }).then((resp) => {
       console.log(resp)
       const foundIds = [];
-      const thumbnails = [];
       resp.result.items.forEach(element => {
         if (element.title.includes(this.props.id)) {
           foundIds.push(element);
@@ -41,6 +41,8 @@ class GetDocs extends Component {
       });
       console.log(foundIds);
       this.setState({ photosIds: foundIds, loading: false })
+    }).catch(() => {
+     this.setState({error: true})
     })
   }
 
@@ -49,6 +51,9 @@ class GetDocs extends Component {
   }
 
   render() {
+    if (this.state.error) {
+      return <Box minWidth={500}><Box m={5}><Alert severity="error">Błąd! Spróbuj jeszcze raz.</Alert></Box></Box>
+    }
     return <>
       <Box minWidth={500}>
         <SimpleReactLightbox>
@@ -61,14 +66,12 @@ class GetDocs extends Component {
           {(this.state.photosIds && this.state.photosIds.length > 0) &&
             this.state.photosIds.map((e, index) =>
               <>
-
                 <Box my={2} display='flex' justifyContent='center' alignItems='center'>
                   <a href={`https://drive.google.com/uc?export=view&id=${e.id}`} data-attribute="SRL">
                     <img src={e.thumbnailLink} />
                   </a>
                 </Box>
                 <Divider />
-
               </>
             )
           }

@@ -2,6 +2,8 @@ import { gapi } from 'gapi-script';
 import React, { Component } from 'react';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import Button from '@material-ui/core/Button';
+import Alert from '@material-ui/lab/Alert';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import ImageSearchIcon from '@material-ui/icons/ImageSearch';
 import Box from '@material-ui/core/Box';
 import SendIcon from '@material-ui/icons/Send';
@@ -19,7 +21,9 @@ class AddDoc extends Component {
     this.state = {
       chosen: false,
       src: false,
-      uploading: false
+      uploading: false,
+      respError: false,
+      uploadedFile: false
     };
   }
 
@@ -35,7 +39,9 @@ class AddDoc extends Component {
   addNewPic = () => {
     const fileName = this.props.id;
     const selectedFile = this.fileInput.current.files[0];
-    insertFile(selectedFile, fileName);
+    insertFile(selectedFile, fileName, (resp) => {
+      Object.keys(resp).includes('error') ? this.setState({ respError: true }) : this.setState({ uploadedFile: true, uploading: false, chosen: false })
+    });
     this.setState({ uploading: true });
 
   }
@@ -50,6 +56,14 @@ class AddDoc extends Component {
   }
 
   render() {
+    if (this.state.respError) {
+      return <Box p={2}><Alert severity="error">Błąd! Spróbuj jeszcze raz.</Alert></Box>
+    }
+
+    if (this.state.uploadedFile) {
+      return <Box p={2}><Alert severity="success">Dodano nowe zdjęcie!</Alert></Box>
+    }
+
     return <>
       <Box p={2}>
         {/* <button onClick={this.issigned}>issigned</button> */}
@@ -70,12 +84,11 @@ class AddDoc extends Component {
         </Button>
         </label>
         <p></p>
-        {/* <input id='inputfile' type="file" multiple onChange={() => this.setState({chosen: true})}></input> */}
-        {this.state.chosen &&
+        {this.state.uploading ? <CircularProgress /> :
           <Button
             variant="contained"
             color="secondary"
-            disabled={this.state.uploading ? true : false}
+            disabled={!this.state.chosen ? true : false}
             endIcon={<SendIcon />}
             onClick={this.addNewPic}
           >

@@ -16,7 +16,6 @@ import CloseIcon from '@material-ui/icons/Close';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import Box from '@material-ui/core/Box';
 import Slide from '@material-ui/core/Slide';
-import Alert from '@material-ui/lab/Alert';
 import AddDoc from './AddDoc';
 
 const useStyles = makeStyles((theme) => ({
