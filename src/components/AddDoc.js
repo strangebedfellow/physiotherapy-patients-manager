@@ -61,7 +61,7 @@ class AddDoc extends Component {
     }
 
     if (this.state.uploadedFile) {
-      return <Box p={2}><Alert severity="success">Dodano nowe zdjęcie!</Alert></Box>
+      return <Box p={2}><Alert severity="success">Dodano nowy dokument!</Alert></Box>
     }
 
     return <>
