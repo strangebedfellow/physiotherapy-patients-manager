@@ -58,91 +58,35 @@ export default function AddVisit(props) {
         },
         ilium: {
             chosen: false,
-            direction: {
-                i2: false,
-                i3: false,
-                i4: false,
-                i5: false,
-                i6: false,
-                i7: false
-            }
+            description: false
         },
         l6: {
             chosen: false,
-            direction: {
-                i2: false,
-                i3: false,
-                i4: false,
-                i5: false,
-                i6: false,
-                i7: false
-            }
+            description: false
         },
         l5: {
             chosen: false,
-            direction: {
-                i2: false,
-                i3: false,
-                i4: false,
-                i5: false,
-                i6: false,
-                i7: false
-            }
+            description: false
         },
         l4: {
             chosen: false,
-            direction: {
-                i2: false,
-                i3: false,
-                i4: false,
-                i5: false,
-                i6: false,
-                i7: false
-            }
+            description: false
         },
         l3: {
             chosen: false,
-            direction: {
-                i2: false,
-                i3: false,
-                i4: false,
-                i5: false,
-                i6: false,
-                i7: false
-            }
+            description: false
         },
         l2: {
             chosen: false,
-            direction: {
-                i2: false,
-                i3: false,
-                i4: false,
-                i5: false,
-                i6: false,
-                i7: false
-            }
+            description: false
         },
         l1: {
             chosen: false,
-            direction: {
-                i2: false,
-                i3: false,
-                i4: false,
-                i5: false,
-                i6: false,
-                i7: false
-            }
+            description: false
         },
         c1: {
             chosen: false,
-            direction: {
-                i2: false,
-                i3: false,
-                i4: false,
-                i5: false,
-                i6: false,
-                i7: false
-            }
+            description: false
         }
     };
 
@@ -154,6 +98,14 @@ export default function AddVisit(props) {
                     [action.payload]: {
                         ...state[action.payload],
                         chosen: !state[action.payload].chosen
+                    }
+                };
+            case 'description':
+                return {
+                    ...state,
+                    [action.payload.name]: {
+                        ...state[action.payload.name],
+                        description: action.payload.value
                     }
                 };
             case 'direction':
@@ -198,6 +150,8 @@ export default function AddVisit(props) {
             "manual": Object.fromEntries(filterManualTest())
         })
         setOpen(false);
+        setCase('');
+        setManualTest({ type: 'reset' });
     }
 
     function filterManualTest() { // filter state with chosen elements to push into firebase 
@@ -210,7 +164,6 @@ export default function AddVisit(props) {
         })
         return filtered
     }
-
     return (
         <div>
             <Tooltip TransitionComponent={Zoom} title="Dodaj wizytę">
@@ -271,7 +224,7 @@ export default function AddVisit(props) {
                                     <ListItemText primary={part.fullName} />
                                 </ListItem>
                                 {manualTest[part.name].chosen &&
-                                    <Alert style={{ height: '50px' }} icon={false} severity="info">
+                                    <Alert icon={false} severity="info">
                                         {(part.name == 'ilium'
                                             || part.name == 'l6'
                                             || part.name == 'l5'
@@ -280,15 +233,17 @@ export default function AddVisit(props) {
                                             || part.name == 'l2'
                                             || part.name == 'l1'
                                             || part.name == 'c1') &&
-                                            mainRotations.map((e, index) => <img
-                                                src={e.src}
-                                                key={index}
-                                                name={e.name}
-                                                className='icon-style'
-                                                onClick={(event) => {
-                                                    setManualTest({ type: 'direction', payload: { name: part.name, rotation: event.currentTarget.getAttribute('name') } });
+                                            <TextField
+                                                name={part.name}
+                                                onChange={(event) => {
+                                                    setManualTest({ type: 'description', payload: { name: part.name, value: event.currentTarget.value } });
                                                 }}
-                                                style={{ background: manualTest[part.name].direction[e.name] ? 'rgba(255,0,0,0.5)' : 'transparent', border: manualTest[part.name].direction[e.name] && '1px solid transparent' }} />)}
+                                                id="outlined-basic"
+                                                label="Opis"
+                                                variant="outlined"
+                                                type="text"
+                                                fullWidth />
+                                        }
                                         {(part.name == 'cristaIliaca' || part.name == 'sips') &&
                                             cristaIliacaRotations.map((e, index) => <img
                                                 src={e.src}
@@ -298,7 +253,11 @@ export default function AddVisit(props) {
                                                 onClick={(event) => {
                                                     setManualTest({ type: 'direction', payload: { name: part.name, rotation: event.currentTarget.getAttribute('name') } });
                                                 }}
-                                                style={{ background: manualTest[part.name].direction[e.name] ? 'rgba(255,0,0,0.5)' : 'transparent', border: manualTest[part.name].direction[e.name] && '1px solid transparent' }} />)
+                                                style={{
+                                                    background: manualTest[part.name].direction[e.name] ? 'rgba(255,0,0,0.5)' : 'transparent',
+                                                    border: manualTest[part.name].direction[e.name] && '1px solid transparent',
+                                                    height: '50px'
+                                                }} />)
                                         }
                                         {part.name == 'sacrum' &&
                                             sacrumRotations.map((e, index) => <img
@@ -309,7 +268,11 @@ export default function AddVisit(props) {
                                                 onClick={(event) => {
                                                     setManualTest({ type: 'direction', payload: { name: part.name, rotation: event.currentTarget.getAttribute('name') } });
                                                 }}
-                                                style={{ background: manualTest[part.name].direction[e.name] ? 'rgba(255,0,0,0.5)' : 'transparent', border: manualTest[part.name].direction[e.name] && '1px solid transparent' }} />)}
+                                                style={{
+                                                    background: manualTest[part.name].direction[e.name] ? 'rgba(255,0,0,0.5)' : 'transparent',
+                                                    border: manualTest[part.name].direction[e.name] && '1px solid transparent',
+                                                    height: '50px'
+                                                }} />)}
                                     </Alert>}
                                 <Divider />
                             </>)}
