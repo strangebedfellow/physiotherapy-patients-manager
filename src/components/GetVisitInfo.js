@@ -34,7 +34,7 @@ export default function GetVisitInfo(props) {
             {visits.length > 0
                 ? visits.sort((a, b) => (a.date < b.date) ? 1 : ((b.date < a.date) ? -1 : 0)).map((visit, index) =>
                     <Box my={2} >
-                        <ViewVisit date={visit.date} case={visit.case} manual={visit.manual} />
+                        <ViewVisit date={visit.date} consultation={visit.consultation} manual={visit.manual} />
                     </Box>
                 )
                 : <Box my={2} ><Alert severity="warning">Brak wizyt!</Alert></Box>}

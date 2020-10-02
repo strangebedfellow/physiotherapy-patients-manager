@@ -27,7 +27,8 @@ import * as firebase from 'firebase';
 
 export default function AddVisit(props) {
     const [open, setOpen] = useState(false);
-    const [consultation, setCase] = useState('');
+    const [consultation, setConsultation] = useState('');
+    const [notes, setNotes] = useState('');
     const [selectedDate, handleDateChange] = useState(new Date());
 
     const initialState = {
@@ -134,23 +135,30 @@ export default function AddVisit(props) {
 
     const handleClose = () => {
         setOpen(false);
-        setCase('');
+        setConsultation('');
+        setNotes('');
         setManualTest({ type: 'reset' });
     };
 
-    const handleChange = e => {
-        setCase(e.target.value);
+    const handleConsultation = e => {
+        setConsultation(e.target.value);
+    }
+
+    const handleNotes = e => {
+        setNotes(e.target.value);
     }
 
     const handleSubmit = () => {
         const rootRef = firebase.database().ref('patients').child(props.id).child('visits');
         rootRef.push({
-            "case": consultation,
+            "consultation": consultation,
             "date": GetCurrentDate(selectedDate), // change date format for firebase
-            "manual": Object.fromEntries(filterManualTest())
+            "manual": Object.fromEntries(filterManualTest()),
+            "notes": notes
         })
         setOpen(false);
-        setCase('');
+        setConsultation('');
+        setNotes('');
         setManualTest({ type: 'reset' });
     }
 
@@ -192,17 +200,15 @@ export default function AddVisit(props) {
                     </Toolbar>
                 </AppBar>
                 <DialogContent>
-                    <form noValidate autoComplete="off">
-                        <TextField
-                            name="consultation"
-                            onChange={handleChange}
-                            id="outlined-basic"
-                            label="Część ciała poddana zabiegowi / rezultat"
-                            variant="outlined"
-                            type="text"
-                            margin="normal"
-                            fullWidth />
-                    </form>
+                    <TextField
+                        name="consultation"
+                        onChange={handleConsultation}
+                        id="outlined-basic"
+                        label="Część ciała poddana zabiegowi / rezultat"
+                        variant="outlined"
+                        type="text"
+                        margin="normal"
+                        fullWidth />
                     <AppBar position="static">
                         <Toolbar variant="dense">
                             <Typography variant="h6" color="inherit">Badanie manualne</Typography>
@@ -277,16 +283,15 @@ export default function AddVisit(props) {
                                 <Divider />
                             </>)}
                     </List>
-                    <form noValidate autoComplete="off">
-                        <TextField
-                            name="manual"
-                            id="outlined-basic"
-                            label="Inne uwagi do badania"
-                            variant="outlined"
-                            type="text"
-                            margin="normal"
-                            fullWidth />
-                    </form>
+                    <TextField
+                        name="notes"
+                        onChange = {handleNotes}
+                        id="outlined-basic"
+                        label="Inne uwagi do badania"
+                        variant="outlined"
+                        type="text"
+                        margin="normal"
+                        fullWidth />
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose} color="primary">Anuluj</Button>

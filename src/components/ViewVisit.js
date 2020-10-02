@@ -61,7 +61,7 @@ export default function ViewVisit(props) {
       <Alert icon={false} variant="outlined" severity="success">
         <Button variant="contained" color="primary" style={{ backgroundColor: 'rgb(33, 150, 243)' }} onClick={handleClickOpen}>
           {props.date}
-        </Button><p><strong>{props.case}</strong></p></Alert>
+        </Button><p><strong>{props.consultation}</strong></p></Alert>
       <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
         <AppBar className={classes.appBar}>
           <Toolbar>
@@ -75,7 +75,7 @@ export default function ViewVisit(props) {
         </AppBar>
         <List>
           <ListItem button>
-            <ListItemText primary="Część ciała poddana zabiegowi / rezultat" secondary={props.case} />
+            <ListItemText primary="Część ciała poddana zabiegowi / rezultat" secondary={props.consultation} />
           </ListItem>
         </List>
         <AppBar className={classes.appBar}>
