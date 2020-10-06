@@ -8,13 +8,10 @@ import AddInterview from './AddInterview';
 import PatientDocuments from './PatientDocuments';
 import AddPatientDocument from './AddPatientDocument';
 import UpdatePatientData from './UpdatePatientData';
-import { Alert, AlertTitle } from '@material-ui/lab';
+import { Alert } from '@material-ui/lab';
 import Box from '@material-ui/core/Box';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import { sectionTitleStyle } from './customMuiStyles';
-import { flexbox } from '@material-ui/system';
-import { borders } from '@material-ui/system';
-import { shadows } from '@material-ui/system';
 
 const CLIENT_ID = '1056677394968-63s22pqs8cjavdh0a2vgcs5v8k5tvpsg.apps.googleusercontent.com';
 
