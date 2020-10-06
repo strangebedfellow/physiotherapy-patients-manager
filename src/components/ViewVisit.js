@@ -1,4 +1,6 @@
 import React from 'react';
+import i2 from '../img/i2.png';
+
 import { makeStyles } from '@material-ui/core/styles';
 import { withStyles } from '@material-ui/core/styles';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
@@ -15,6 +17,7 @@ import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 import Alert from '@material-ui/lab/Alert';
+import { cristaIliacaRotations, mainRotations, sacrumRotations, getIconSrc } from './renderData/rotationIcons';
 import { borders } from '@material-ui/system';
 import { shadows } from '@material-ui/system';
 
@@ -39,7 +42,6 @@ const theme = createMuiTheme({
   }
 });
 
-
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -55,18 +57,19 @@ export default function ViewVisit(props) {
   const handleClose = () => {
     setOpen(false);
   };
-  props.manual && console.log('manual: ', Object.entries(props.manual)[0][1] )
+
   return (
     <div>
       <Alert icon={false} variant="outlined" severity="success">
         <Button variant="contained" color="primary" style={{ backgroundColor: 'rgb(33, 150, 243)' }} onClick={handleClickOpen}>
           {props.date}
         </Button><p><strong>{props.consultation}</strong></p></Alert>
-      <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
+      <Dialog open={open} onClose={handleClose} TransitionComponent={Transition}>
         <AppBar className={classes.appBar}>
           <Toolbar>
             <Typography variant="h6" className={classes.title}>
-              Data wizyty: {props.date} - Kwestionariusz konsultacyjny
+              Data wizyty: {props.date}
+              <p>Kwestionariusz konsultacyjny</p>
             </Typography>
             <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
               <CloseIcon />
@@ -86,9 +89,24 @@ export default function ViewVisit(props) {
           </Toolbar>
         </AppBar>
         <List>
-          {props.manual && Object.keys(props.manual).map(e => <ListItem button><ListItemText primary={e} /></ListItem>)}
+          {props.manual && Object.entries(props.manual).map(e => <>
+            {['cristaIliaca', 'sips', 'sacrum'].includes(e[0]) ?
+              <ListItem button><ListItemText primary={e[0]} />
+                {e[1].map(icon =>
+                  getIconSrc(icon) && <img
+                    src={getIconSrc(icon).src}
+                    style={{
+                      background: 'rgba(255,0,0,0.5)',
+                      height: '50px',
+                      margin: '5px'
+                    }} />
+                )}
+              </ListItem> :
+              <ListItem button><ListItemText primary={e[0]} secondary={e[1]} /></ListItem>}
+          </>
+          )}
         </List>
       </Dialog>
-    </div>
+    </div >
   );
 }

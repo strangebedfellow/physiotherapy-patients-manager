@@ -167,11 +167,22 @@ export default function AddVisit(props) {
         const filtered = [];
         entries.forEach(item => {
             if (item[1].chosen) {
-                filtered.push(item)
+                if (item[1].direction) {
+                    const temp = [];
+                    Object.entries(item[1].direction).forEach(e => {
+                        e[1] && temp.push(...e[0]);
+                    });
+                    filtered.push([item[0], temp]);
+                }
+                else {
+                    const temp = item[1].description
+                    filtered.push([item[0], temp]);
+                }
             }
         })
         return filtered
     }
+    console.log(Object.fromEntries(filterManualTest()) )
     return (
         <div>
             <Tooltip TransitionComponent={Zoom} title="Dodaj wizytę">
@@ -285,7 +296,7 @@ export default function AddVisit(props) {
                     </List>
                     <TextField
                         name="notes"
-                        onChange = {handleNotes}
+                        onChange={handleNotes}
                         id="outlined-basic"
                         label="Inne uwagi do badania"
                         variant="outlined"
