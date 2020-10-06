@@ -16,13 +16,12 @@ import Alert from '@material-ui/lab/Alert';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import Tooltip from '@material-ui/core/Tooltip';
 import Zoom from '@material-ui/core/Zoom';
-import Box from '@material-ui/core/Box';
 import GetCurrentDate from './GetCurrentDate';
 import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from '@date-io/date-fns';
 import { pl } from "date-fns/locale";
 import bodyParts from './renderData/bodyParts';
-import { cristaIliacaRotations, mainRotations, sacrumRotations } from './renderData/rotationIcons';
+import { cristaIliacaRotations, sacrumRotations } from './renderData/rotationIcons';
 import * as firebase from 'firebase';
 
 export default function AddVisit(props) {
@@ -195,7 +194,7 @@ export default function AddVisit(props) {
                     <AddBoxIcon />
                 </Button>
             </Tooltip>
-            <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" maxWidth='lg' fullWidth='true' disableEscapeKeyDown='true' disableBackdropClick='true'>
+            <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" maxWidth='lg' fullWidth={true} disableEscapeKeyDown={true} disableBackdropClick={true}>
                 <AppBar position="static">
                     <Toolbar variant="regular">
                         <MuiPickersUtilsProvider utils={DateFnsUtils} locale={pl}>
@@ -242,14 +241,14 @@ export default function AddVisit(props) {
                                 </ListItem>
                                 {manualTest[part.name].chosen &&
                                     <Alert icon={false} severity="info">
-                                        {(part.name == 'ilium'
-                                            || part.name == 'l6'
-                                            || part.name == 'l5'
-                                            || part.name == 'l4'
-                                            || part.name == 'l3'
-                                            || part.name == 'l2'
-                                            || part.name == 'l1'
-                                            || part.name == 'c1') &&
+                                        {(part.name === 'ilium'
+                                            || part.name === 'l6'
+                                            || part.name === 'l5'
+                                            || part.name === 'l4'
+                                            || part.name === 'l3'
+                                            || part.name === 'l2'
+                                            || part.name === 'l1'
+                                            || part.name === 'c1') &&
                                             <TextField
                                                 name={part.name}
                                                 onChange={(event) => {
@@ -261,9 +260,10 @@ export default function AddVisit(props) {
                                                 type="text"
                                                 fullWidth />
                                         }
-                                        {(part.name == 'cristaIliaca' || part.name == 'sips') &&
+                                        {(part.name === 'cristaIliaca' || part.name === 'sips') &&
                                             cristaIliacaRotations.map((e, index) => <img
                                                 src={e.src}
+                                                alt={e.src}
                                                 key={index}
                                                 name={e.name}
                                                 className='icon-style'
@@ -276,9 +276,10 @@ export default function AddVisit(props) {
                                                     height: '50px'
                                                 }} />)
                                         }
-                                        {part.name == 'sacrum' &&
+                                        {part.name === 'sacrum' &&
                                             sacrumRotations.map((e, index) => <img
                                                 src={e.src}
+                                                alt={e.src}
                                                 key={index}
                                                 name={e.name}
                                                 className='icon-style'

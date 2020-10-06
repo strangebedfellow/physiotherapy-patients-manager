@@ -1,6 +1,6 @@
 import { gapi } from 'gapi-script';
 import React, { Component } from 'react';
-import { GoogleLogin, GoogleLogout } from 'react-google-login';
+//import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import Button from '@material-ui/core/Button';
 import Alert from '@material-ui/lab/Alert';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -9,10 +9,10 @@ import Box from '@material-ui/core/Box';
 import SendIcon from '@material-ui/icons/Send';
 import insertFile from './upload';
 
-const SCOPE = 'https://www.googleapis.com/auth/drive.file';
-const discoveryUrl = 'https://www.googleapis.com/discovery/v1/apis/drive/v3/rest';
+// const SCOPE = 'https://www.googleapis.com/auth/drive.file';
+// const discoveryUrl = 'https://www.googleapis.com/discovery/v1/apis/drive/v3/rest';
 
-const CLIENT_ID = '1056677394968-63s22pqs8cjavdh0a2vgcs5v8k5tvpsg.apps.googleusercontent.com';
+// const CLIENT_ID = '1056677394968-63s22pqs8cjavdh0a2vgcs5v8k5tvpsg.apps.googleusercontent.com';
 
 class AddDoc extends Component {
   constructor(props) {
