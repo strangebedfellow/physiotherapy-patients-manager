@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import * as firebase from 'firebase';
 import ViewVisit from './ViewVisit';
 import AddVisit from './AddVisit';
+import PrintVisits from './PrintVisits';
 import { sectionTitleStyle } from './customMuiStyles';
 import Alert from '@material-ui/lab/Alert';
 import Box from '@material-ui/core/Box';
@@ -28,7 +29,10 @@ export default function GetVisitInfo(props) {
             <Alert icon={false} severity="info" variant="filled">
                 <Box display="flex" justifyContent="space-between">
                     <span style={sectionTitleStyle}>Wizyty</span>
-                    <AddVisit id={props.id} />
+                    <Box display="flex" alignItems='center'>
+                        <PrintVisits id={props} />
+                        <AddVisit id={props.id} />
+                    </Box>
                 </Box>
             </Alert>
             {visits.length > 0
