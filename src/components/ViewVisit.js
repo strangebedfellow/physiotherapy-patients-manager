@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
+import Divider from '@material-ui/core/Divider';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
 import List from '@material-ui/core/List';
@@ -17,8 +18,12 @@ import { getIconSrc } from './renderData/rotationIcons';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
-    position: 'relative',
+    position: 'relative'
   },
+  // appBarBg: {
+  //   position: 'relative',
+  //   backgroundColor: 'black'
+  // },
   title: {
     marginLeft: theme.spacing(2),
     flex: 1,
@@ -50,13 +55,19 @@ export default function ViewVisit(props) {
       <Dialog open={open} onClose={handleClose} TransitionComponent={Transition}>
         <AppBar className={classes.appBar}>
           <Toolbar>
-            <Typography variant="h6" className={classes.title}>
+            <Typography variant="h6" className={classes.title} >
               Data wizyty: {props.date}
-              <p>Kwestionariusz konsultacyjny</p>
             </Typography>
             <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
               <CloseIcon />
             </IconButton>
+          </Toolbar>
+        </AppBar>
+        <AppBar className={classes.appBar}>
+          <Toolbar>
+            <Typography variant="h4" className={classes.title}>
+              Kwestionariusz konsultacyjny
+            </Typography>
           </Toolbar>
         </AppBar>
         <List>
@@ -74,7 +85,7 @@ export default function ViewVisit(props) {
         <List>
           {props.manual && Object.entries(props.manual).map(e => <>
             {['cristaIliaca', 'sips', 'sacrum'].includes(e[0]) ?
-              <ListItem button><ListItemText primary={e[0]} />
+              <><ListItem button><ListItemText primary={e[0]} />
                 {e[1].map(icon =>
                   getIconSrc(icon) && <img
                     src={getIconSrc(icon).src}
@@ -84,8 +95,8 @@ export default function ViewVisit(props) {
                       margin: '5px'
                     }} />
                 )}
-              </ListItem> :
-              <ListItem button><ListItemText primary={e[0]} secondary={e[1]} /></ListItem>}
+              </ListItem><Divider /></> :
+              <><ListItem button><ListItemText primary={e[0]} secondary={e[1]} /></ListItem><Divider /></>}
           </>
           )}
         </List>
