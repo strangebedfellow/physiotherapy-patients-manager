@@ -169,7 +169,7 @@ export default function AddVisit(props) {
                 if (item[1].direction) {
                     const temp = [];
                     Object.entries(item[1].direction).forEach(e => {
-                        e[1] && temp.push(...e[0]);
+                        e[1] && temp.push(e[0]);
                     });
                     filtered.push([item[0], temp]);
                 }

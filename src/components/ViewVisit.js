@@ -74,6 +74,9 @@ export default function ViewVisit(props) {
           <ListItem button>
             <ListItemText primary="Część ciała poddana zabiegowi / rezultat" secondary={props.consultation} />
           </ListItem>
+          <ListItem button>
+            <ListItemText primary="Inne uwagi" secondary={props.notes} />
+          </ListItem>
         </List>
         <AppBar className={classes.appBar}>
           <Toolbar>
