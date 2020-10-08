@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { Component, useState, useRef } from "react";
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import PrintIcon from '@material-ui/icons/Print';
@@ -7,31 +7,37 @@ import Zoom from '@material-ui/core/Zoom';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
 import ReactToPrint from "react-to-print";
 import Alert from '@material-ui/lab/Alert';
 
-class ComponentToPrint extends React.Component {
+class ComponentToPrint extends Component {
     render() {
         return (
             <Box>
-                <Box my={3}>
-                    <Alert severity="error">This is an error alert — check it out!</Alert>
-                </Box>
-                <Box my={3}>
-                    <Alert severity="warning">This is a warning alert — check it out!</Alert>
-                </Box>
-                <Box my={3}>
-                    <Alert severity="info">This is an info alert — check it out!</Alert>
-                </Box>
-                <Box my={3}>
-                    <Alert severity="success">This is a success alert — check it out!</Alert>
-                </Box>
+                {this.props.visits.map(visit =>
+                    <Box>
+                        <AppBar position='relative'>
+                            <Toolbar>
+                                <Typography variant="h6">Data wizyty: {visit.date}</Typography>
+                            </Toolbar>
+                        </AppBar>
+                        <Box mb={3}>
+                            <Alert variant="outlined" severity="info" icon={false}>
+                                <strong>Część ciała poddana zabiegowi / rezultat:</strong>
+                                <p>{visit.consultation}</p>
+                            </Alert>
+                        </Box>
+                    </Box>
+                )}
             </Box>
         );
     }
 }
 
-export default function PrintVisits() {
+export default function PrintVisits(props) {
 
     const componentRef = useRef();
 
@@ -60,24 +66,19 @@ export default function PrintVisits() {
                 </Tooltip>
             </Box>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" disableEscapeKeyDown={true} disableBackdropClick={true}>
-                {/* <AppBar position="static">
-                    <Toolbar variant="dense">
-                        <Typography variant="h5" color="inherit">Uzupełnij dane pacjenta</Typography>
-                    </Toolbar>
-                </AppBar> */}
                 <DialogContent>
                     <ReactToPrint
-                        trigger={() => <Button
+                        trigger={() => <Box my={2}><Button
                             variant="contained"
                             color="primary"
                             size="large"
                             startIcon={<PrintIcon />}
                         >
                             Drukuj!
-                          </Button>}
+                          </Button></Box>}
                         content={() => componentRef.current}
                     />
-                    <ComponentToPrint ref={componentRef} />
+                    <ComponentToPrint ref={componentRef} visits={props.visits} />
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose} color="primary">
