@@ -86,21 +86,23 @@ export default function ViewVisit(props) {
           </Toolbar>
         </AppBar>
         <List>
-          {props.manual && Object.entries(props.manual).map(e => <>
-            {['cristaIliaca', 'sips', 'sacrum'].includes(e[0]) ?
-              <><ListItem button><ListItemText primary={e[0]} />
-                {e[1].map(icon =>
-                  getIconSrc(icon) && <img
-                    src={getIconSrc(icon).src}
-                    style={{
-                      background: 'rgba(255,0,0,0.5)',
-                      height: '50px',
-                      margin: '5px'
-                    }} />
-                )}
-              </ListItem><Divider /></> :
-              <><ListItem button><ListItemText primary={e[0]} secondary={e[1]} /></ListItem><Divider /></>}
-          </>
+          {props.manual && Object.entries(props.manual).map((e, index) =>
+            <React.Fragment key={index}>
+              {['cristaIliaca', 'sips', 'sacrum'].includes(e[0]) ?
+                <><ListItem button><ListItemText primary={e[0]} />
+                  {e[1].map((icon, index) =>
+                    getIconSrc(icon) && <img
+                      src={getIconSrc(icon).src}
+                      key={index}
+                      style={{
+                        background: 'rgba(255,0,0,0.5)',
+                        height: '50px',
+                        margin: '5px'
+                      }} />
+                  )}
+                </ListItem><Divider /></> :
+                <><ListItem button><ListItemText primary={e[0]} secondary={e[1]} /></ListItem><Divider /></>}
+            </React.Fragment>
           )}
         </List>
       </Dialog>

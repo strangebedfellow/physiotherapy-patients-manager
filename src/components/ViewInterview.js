@@ -75,12 +75,12 @@ export default function ViewInterview(props) {
         </AppBar>
         {props.interview &&
           <List>
-            {interviewQuestions.map((question) => <>
+            {interviewQuestions.map((question, index) => <React.Fragment key={index}>
               <ListItem button>
                 <ListItemText primary={question.question} secondary={props.interview[question.name]} />
               </ListItem>
               <Divider />
-            </>)}
+            </React.Fragment>)}
           </List>}
       </Dialog>
     </div>

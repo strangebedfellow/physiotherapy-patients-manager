@@ -67,7 +67,7 @@ export default function PatientDocuments(props) {
       >
         Dokumenty pacjenta
       </Button>
-      <Dialog open={open} onClose={handleClose} TransitionComponent={Transition} minWidth="50%">
+      <Dialog open={open} onClose={handleClose} TransitionComponent={Transition} >
         <AppBar className={classes.appBar}>
           <Toolbar>
             <Typography variant="h6" className={classes.title}>

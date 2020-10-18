@@ -42,7 +42,7 @@ class GetDocs extends Component {
       console.log(foundIds);
       this.setState({ photosIds: foundIds, loading: false })
     }).catch(() => {
-     this.setState({error: true})
+      this.setState({ error: true })
     })
   }
 
@@ -50,9 +50,34 @@ class GetDocs extends Component {
     console.log(gapi.auth2.getAuthInstance().isSignedIn.get());
   }
 
+  responseGoogle = (response) => {
+    console.log(response);
+  }
+
+  logout = (response) => {
+    console.log(response);
+  }
+
   render() {
     if (this.state.error) {
-      return <Box minWidth={500}><Box m={5}><Alert severity="error">Błąd! Spróbuj jeszcze raz.</Alert></Box></Box>
+      return <Box minWidth={500}>
+        <Box m={5}>
+          <Alert severity="error">Błąd! Spróbuj jeszcze raz.</Alert>
+          <GoogleLogin
+            clientId="CLIENT_ID"
+            buttonText="Login"
+            onSuccess={this.responseGoogle}
+            onFailure={this.responseGoogle}
+            cookiePolicy={'single_host_origin'}
+          />
+          <GoogleLogout
+      clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
+      buttonText="Logout"
+      onLogoutSuccess={this.logout}
+    >
+    </GoogleLogout>
+        </Box>
+      </Box>
     }
     return <>
       <Box minWidth={500}>
@@ -63,21 +88,21 @@ class GetDocs extends Component {
           {this.state.photosIds.length == 0 && <Box m={5}><Alert severity="warning">Brak dokumentów!</Alert></Box>}
           {this.state.loading == 1 && <Box m={5} p={10} display='flex' justifyContent='center' alignItems='center'><CircularProgress /></Box>}
           <SRLWrapper>
-          {(this.state.photosIds && this.state.photosIds.length > 0) &&
-            this.state.photosIds.map((e, index) =>
-              <>
-                <Box my={2} display='flex' justifyContent='center' alignItems='center'>
-                  <a href={`https://drive.google.com/uc?export=view&id=${e.id}`} data-attribute="SRL">
-                    <img src={e.thumbnailLink} />
-                  </a>
-                </Box>
-                <Divider />
-              </>
-            )
-          }
-            </SRLWrapper>
+            {(this.state.photosIds && this.state.photosIds.length > 0) &&
+              this.state.photosIds.map((e, index) =>
+                <React.Fragment key={index}>
+                  <Box my={2} display='flex' justifyContent='center' alignItems='center'>
+                    <a href={`https://drive.google.com/uc?export=view&id=${e.id}`} data-attribute="SRL">
+                      <img src={e.thumbnailLink} />
+                    </a>
+                  </Box>
+                  <Divider />
+                </React.Fragment>
+              )
+            }
+          </SRLWrapper>
         </SimpleReactLightbox>
-    </Box>
+      </Box>
     </>
   }
 }

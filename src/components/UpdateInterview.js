@@ -74,7 +74,7 @@ export default function UpdateInterview(props) {
                     <EditIcon />
                 </Button>
             </Tooltip>
-            <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" disableEscapeKeyDown='true' disableBackdropClick='true' maxWidth='lg'>
+            <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" disableEscapeKeyDown={true} disableBackdropClick={true} maxWidth='lg'>
                 <AppBar position="static">
                     <Toolbar variant="dense">
                         <Typography variant="h6" color="inherit">Edycja wywiadu</Typography>
@@ -82,10 +82,11 @@ export default function UpdateInterview(props) {
                 </AppBar>
                 <DialogContent>
                     <form noValidate autoComplete="off">
-                        {interviewQuestions.map((question) => <>
+                        {interviewQuestions.map((question, index) =>
                             <TextField
                                 name={question.name}
                                 onChange={handleChange}
+                                key={index}
                                 id="outlined-basic"
                                 label={question.question}
                                 variant="outlined"
@@ -93,7 +94,7 @@ export default function UpdateInterview(props) {
                                 margin="normal"
                                 defaultValue={props.interview[question.name]}
                                 fullWidth />
-                        </>)}
+                        )}
                     </form>
                 </DialogContent>
                 <DialogActions>

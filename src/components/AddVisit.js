@@ -226,7 +226,7 @@ export default function AddVisit(props) {
                     </AppBar>
                     <List component="nav" aria-label="mailbox folders">
                         {bodyParts.map((part, index) =>
-                            <>
+                            <React.Fragment key={index}>
                                 <ListItem key={index} style={{ backgroundColor: manualTest[part.name].chosen ? '#e8f4fd' : 'white' }}>
                                     <Switch
                                         onChange={(event) => {
@@ -293,7 +293,7 @@ export default function AddVisit(props) {
                                                 }} />)}
                                     </Alert>}
                                 <Divider />
-                            </>)}
+                            </React.Fragment>)}
                     </List>
                     <TextField
                         name="notes"

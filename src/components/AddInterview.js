@@ -81,9 +81,18 @@ export default function AddInterview(props) {
                 </AppBar>
                 <DialogContent>
                     <form noValidate autoComplete="off">
-                        {interviewQuestions.map((question) => <>
-                            <TextField name={question.name} onChange={handleChange} id="outlined-basic" label={question.question} variant="outlined" type="text" margin="normal" fullWidth />
-                        </>)}
+                        {interviewQuestions.map((question, index) =>
+                            <TextField
+                                name={question.name}
+                                onChange={handleChange}
+                                key={index}
+                                id="outlined-basic"
+                                label={question.question}
+                                variant="outlined"
+                                type="text"
+                                margin="normal"
+                                fullWidth />
+                        )}
                     </form>
                 </DialogContent>
                 <DialogActions>

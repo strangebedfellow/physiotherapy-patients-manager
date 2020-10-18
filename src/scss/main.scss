@@ -23,7 +23,8 @@ tbody {
         //transition: all 200ms ease-out;
         &:hover {
             background-color: rgb(33, 150, 243);
-            & td, th {
+            & td,
+            th {
                 color: white;
             }
         }
@@ -67,15 +68,14 @@ tbody {
 // }
 
 .icon-style {
-height: 100%;
-border: 1px solid white;
-padding: 5px;
-margin: 0 5px 0 5px;
-cursor: pointer;
-&:hover {
-border: 1px solid red;
-
-}
+    height: 100%;
+    border: 1px solid white;
+    padding: 5px;
+    margin: 0 5px 0 5px;
+    cursor: pointer;
+    &:hover {
+        border: 1px solid red;
+    }
 }
 
 .MuiAlert-message {

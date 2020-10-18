@@ -2,6 +2,10 @@ import React, { useState, useEffect } from "react";
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import IconButton from '@material-ui/core/IconButton';
+import EventNoteIcon from '@material-ui/icons/EventNote';
 import GetPatientInfo from './GetPatientInfo';
 import * as firebase from 'firebase';
 import AddPatient from './AddPatient';
@@ -36,6 +40,13 @@ export default function ViewPatients() {
     if (patients) {
         return (<>
         {/* get rid of inline styles! width/height normalize*/}
+        {/* <AppBar position="sticky" color='transparent'>
+        <Toolbar>
+          <IconButton edge="start" color="inherit" aria-label="menu">
+            <EventNoteIcon />
+          </IconButton>
+          </Toolbar>
+        </AppBar> */}
             <Box bgcolor="rgb(33, 150, 243)" color="primary.contrastText" mb={2} p={2} boxShadow={3} width={1} display="flex" justifyContent="center" alignItems='center' flexDirection={breakpoint ? 'column' : 'row'}  >
                 <img style={{ borderRadius: '10px', maxWidth: 300 }} src={imgsrc}></img>
                 <Box bgcolor="white" display="flex" flexDirection='column' justifyContent="space-around" alignItems='center' m={2} p={2} borderRadius={10} boxShadow={2} width={300} height={115} >
