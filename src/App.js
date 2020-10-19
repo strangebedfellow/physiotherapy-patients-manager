@@ -20,10 +20,10 @@ function App() {
   }
 
   useEffect(() => {
-    //firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION);
+    
     issigned()
   });
-  console.log(loggedIn)
+  //console.log(loggedIn)
   return (
     <div className="App">
       {loggedIn === 'loading' && <div className='app-login'><CircularProgress color="primary" size={100} thickness={5} /></div>}

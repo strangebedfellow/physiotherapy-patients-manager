@@ -6,6 +6,7 @@ import firebaseConfig from './firebase/config';
 import * as firebase from 'firebase';
 
 firebase.initializeApp(firebaseConfig);
+firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION);
 
 ReactDOM.render(
   <React.StrictMode>
