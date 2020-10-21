@@ -11,7 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import * as firebase from 'firebase';
 
-export default function AddPatient() {
+export default function AddPatient(props) {
     const [open, setOpen] = useState(false);
 
     const handleClickOpen = () => {
@@ -46,8 +46,10 @@ export default function AddPatient() {
             "surname": userInput.surname,
             "occupation": userInput.occupation,
             "phone_number": userInput.phoneNumber
-        })
+        }).once('value')
+            .then((snap) => props.setChosen(snap.key));
         setOpen(false);
+        setUserInput(initialState);
     }
     return (
         <Box my={2}>
@@ -79,7 +81,8 @@ export default function AddPatient() {
                     <Button onClick={handleClose} color="primary">
                         Anuluj
                      </Button>
-                    {!userInput.name || !userInput.surname || !userInput.age || !userInput.occupation || !userInput.phoneNumber || isNaN(userInput.phoneNumber) ?
+                    {/* {!userInput.name || !userInput.surname || !userInput.age || !userInput.occupation || !userInput.phoneNumber || isNaN(userInput.phoneNumber) ? */}
+                    {!userInput.name || !userInput.surname ?
                         <Button color="primary" disabled>Dodaj</Button> :
                         <Button onClick={handleSubmit} color="primary">Dodaj</Button>}
                 </DialogActions>

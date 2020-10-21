@@ -20,7 +20,6 @@ function App() {
   }
 
   useEffect(() => {
-    
     issigned()
   });
   //console.log(loggedIn)

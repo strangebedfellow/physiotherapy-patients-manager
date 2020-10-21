@@ -5,6 +5,8 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import Paper from '@material-ui/core/Paper';
+import logoSrc from '../img/klogo.png';
+
 
 function AppLogin() {
   const initialState = {
@@ -39,7 +41,7 @@ function AppLogin() {
   }
 
   return (
-    <div className='app-login'>
+    <div className='app-login' style={{background: `top / contain no-repeat url(${logoSrc})`}}>
       <Paper elevation={4} variant="outlined">
         <Box px={5} width={250}>
           <form noValidate autoComplete="off">
