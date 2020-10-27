@@ -18,6 +18,7 @@ class GetDocs extends Component {
     super(props);
     this.state = {
       photosIds: false,
+      otherIds: false,
       loading: false,
       error: false
     };
@@ -34,13 +35,22 @@ class GetDocs extends Component {
     }).then((resp) => {
       console.log(resp)
       const foundIds = [];
+      const notPicsfoundIds = [];
       resp.result.items.forEach(element => {
         if (element.title.includes(this.props.id)) {
-          foundIds.push(element);
+          if (element.mimeType === 'image/jpeg') {
+            foundIds.push(element);
+          }
+          else { notPicsfoundIds.push(element) };
         }
+        // if (element.mimeType === 'application/pdf') {
+        //   notPicsfoundIds.push(element)
+        // }
       });
       console.log(foundIds);
+      console.log(notPicsfoundIds);
       this.setState({ photosIds: foundIds, loading: false })
+      this.setState({ otherIds: notPicsfoundIds, loading: false })
     }).catch(() => {
       this.setState({ error: true })
     })
@@ -71,32 +81,45 @@ class GetDocs extends Component {
             cookiePolicy={'single_host_origin'}
           />
           <GoogleLogout
-      clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
-      buttonText="Logout"
-      onLogoutSuccess={this.logout}
-    >
-    </GoogleLogout>
+            clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
+            buttonText="Logout"
+            onLogoutSuccess={this.logout}
+          >
+          </GoogleLogout>
         </Box>
       </Box>
     }
     return <>
-      <Box minWidth={500}>
+      <Box minWidth={800}>
         <SimpleReactLightbox>
           {/* <div>
             <button onClick={this.issigned}>issigned</button>
           </div> */}
           {this.state.photosIds.length == 0 && <Box m={5}><Alert severity="warning">Brak dokumentów!</Alert></Box>}
           {this.state.loading == 1 && <Box m={5} p={10} display='flex' justifyContent='center' alignItems='center'><CircularProgress /></Box>}
+          {(this.state.otherIds && this.state.otherIds.length > 0) &&
+            this.state.otherIds.map((e, index) =>
+              <React.Fragment key={index}>
+                <Box my={2} display='flex' justifyContent='center' alignItems='center'>
+                  <a href={e.embedLink} target='_blank'>
+                    <img src={e.thumbnailLink} />
+                  </a>
+                </Box>
+                <Divider variant='middle' />
+              </React.Fragment>
+            )
+          }
           <SRLWrapper>
             {(this.state.photosIds && this.state.photosIds.length > 0) &&
               this.state.photosIds.map((e, index) =>
                 <React.Fragment key={index}>
                   <Box my={2} display='flex' justifyContent='center' alignItems='center'>
                     <a href={`https://drive.google.com/uc?export=view&id=${e.id}`} data-attribute="SRL">
-                      <img src={e.thumbnailLink} />
+                      {/* <img src={e.thumbnailLink} /> */}
+                      <img src={`https://drive.google.com/uc?export=view&id=${e.id}`} style={{ width: '200px' }} />
                     </a>
                   </Box>
-                  <Divider />
+                  <Divider variant='middle' />
                 </React.Fragment>
               )
             }

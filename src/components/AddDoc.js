@@ -8,6 +8,7 @@ import ImageSearchIcon from '@material-ui/icons/ImageSearch';
 import Box from '@material-ui/core/Box';
 import SendIcon from '@material-ui/icons/Send';
 import insertFile from './upload';
+import documentIcon from '../img/document.jpg';
 
 // const SCOPE = 'https://www.googleapis.com/auth/drive.file';
 // const discoveryUrl = 'https://www.googleapis.com/discovery/v1/apis/drive/v3/rest';
@@ -48,7 +49,15 @@ class AddDoc extends Component {
 
   selectPic = () => {
     const selectedFile = this.fileInput.current.files[0];
-    this.setState({ chosen: selectedFile.name, src: URL.createObjectURL(selectedFile), uploading: false });
+    let preview;
+    console.log('Type:', selectedFile.type)
+    if (selectedFile.type === 'image/jpeg') {
+      preview = URL.createObjectURL(selectedFile)
+    }
+    else {
+      preview = documentIcon;
+    }
+    this.setState({ chosen: selectedFile.name, src: preview, uploading: false });
   }
 
   issigned = () => {
@@ -70,7 +79,7 @@ class AddDoc extends Component {
         <p></p>
         {this.state.src && <img src={this.state.src} width='300px' />}
         <input style={{ visibility: 'hidden' }}
-          accept="image/*"
+          accept="image/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
           id="contained-button-file"
           multiple
           type="file"

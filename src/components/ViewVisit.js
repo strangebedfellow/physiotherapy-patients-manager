@@ -45,7 +45,7 @@ export default function ViewVisit(props) {
   const handleClose = () => {
     setOpen(false);
   };
-
+  props.manual && console.log(props.manual)
   return (
     <div>
       <Alert icon={false} variant="outlined" severity="success">
@@ -86,7 +86,7 @@ export default function ViewVisit(props) {
           </Toolbar>
         </AppBar>
         <List>
-          {props.manual && Object.entries(props.manual).map((e, index) =>
+          {props.manual && props.manual.map((e, index) =>
             <React.Fragment key={index}>
               {['cristaIliaca', 'sips', 'sacrum'].includes(e[0]) ?
                 <><ListItem button><ListItemText primary={e[0]} />

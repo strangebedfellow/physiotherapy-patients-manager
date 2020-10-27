@@ -13,7 +13,7 @@ import Box from '@material-ui/core/Box';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import { sectionTitleStyle } from './customMuiStyles';
 
-const CLIENT_ID = '1056677394968-63s22pqs8cjavdh0a2vgcs5v8k5tvpsg.apps.googleusercontent.com';
+
 //const SCOPE = 'https://www.googleapis.com/auth/drive';
 
 export default function GetPatientInfo(props) {
@@ -25,15 +25,6 @@ export default function GetPatientInfo(props) {
             setPatient(snap.val())
         });
     }, [props])
-
-    useEffect(() => {
-        gapi.load('auth2', () => {
-            gapi.auth2.init({
-                client_id: CLIENT_ID
-            });
-        }
-        )
-    }, [])
 
     const { name, surname, phone_number, age, occupation, interview } = patient;
     return (<div style={{ color: 'black' }}>

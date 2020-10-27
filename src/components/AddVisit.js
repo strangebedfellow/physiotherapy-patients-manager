@@ -152,7 +152,7 @@ export default function AddVisit(props) {
         rootRef.push({
             "consultation": consultation,
             "date": GetCurrentDate(selectedDate), // change date format for firebase
-            "manual": Object.fromEntries(filterManualTest()),
+            "manual": filterManualTest(),
             "notes": notes
         })
         setOpen(false);
@@ -181,7 +181,8 @@ export default function AddVisit(props) {
         })
         return filtered
     }
-    console.log(Object.fromEntries(filterManualTest()) )
+    //console.log(Object.fromEntries(filterManualTest()) )
+    console.log(filterManualTest())
     return (
         <div>
             <Tooltip TransitionComponent={Zoom} title="Dodaj wizytę">

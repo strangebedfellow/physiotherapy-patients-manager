@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from "react";
+import { gapi } from 'gapi-script';
 import { makeStyles } from '@material-ui/core/styles';
 import { withStyles } from '@material-ui/core/styles';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
@@ -17,6 +18,8 @@ import ImageIcon from '@material-ui/icons/Image';
 import Slide from '@material-ui/core/Slide';
 import Alert from '@material-ui/lab/Alert';
 import GetDocs from './GetDocs';
+
+const CLIENT_ID = '1056677394968-63s22pqs8cjavdh0a2vgcs5v8k5tvpsg.apps.googleusercontent.com';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -48,6 +51,15 @@ export default function PatientDocuments(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
+  useEffect(() => {
+    gapi.load('auth2', () => {
+        gapi.auth2.init({
+            client_id: CLIENT_ID
+        });
+    }
+    )
+}, [])
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -67,7 +79,7 @@ export default function PatientDocuments(props) {
       >
         Dokumenty pacjenta
       </Button>
-      <Dialog open={open} onClose={handleClose} TransitionComponent={Transition} >
+      <Dialog open={open} onClose={handleClose} TransitionComponent={Transition} maxWidth='xl'>
         <AppBar className={classes.appBar}>
           <Toolbar>
             <Typography variant="h6" className={classes.title}>
