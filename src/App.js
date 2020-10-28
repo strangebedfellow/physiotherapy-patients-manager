@@ -4,6 +4,7 @@ import AppLogin from './components/AppLogin';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import * as firebase from 'firebase';
 import { auth } from "firebase";
+require('dotenv').config()
 
 function App() {
   const [loggedIn, setLoggedIn] = useState('loading');
@@ -22,7 +23,7 @@ function App() {
   useEffect(() => {
     issigned()
   });
-  //console.log(loggedIn)
+
   return (
     <div className="App">
       {loggedIn === 'loading' && <div className='app-login'><CircularProgress color="primary" size={100} thickness={5} /></div>}

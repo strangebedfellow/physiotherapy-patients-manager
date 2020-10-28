@@ -13,9 +13,6 @@ import Box from '@material-ui/core/Box';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import { sectionTitleStyle } from './customMuiStyles';
 
-
-//const SCOPE = 'https://www.googleapis.com/auth/drive';
-
 export default function GetPatientInfo(props) {
     const [patient, setPatient] = useState(false);
 

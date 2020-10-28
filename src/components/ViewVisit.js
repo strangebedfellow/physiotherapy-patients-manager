@@ -15,6 +15,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 import Alert from '@material-ui/lab/Alert';
 import { getIconSrc } from './renderData/rotationIcons';
+import bodyParts from './renderData/bodyParts';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -45,13 +46,17 @@ export default function ViewVisit(props) {
   const handleClose = () => {
     setOpen(false);
   };
-  props.manual && console.log(props.manual)
+
+console.log(props.manual)
   return (
     <div>
       <Alert icon={false} variant="outlined" severity="success">
         <Button variant="contained" color="primary" style={{ backgroundColor: 'rgb(33, 150, 243)' }} onClick={handleClickOpen}>
           {props.date}
-        </Button><p><strong>{props.consultation}</strong></p></Alert>
+        </Button>
+        <p><strong>{props.consultation}</strong></p>
+        {props.manual.map(e => <p>{e[0]}</p>)}
+      </Alert>
       <Dialog open={open} onClose={handleClose} TransitionComponent={Transition}>
         <AppBar className={classes.appBar}>
           <Toolbar>
@@ -90,7 +95,7 @@ export default function ViewVisit(props) {
             <React.Fragment key={index}>
               {['cristaIliaca', 'sips', 'sacrum'].includes(e[0]) ?
                 <><ListItem button><ListItemText primary={e[0]} />
-                  {e[1].map((icon, index) =>
+                  {e[1] && e[1].map((icon, index) =>
                     getIconSrc(icon) && <img
                       src={getIconSrc(icon).src}
                       key={index}

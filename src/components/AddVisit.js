@@ -181,8 +181,7 @@ export default function AddVisit(props) {
         })
         return filtered
     }
-    //console.log(Object.fromEntries(filterManualTest()) )
-    console.log(filterManualTest())
+
     return (
         <div>
             <Tooltip TransitionComponent={Zoom} title="Dodaj wizytę">
@@ -308,9 +307,10 @@ export default function AddVisit(props) {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose} color="primary">Anuluj</Button>
-                    {!consultation ?
+                    {/* {!consultation ?
                         <Button color="primary" disabled>Dodaj</Button> :
-                        <Button onClick={handleSubmit} color="primary">Dodaj</Button>}
+                        <Button onClick={handleSubmit} color="primary">Dodaj</Button>} */}
+                        <Button onClick={handleSubmit} color="primary">Dodaj</Button>
                 </DialogActions>
             </Dialog>
         </div>

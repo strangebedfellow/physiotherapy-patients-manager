@@ -13,6 +13,7 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "date-fns": "^2.16.1",
+    "dotenv": "^8.2.0",
     "firebase": "^7.15.4",
     "fontsource-roboto": "^2.1.4",
     "gapi-script": "^1.0.2",

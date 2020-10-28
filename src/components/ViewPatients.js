@@ -14,8 +14,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Tooltip from '@material-ui/core/Tooltip';
 import Zoom from '@material-ui/core/Zoom';
-import imgsrc from '../img/logo.png'
-import logoSrc from '../img/klogo.png'
+import logoSrc from '../img/smallklogo.jpg'
 
 export default function ViewPatients() {
     const [patients, setPatients] = useState(false);

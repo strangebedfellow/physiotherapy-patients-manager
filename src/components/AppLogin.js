@@ -5,7 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import Paper from '@material-ui/core/Paper';
-import logoSrc from '../img/klogo.png';
+import logoSrc from '../img/klogo.jpg';
 
 
 function AppLogin() {
