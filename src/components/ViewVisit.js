@@ -47,7 +47,8 @@ export default function ViewVisit(props) {
     setOpen(false);
   };
 
-console.log(props.manual)
+  const filterManual = (resp) => bodyParts.reduce((filtered, part) => resp.includes(part.name) ? [...filtered, part.fullName] : filtered, []);
+
   return (
     <div>
       <Alert icon={false} variant="outlined" severity="success">
@@ -55,7 +56,7 @@ console.log(props.manual)
           {props.date}
         </Button>
         <p><strong>{props.consultation}</strong></p>
-        {props.manual.map(e => <p>{e[0]}</p>)}
+        {filterManual(props.manual.map(e => e[0])).map(e => <p>{e}</p>)}
       </Alert>
       <Dialog open={open} onClose={handleClose} TransitionComponent={Transition}>
         <AppBar className={classes.appBar}>
