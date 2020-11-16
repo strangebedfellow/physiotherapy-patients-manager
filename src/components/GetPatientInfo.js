@@ -50,6 +50,6 @@ export default function GetPatientInfo(props) {
                 <AddPatientDocument id={props.id} />
             </ButtonGroup>
         </Box>
-        <GetVisitInfo id={props.id} />
+        <GetVisitInfo id={props.id} patient={patient} />
     </div>)
 }

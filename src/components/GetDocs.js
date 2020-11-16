@@ -6,6 +6,7 @@ import Alert from '@material-ui/lab/Alert';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import SimpleReactLightbox from 'simple-react-lightbox'
 import { SRLWrapper } from 'simple-react-lightbox'
+import { GoogleLogin, GoogleLogout } from 'react-google-login';
 
 class GetDocs extends Component {
   constructor(props) {
@@ -14,14 +15,15 @@ class GetDocs extends Component {
       photosIds: false,
       otherIds: false,
       loading: false,
-      error: false
+      error: false,
+      isSigned: gapi.auth2.getAuthInstance().isSignedIn.get()
     };
   }
 
   componentDidMount() {
     this.viewPics();
   }
-
+ 
   viewPics = () => {
     this.setState({ loading: 1 })
     gapi.client.request({
@@ -45,16 +47,34 @@ class GetDocs extends Component {
     })
   }
 
-  // issigned = () => {
-  //   console.log(gapi.auth2.getAuthInstance().isSignedIn.get());
-  // }
+  issigned = () => {
+    console.log(gapi.auth2.getAuthInstance().isSignedIn.get());
+  }
 
 
   render() {
     if (this.state.error) {
       return <Box minWidth={500}>
         <Box m={5}>
+        <button onClick={this.issigned}>issigned</button>
           <Alert severity="error">Błąd! Spróbuj jeszcze raz.</Alert>
+          {this.state.isSigned ?
+          <GoogleLogout
+            //clientId={CLIENT_ID}
+            buttonText='Logout'
+            onLogoutSuccess={this.logout}
+            onFailure={this.handleLogoutFailure}
+          >
+          </GoogleLogout> : <GoogleLogin
+            //clientId={CLIENT_ID}
+            buttonText='Login'
+            //scope={SCOPE}
+            onSuccess={this.login}
+            onFailure={this.handleLoginFailure}
+            cookiePolicy={'single_host_origin'}
+            responseType='code,token'
+          />
+        }
         </Box>
       </Box>
     }

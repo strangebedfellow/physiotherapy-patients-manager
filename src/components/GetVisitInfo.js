@@ -30,7 +30,7 @@ export default function GetVisitInfo(props) {
                 <Box display="flex" justifyContent="space-between">
                     <span style={sectionTitleStyle}>Wizyty</span>
                     <Box display="flex" alignItems='center'>
-                        <PrintVisits visits={visits} />
+                        <PrintVisits visits={visits} patient={props.patient} />
                         <AddVisit id={props.id} />
                     </Box>
                 </Box>
@@ -38,7 +38,7 @@ export default function GetVisitInfo(props) {
             {visits.length > 0
                 ? visits.sort((a, b) => (a.date < b.date) ? 1 : ((b.date < a.date) ? -1 : 0)).map((visit, index) =>
                     <Box my={2} key={index}>
-                        <ViewVisit date={visit.date} consultation={visit.consultation} manual={visit.manual} notes={visit.notes} />
+                        <ViewVisit date={visit.date} consultation={visit.consultation} manual={visit.manual} notes={visit.notes} patientId={props.id} visitId={visit.id} />
                     </Box>
                 )
                 : <Box my={2} ><Alert severity="warning">Brak wizyt!</Alert></Box>}
