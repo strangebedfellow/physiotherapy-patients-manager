@@ -16,6 +16,7 @@ import Slide from '@material-ui/core/Slide';
 import Alert from '@material-ui/lab/Alert';
 import { getIconSrc } from './renderData/rotationIcons';
 import bodyParts from './renderData/bodyParts';
+import DeleteVisit from './DeleteVisit';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -47,7 +48,7 @@ export default function ViewVisit(props) {
     setOpen(false);
   };
 
-  const filterManual = (resp) => bodyParts.reduce((filtered, part) => resp.includes(part.name) ? [...filtered, part.fullName] : filtered, []);
+  const filterChains = (chain) => bodyParts.reduce((filtered, part) => chain === (part.name) ? [...filtered, part.fullName] : filtered, []);
 
   return (
     <div>
@@ -56,7 +57,7 @@ export default function ViewVisit(props) {
           {props.date}
         </Button>
         <p><strong>{props.consultation}</strong></p>
-        {filterManual(props.manual.map(e => e[0])).map(e => <p>{e}</p>)}
+        {props.manual && props.manual.map((e, index) => <p key={index}>{filterChains(e[0])}</p>)}
       </Alert>
       <Dialog open={open} onClose={handleClose} TransitionComponent={Transition}>
         <AppBar className={classes.appBar}>
@@ -64,9 +65,17 @@ export default function ViewVisit(props) {
             <Typography variant="h6" className={classes.title} >
               Data wizyty: {props.date}
             </Typography>
-            <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
-              <CloseIcon />
-            </IconButton>
+            <DeleteVisit patientId={props.patientId} visitId={props.visitId} setOpen={setOpen}/>
+            {/* <Tooltip TransitionComponent={Zoom} title="Usuń wizytę">
+                <Button
+                    variant="contained"
+                    color="secondary"
+                    size="small"
+                    onClick={handleClickOpen}
+                >
+                    <DeleteForeverIcon />
+                </Button>
+            </Tooltip>      */}
           </Toolbar>
         </AppBar>
         <AppBar className={classes.appBar}>
@@ -95,7 +104,7 @@ export default function ViewVisit(props) {
           {props.manual && props.manual.map((e, index) =>
             <React.Fragment key={index}>
               {['cristaIliaca', 'sips', 'sacrum'].includes(e[0]) ?
-                <><ListItem button><ListItemText primary={e[0]} />
+                <><ListItem button><ListItemText primary={filterChains(e[0])} />
                   {e[1] && e[1].map((icon, index) =>
                     getIconSrc(icon) && <img
                       src={getIconSrc(icon).src}
@@ -107,10 +116,13 @@ export default function ViewVisit(props) {
                       }} />
                   )}
                 </ListItem><Divider /></> :
-                <><ListItem button><ListItemText primary={e[0]} secondary={e[1]} /></ListItem><Divider /></>}
+                <><ListItem button><ListItemText primary={filterChains(e[0])} secondary={e[1]} /></ListItem><Divider /></>}
             </React.Fragment>
           )}
         </List>
+        {/* <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
+              <CloseIcon />
+            </IconButton> */}
       </Dialog>
     </div >
   );
