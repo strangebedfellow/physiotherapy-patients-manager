@@ -2,6 +2,7 @@ import React, { Component, useState, useRef } from "react";
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import PrintIcon from '@material-ui/icons/Print';
+import PhoneInTalkOutlinedIcon from '@material-ui/icons/PhoneInTalkOutlined';
 import Tooltip from '@material-ui/core/Tooltip';
 import Zoom from '@material-ui/core/Zoom';
 import Dialog from '@material-ui/core/Dialog';
@@ -15,8 +16,22 @@ import Alert from '@material-ui/lab/Alert';
 
 class ComponentToPrint extends Component {
     render() {
+    const {name, surname, phone_number, occupation} = this.props.patient;
         return (
             <Box>
+                <Box my={2}>
+                    <AppBar position='relative'>
+                        <Toolbar>
+                            <Typography variant="h6">Dane pacjenta</Typography>
+                        </Toolbar>
+                    </AppBar>
+                    <Alert variant="outlined" severity="success" icon={false}>
+                        <p><strong>Imię i nazwisko:</strong> {name} {surname}</p>
+                        <p><strong><PhoneInTalkOutlinedIcon /></strong> {phone_number}</p>
+                        <p><strong>Zawód/Praca/Aktywność: </strong>{occupation}</p>
+
+                    </Alert>
+                </Box>
                 {this.props.visits.map(visit =>
                     <Box>
                         <AppBar position='relative'>
@@ -78,7 +93,7 @@ export default function PrintVisits(props) {
                           </Button></Box>}
                         content={() => componentRef.current}
                     />
-                    <ComponentToPrint ref={componentRef} visits={props.visits} />
+                    <ComponentToPrint ref={componentRef} visits={props.visits} patient={props.patient} />
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose} color="primary">
