@@ -32,7 +32,7 @@ export default function AddVisit(props) {
 
     const initialState = {
         cristaIliaca: {
-            chosen: true,
+            chosen: false,
             direction: {
                 i8: false,
                 i9: false,
@@ -41,7 +41,7 @@ export default function AddVisit(props) {
             }
         },
         sips: {
-            chosen: true,
+            chosen: false,
             direction: {
                 i8: false,
                 i9: false,
@@ -50,7 +50,7 @@ export default function AddVisit(props) {
             }
         },
         sacrum: {
-            chosen: true,
+            chosen: false,
             direction: {
                 i12: false,
                 i13: false
