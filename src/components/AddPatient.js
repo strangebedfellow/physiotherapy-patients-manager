@@ -73,7 +73,7 @@ export default function AddPatient(props) {
                         <TextField name="name" onChange={handleChange} id="outlined-basic" label="Imię" variant="outlined" type="text" margin="normal" fullWidth />
                         <TextField name="surname" onChange={handleChange} id="outlined-basic" label="Nazwisko" variant="outlined" type="text" margin="normal" fullWidth />
                         <TextField name="age" onChange={handleChange} id="outlined-basic" label="Wiek" variant="outlined" type="number" margin="normal" fullWidth />
-                        <TextField name="phoneNumber" onChange={handleChange} error={isNaN(userInput.phoneNumber)} id="outlined-basic" label="Telefon" variant="outlined" type="text" margin="normal" fullWidth />
+                        <TextField name="phoneNumber" onChange={handleChange} id="outlined-basic" label="Telefon" variant="outlined" type="text" margin="normal" fullWidth />
                         <TextField name="occupation" onChange={handleChange} id="outlined-basic" label="Zawód/Praca/Aktywność" variant="outlined" type="text" margin="normal" fullWidth />
                     </form>
                 </DialogContent>
