@@ -56,7 +56,7 @@ class GetDocs extends Component {
     if (this.state.error) {
       return <Box minWidth={500}>
         <Box m={5}>
-        <button onClick={this.issigned}>issigned</button>
+        {/* <button onClick={this.issigned}>issigned</button> */}
           <Alert severity="error">Błąd! Spróbuj jeszcze raz.</Alert>
           {this.state.isSigned ?
           <GoogleLogout
