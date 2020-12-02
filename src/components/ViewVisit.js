@@ -17,6 +17,7 @@ import Alert from '@material-ui/lab/Alert';
 import { getIconSrc } from './renderData/rotationIcons';
 import bodyParts from './renderData/bodyParts';
 import DeleteVisit from './DeleteVisit';
+import UpdateVisit from './UpdateVisit';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -66,16 +67,7 @@ export default function ViewVisit(props) {
               Data wizyty: {props.date}
             </Typography>
             <DeleteVisit patientId={props.patientId} visitId={props.visitId} setOpen={setOpen}/>
-            {/* <Tooltip TransitionComponent={Zoom} title="Usuń wizytę">
-                <Button
-                    variant="contained"
-                    color="secondary"
-                    size="small"
-                    onClick={handleClickOpen}
-                >
-                    <DeleteForeverIcon />
-                </Button>
-            </Tooltip>      */}
+            {/* <UpdateVisit manual={props.manual}/> */}
           </Toolbar>
         </AppBar>
         <AppBar className={classes.appBar}>
