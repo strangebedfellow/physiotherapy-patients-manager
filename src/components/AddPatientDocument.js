@@ -67,7 +67,7 @@ export default function AddPatientDocument(props) {
       >
         Dodaj nowy dokument
       </Button>
-      <Dialog open={open} onClose={handleClose} TransitionComponent={Transition}>
+      <Dialog open={open} onClose={handleClose} TransitionComponent={Transition} disableEscapeKeyDown={true} disableBackdropClick={true}>
         <AppBar className={classes.appBar}>
           <Toolbar>
             <Typography variant="h6" className={classes.title}>
