@@ -9,6 +9,7 @@ import Box from '@material-ui/core/Box';
 import SendIcon from '@material-ui/icons/Send';
 import insertFile from './upload';
 import documentIcon from '../img/document.jpg';
+import multipleDocumentIcon from '../img/multiple_documents.jpg';
 
 class AddDoc extends Component {
   constructor(props) {
@@ -34,30 +35,37 @@ class AddDoc extends Component {
 
   addNewPic = () => {
     const fileName = this.props.id;
-    const selectedFile = this.fileInput.current.files[0];
-    insertFile(selectedFile, fileName, (resp) => {
-      Object.keys(resp).includes('error') ? this.setState({ respError: true }) : this.setState({ uploadedFile: true, uploading: false, chosen: false })
-    });
-    this.setState({ uploading: true });
-
+    const selectedFiles = this.fileInput.current.files;
+    Array.from(selectedFiles).forEach(file => {
+      insertFile(file, fileName, (resp) => {
+        Object.keys(resp).includes('error') ? this.setState({ respError: true }) : this.setState({ uploadedFile: true, uploading: false, chosen: false })
+      });
+      this.setState({ uploading: true });
+    })
   }
 
   selectPic = () => {
+    const selectedFiles = this.fileInput.current.files;
     const selectedFile = this.fileInput.current.files[0];
     let preview;
-    console.log('Type:', selectedFile.type)
-    if (selectedFile.type === 'image/jpeg') {
-      preview = URL.createObjectURL(selectedFile)
+    if (selectedFiles.length == 1) {
+      if (selectedFile.type === 'image/jpeg') {
+        preview = URL.createObjectURL(selectedFile)
+      }
+      else {
+        preview = documentIcon;
+      }
+      this.setState({ chosen: selectedFile.name, src: preview, uploading: false });
     }
     else {
-      preview = documentIcon;
+      preview = multipleDocumentIcon;
+      this.setState({ chosen: selectedFile.name, src: preview, uploading: false });
     }
-    this.setState({ chosen: selectedFile.name, src: preview, uploading: false });
   }
 
-  issigned = () => {
-    console.log(gapi.auth2.getAuthInstance().isSignedIn.get());
-  }
+  // issigned = () => {
+  //   console.log(gapi.auth2.getAuthInstance().isSignedIn.get());
+  // }
 
   render() {
     if (this.state.respError) {
@@ -65,11 +73,11 @@ class AddDoc extends Component {
     }
 
     if (this.state.uploadedFile) {
-      return <Box p={2}><Alert severity="success">Dodano nowy dokument!</Alert></Box>
+      return <Box p={2}><Alert severity="success">Dodano dokument(y)!</Alert></Box>
     }
 
     return <>
-      <Box p={2}>
+      <Box p={2} display='flex' flexDirection='column' alignItems='center'>
         {/* <button onClick={this.issigned}>issigned</button> */}
         <p></p>
         {this.state.src && <img src={this.state.src} width='300px' />}
