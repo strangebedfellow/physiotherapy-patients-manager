@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import Box from '@material-ui/core/Box';
 import Dialog from '@material-ui/core/Dialog';
 import Divider from '@material-ui/core/Divider';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -66,8 +67,10 @@ export default function ViewVisit(props) {
             <Typography variant="h6" className={classes.title} >
               Data wizyty: {props.date}
             </Typography>
-            <DeleteVisit patientId={props.patientId} visitId={props.visitId} setOpen={setOpen}/>
-            {/* <UpdateVisit manual={props.manual}/> */}
+            <Box mx={2}>
+              <DeleteVisit patientId={props.patientId} visitId={props.visitId} setOpen={setOpen} />
+            </Box>
+            <UpdateVisit patientId={props.patientId} manual={props.manual} visitId={props.visitId} consultation={props.consultation} notes={props.notes} />
           </Toolbar>
         </AppBar>
         <AppBar className={classes.appBar}>
