@@ -1,0 +1,8 @@
+{
+  "rules": {
+    "patients": {
+      ".read": "auth != null && auth.uid === '27Ht7JWCrtRgvr0tWQUu8yDZRag1'",
+      ".write": "auth != null && auth.uid === '27Ht7JWCrtRgvr0tWQUu8yDZRag1'"
+    }
+  }
+}
