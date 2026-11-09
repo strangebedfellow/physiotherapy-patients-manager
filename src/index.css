@@ -1,0 +1,47 @@
+/* Kolejność warstw: style MUI (warstwa "mui") nadpisują preflight Tailwinda,
+   a utility Tailwinda nadpisują style MUI. */
+@layer theme, base, mui, components, utilities;
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  --color-brand: #2196f3;
+  --color-brand-light: #e8f4fd;
+}
+
+@layer base {
+  body {
+    @apply m-0 overflow-x-hidden bg-white;
+  }
+
+  a {
+    color: #000;
+  }
+
+  a:hover {
+    color: rgb(0 76 138);
+  }
+}
+
+@layer components {
+  /* Przełączalna ikona rotacji w formularzu badania manualnego (AddVisit). */
+  .rotation-icon {
+    margin: 0 5px;
+    padding: 5px;
+    border: 1px solid white;
+    cursor: pointer;
+  }
+
+  .rotation-icon img {
+    height: 50px;
+  }
+
+  .rotation-icon:hover {
+    border-color: red;
+  }
+
+  .rotation-icon[aria-pressed='true'] {
+    border-color: transparent;
+    background-color: rgb(255 0 0 / 0.5);
+  }
+}
